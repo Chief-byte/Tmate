@@ -1,0 +1,36 @@
+ws://127.0.0.1:8000
+ssa.callExtension(File2String^,^/SSA/WSServer/websocket.html)
+ssa.callExtension(1^,^File2String^,^/SSA/WSServer/txt)
+ssa.callExtension(1^,^File2String^,^中文)
+ssa.callExtension(1^,^GetLocalIpAddress)
+ssa.callExtension(1^,^StartSocketService^,^3802^,^OnMessageReceived)
+abcABC中国123
+ssa.callExtension(1^,^SetJavaScriptResult^,^9^,^abc)
+ssa.callExtension(1^,^CheckFileStatus^,^/SSA/WSServer/txt^,^OnFileStatusChanged)
+ssa.callExtension(1^,^ShowCursor)
+ssa.callExtension(1^,^SetForeground^,^SSApp)
+
+ssa.callExtension(1^,^FindScreen^,^OPL_WEB)
+ssa.callExtension("SwitchScreen", "RunningStatus.jsp", "SSApp");
+ssa.callExtension("MoveScreen", "RunningStatus.jsp", 1300, 100, 700, 540);
+ssa.callDC(DCCardReader_30^,^OpenDC^,^CardReader^,^XFS30^,^65537)
+ssa.callDC(DCCardReader_30^,^WFS_INF_IDC_STATUS)
+onSSAReturn(1, '123ABCabc')
+
+
+onSSAReturn(1, '123ABCabc')
+
+window.open(oplweburl, "OPL_WEB", "scrollbars=false,status=false,toolbar=false,menubar=false,location=false,fullscreen=yes");
+document.documentElement.requestFullscreen()
+document.exitFullscreen()
+
+
+sudo systemctl enable ssh
+
+sudo usermod -aG sudo uos
+cat /etc/group | grep sudo
+
+// document.documentElement.webkitRequestFullScreen();
+ws.send("ssa.callExtension(1^,^SendKeyInput^,^87^,^1)");
+
+window.setTimeout(function(){ws.send("ssa.callExtension(1^,^SendKeyInput^,^87^,^0)");},50);

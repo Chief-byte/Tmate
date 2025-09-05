@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|ARM">
+      <Configuration>Debug</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|ARM">
+      <Configuration>Release</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|ARM64">
+      <Configuration>Debug</Configuration>
+      <Platform>ARM64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|ARM64">
+      <Configuration>Release</Configuration>
+      <Platform>ARM64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x86">
+      <Configuration>Debug</Configuration>
+      <Platform>x86</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x86">
+      <Configuration>Release</Configuration>
+      <Platform>x86</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{38f931b1-1d61-4f29-ab52-cac274d4c937}</ProjectGuid>
+    <Keyword>Linux</Keyword>
+    <RootNamespace>WSServer</RootNamespace>
+    <MinimumVisualStudioVersion>15.0</MinimumVisualStudioVersion>
+    <ApplicationType>Linux</ApplicationType>
+    <ApplicationTypeRevision>1.0</ApplicationTypeRevision>
+    <TargetLinuxPlatform>Generic</TargetLinuxPlatform>
+    <LinuxProjectType>{D51BCBC9-82E9-4017-911E-C93873C4EA2B}</LinuxProjectType>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'" Label="Configuration">
+    <UseDebugLibraries>true</UseDebugLibraries>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'" Label="Configuration">
+    <UseDebugLibraries>false</UseDebugLibraries>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'" Label="Configuration">
+    <UseDebugLibraries>true</UseDebugLibraries>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'" Label="Configuration">
+    <UseDebugLibraries>false</UseDebugLibraries>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <UseDebugLibraries>true</UseDebugLibraries>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <UseDebugLibraries>false</UseDebugLibraries>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'" Label="Configuration">
+    <UseDebugLibraries>false</UseDebugLibraries>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'" Label="Configuration">
+    <UseDebugLibraries>true</UseDebugLibraries>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Label="Shared" />
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
+    <TargetExt />
+  </PropertyGroup>
+  <ItemGroup>
+    <ClCompile Include="DC\DC\DC.cpp" />
+    <ClCompile Include="include\Base64.cpp" />
+    <ClCompile Include="include\DCTrace.cpp" />
+    <ClCompile Include="include\FileHelper.cpp" />
+    <ClCompile Include="include\JavaScriptStringParam.cpp" />
+    <ClCompile Include="include\Keyou.cpp" />
+    <ClCompile Include="include\Utils.cpp" />
+    <ClCompile Include="DC\PISA\XFS30\DCCamera_31\DCCamera_31.cpp" />
+    <ClCompile Include="DC\PISA\XFS30\DCCardReader_30\DCCardReader_30.cpp" />
+    <ClCompile Include="DC\PISA\XFS30\DCCashAcceptor_30\DCCashAcceptor_30.cpp" />
+    <ClCompile Include="DC\PISA\XFS30\DCCashDispenser_30\DCCashDispenser_30.cpp" />
+    <ClCompile Include="DC\PISA\XFS30\DCPinPad_30\DCPinPad_30.cpp" />
+    <ClCompile Include="DC\PISA\XFS30\DCPrinter_30\DCPrinter_30.cpp" />
+    <ClCompile Include="DC\PISA\XFS30\DCSensorsAndIndicators_30\DCSensorsAndIndicators_30.cpp" />
+    <ClCompile Include="DC\PISA\XFS30\DC_30.cpp" />
+    <ClCompile Include="Extension\Extension.cpp" />
+    <ClCompile Include="include\xmlhelper.cc" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="MessageHandle.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="DC\DC\DC.h" />
+    <ClInclude Include="DC\DC\IDC.h" />
+    <ClInclude Include="include\FileHelper.h" />
+    <ClInclude Include="include\KDMexp.h" />
+    <ClInclude Include="include\Keyou.h" />
+    <ClInclude Include="include\xmlhelper.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="include\Base64.h" />
+    <ClInclude Include="include\DCTrace.h" />
+    <ClInclude Include="include\JavaScriptStringParam.h" />
+    <ClInclude Include="include\Utils.h" />
+    <ClInclude Include="DC\PISA\include\lfsadmin.h" />
+    <ClInclude Include="DC\PISA\include\lfsalm.h" />
+    <ClInclude Include="DC\PISA\include\lfsapi.h" />
+    <ClInclude Include="DC\PISA\include\lfsbcr.h" />
+    <ClInclude Include="DC\PISA\include\lfscam.h" />
+    <ClInclude Include="DC\PISA\include\lfscdm.h" />
+    <ClInclude Include="DC\PISA\include\lfscim.h" />
+    <ClInclude Include="DC\PISA\include\lfscrd.h" />
+    <ClInclude Include="DC\PISA\include\lfsidc.h" />
+    <ClInclude Include="DC\PISA\include\lfspin.h" />
+    <ClInclude Include="DC\PISA\include\lfsptr.h" />
+    <ClInclude Include="DC\PISA\include\lfssiu.h" />
+    <ClInclude Include="DC\PISA\include\lfsspi.h" />
+    <ClInclude Include="DC\PISA\include\lfsttu.h" />
+    <ClInclude Include="DC\PISA\include\lfsvdm.h" />
+    <ClInclude Include="DC\PISA\XFS30\DCCamera_31\DCCamera_31.h" />
+    <ClInclude Include="DC\PISA\XFS30\DCCardReader_30\DCCardReader_30.h" />
+    <ClInclude Include="DC\PISA\XFS30\DCCashAcceptor_30\DCCashAcceptor_30.h" />
+    <ClInclude Include="DC\PISA\XFS30\DCCashDispenser_30\DCCashDispenser_30.h" />
+    <ClInclude Include="DC\PISA\XFS30\DCPinPad_30\DCPinPad_30.h" />
+    <ClInclude Include="DC\PISA\XFS30\DCPinPad_30\XFSPINCHN.h" />
+    <ClInclude Include="DC\PISA\XFS30\DCPrinter_30\DCPrinter_30.h" />
+    <ClInclude Include="DC\PISA\XFS30\DCSensorsAndIndicators_30\DCSensorsAndIndicators_30.h" />
+    <ClInclude Include="DC\PISA\XFS30\DC_30.h" />
+    <ClInclude Include="Extension\Extension.h" />
+    <ClInclude Include="MessageHandle.h" />
+  </ItemGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
+    <Link>
+      <LibraryDependencies>websockets;pthread;dl;X11;%(LibraryDependencies)</LibraryDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets" />
+</Project>

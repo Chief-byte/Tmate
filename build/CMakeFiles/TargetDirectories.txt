@@ -1,0 +1,5 @@
+/home/uos/yihua/WSSServer_C/build/CMakeFiles/rebuild_cache.dir
+/home/uos/yihua/WSSServer_C/build/CMakeFiles/edit_cache.dir
+/home/uos/yihua/WSSServer_C/build/WSServer/CMakeFiles/rebuild_cache.dir
+/home/uos/yihua/WSSServer_C/build/WSServer/CMakeFiles/WSServer.dir
+/home/uos/yihua/WSSServer_C/build/WSServer/CMakeFiles/edit_cache.dir
