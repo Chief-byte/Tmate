@@ -1,5 +1,6 @@
 project(WSServer CXX)
 set(CMAKE_CXX_STANDARD 17)
+set(BUILD_SHARED_LIBS OFF)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 ################################################################################
 # Source groups
