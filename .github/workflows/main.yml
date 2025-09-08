@@ -12,7 +12,7 @@ jobs:
         mkdir compressed
         tar -czf compressed/files.tar.gz . 
     - name: 上傳工件
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: compressed-files
         path: compressed/files.tar.gz
