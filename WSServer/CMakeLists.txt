@@ -78,7 +78,7 @@ set(ALL_FILES
 ################################################################################
 # Target
 ################################################################################
-
+find_package(X11 REQUIRED)
 add_executable(WSServer ${ALL_FILES})
 target_include_directories(WSServer PUBLIC
 	# DC/DC
@@ -87,13 +87,14 @@ target_include_directories(WSServer PUBLIC
 	# Extension
 	# include
     ${PROJECT_SOURCE_DIR}
+    ${X11_INCLUDE_DIR}
 )
 
 target_link_libraries(WSServer PUBLIC
-	websockets
+	websockets  
 	pthread
 	dl
-	x11
+	${X11_LIBRARIES}
 	xml2
 	nettle
 	gmodule-2.0
