@@ -8,7 +8,7 @@
 #ifdef _DEBUG
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
-#define new DEBUG_NEW
+//#define new DEBUG_NEW
 #endif
 
 //////////////////////////////////////////////////////////////////////
@@ -26,7 +26,7 @@ CJSStringParam::~CJSStringParam()
 }
 
 /*
- * 获取应用传递的自助串参数值，格式为Key=Value;Key=Value;Key=Value ...
+ * 锟斤拷取应锟矫达拷锟捷碉拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷值锟斤拷锟斤拷式为Key=Value;Key=Value;Key=Value ...
  *
  */
 BOOL CJSStringParam::GetStringParams(LPCTSTR strParams, LPCTSTR strSplitString, CStringArray & strarrParams)
@@ -40,7 +40,7 @@ BOOL CJSStringParam::GetStringParams(LPCTSTR strParams, LPCTSTR strSplitString, 
 }
 
 /*
- * 获取应用传递的自助串参数值，格式为Key=Value;Key=Value;Key=Value ...
+ * 锟斤拷取应锟矫达拷锟捷碉拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷值锟斤拷锟斤拷式为Key=Value;Key=Value;Key=Value ...
  *
  */
 BOOL CJSStringParam::GetStringParam(CStringArray & strarrParams, LPCTSTR strKey, CString & strValue)
@@ -59,7 +59,7 @@ BOOL CJSStringParam::GetStringParam(CStringArray & strarrParams, LPCTSTR strKey,
 }
 
 /*
- * 获取应用传递的自助串参数值，格式为Key=Value;Key=Value;Key=Value ...
+ * 锟斤拷取应锟矫达拷锟捷碉拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷值锟斤拷锟斤拷式为Key=Value;Key=Value;Key=Value ...
  *
  */
 CString CJSStringParam::GetStringParam(CStringArray & strarrParams, LPCTSTR strKey)

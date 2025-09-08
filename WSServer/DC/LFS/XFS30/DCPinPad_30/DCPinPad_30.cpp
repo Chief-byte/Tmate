@@ -8,7 +8,7 @@
 #ifdef _DEBUG
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
-#define new DEBUG_NEW
+//#define new DEBUG_NEW
 #endif
 
 //////////////////////////////////////////////////////////////////////
@@ -27,7 +27,7 @@ CDCPinPad_30::~CDCPinPad_30()
 
 HRESULT CDCPinPad_30::_CallDC(LPCTSTR strMethod, CString & strSingleParam, CStringArray & strarrParams, BOOL & bValid)
 {
-	// µ÷ÓÃÃüÁî
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	HRESULT hResult = DC_ERROR;
 	if (0 == stricmp(strMethod, "WFS_CMD_PIN_CRYPT"))
 	{
@@ -312,7 +312,7 @@ CString CDCPinPad_30::HandleInfResult(LPLFSRESULT lpWfsRet)
 		LPLFSPINFUNCKEYDETAIL lpFK = (LPLFSPINFUNCKEYDETAIL)lpWfsRet->buffer;
 		if (NULL != lpFK)
 		{
-			// Êý×Ö¼üÅÌ°´¼ü
+			// ï¿½ï¿½ï¿½Ö¼ï¿½ï¿½Ì°ï¿½ï¿½ï¿½
 			strWfsResult = CString(256, 0);
 			sprintf((char *)strWfsResult.c_str(), "wfsresult.u.dwcommandcode=%d"
 				"%s"
@@ -325,7 +325,7 @@ CString CDCPinPad_30::HandleInfResult(LPLFSRESULT lpWfsRet)
 				GetStringSplitChar(),
 				lpFK->number_fdks);
 
-			// ¹¦ÄÜ¼üÅÌ°´¼ü
+			// ï¿½ï¿½ï¿½Ü¼ï¿½ï¿½Ì°ï¿½ï¿½ï¿½
 			for (int nLoop = 0; nLoop < lpFK->number_fdks; nLoop++)
 			{
 				CString strFunctionPad(256, 0);
@@ -443,7 +443,7 @@ HRESULT CDCPinPad_30::CMD_PIN_CRYPT(LPCTSTR strBytesHex, LPCTSTR strKeyName, lon
 	strcpy((char*)lpCrypt->key, strKeyName);
 	lpCrypt->key_enc_key = NULL;
 	// lpCrypt->algorithm = (WORD)wAlgorithm;
-	lpCrypt->algorithm = LFS_PIN_CRYPTSM4;  // ¹Ì¶¨Ê¹ÓÃ¹úÃÜËã·¨SM4
+	lpCrypt->algorithm = LFS_PIN_CRYPTSM4;  // ï¿½Ì¶ï¿½Ê¹ï¿½Ã¹ï¿½ï¿½ï¿½ï¿½ã·¨SM4
 	lpCrypt->start_value_key = NULL;
 	lpCrypt->start_value = NULL;
 	lpCrypt->padding = (BYTE)chPadChar;
@@ -639,7 +639,7 @@ HRESULT CDCPinPad_30::CMD_PIN_GET_PINBLOCK(WORD format, LPCTSTR strCustomerData,
 	
 	lpPinBlock->padding = (BYTE)chPadChar;
 	lpPinBlock->format = format;
-	lpPinBlock->algorithm = LFS_PIN_CRYPTSM4; // ¹Ì¶¨Ê¹ÓÃ¹úÃÜËã·¨SM4
+	lpPinBlock->algorithm = LFS_PIN_CRYPTSM4; // ï¿½Ì¶ï¿½Ê¹ï¿½Ã¹ï¿½ï¿½ï¿½ï¿½ã·¨SM4
 
 	hResult = LFSAsyncExecute(m_DCObject.m_hService,
 		LFS_CMD_PIN_GET_PINBLOCK,
@@ -824,7 +824,7 @@ HRESULT CDCPinPad_30::CMD_PIN_RESET()
 
 int CDCPinPad_30::OnDCMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
-	if (FALSE == m_DCObject.m_bWosaXFSRun && LFS_OPEN_COMPLETE != uMsg)  // Òì²½´ò¿ªÄ£¿éÊ±£¬»á·µ»ØÄ£¿é´ò¿ª³É¹¦ÊÂ¼þ
+	if (FALSE == m_DCObject.m_bWosaXFSRun && LFS_OPEN_COMPLETE != uMsg)  // ï¿½ì²½ï¿½ï¿½Ä£ï¿½ï¿½Ê±ï¿½ï¿½ï¿½á·µï¿½ï¿½Ä£ï¿½ï¿½ò¿ª³É¹ï¿½ï¿½Â¼ï¿½
 	{
 		return -1;
 	}
@@ -906,8 +906,8 @@ int CDCPinPad_30::OnDCMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
 	{
 		CString strTrace(strWfsResult.length() + 256, 0);
 
-		// ÆÁ±ÎÃô¸ÐÐÅÏ¢
-		// 1¡¢PinBlock
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
+		// 1ï¿½ï¿½PinBlock
 		std::string strWfsResultLog = strWfsResult;
 		if (-1 != strWfsResultLog.find("wfsresult.lpbuffer.lpbdata="))
 		{
@@ -1631,7 +1631,7 @@ CString	CDCPinPad_30::GetXFSSysEvtStr(DWORD dwEventID)
 	return strRes;
 }
 
-// ÃÜÔ¿·Ö·¢Ïà¹ØÖ§³Ö
+// ï¿½ï¿½Ô¿ï¿½Ö·ï¿½ï¿½ï¿½ï¿½Ö§ï¿½ï¿½
 HRESULT CDCPinPad_30::CMD_PIN_ENC_IO(long lCommand, LPCTSTR strKeyName, LPCTSTR strDataHex, long lUse, LPCTSTR strSigKey, long lSM2SignatureAlgorithm, LPCTSTR strSignatureHex)
 {
 	if (NULL == strKeyName || NULL == strDataHex || NULL == strSigKey || NULL == strSignatureHex)
@@ -1644,12 +1644,12 @@ HRESULT CDCPinPad_30::CMD_PIN_ENC_IO(long lCommand, LPCTSTR strKeyName, LPCTSTR 
 	LFSPINENCIO pinEncIo = { 0 };
 	PROTCHNIMPORTSM2PUBLICKEYIN InData = { 0 };
 
-	InData.wCommand = (WORD)lCommand;  // WFS_CMD_ENC_IO_CHN_IMPORT_SM2_PUBLIC_KEY »òÕß WFS_CMD_ENC_IO_CHN_IMPORT_RSA_PUBLIC_KEY
+	InData.wCommand = (WORD)lCommand;  // WFS_CMD_ENC_IO_CHN_IMPORT_SM2_PUBLIC_KEY ï¿½ï¿½ï¿½ï¿½ WFS_CMD_ENC_IO_CHN_IMPORT_RSA_PUBLIC_KEY
 
-	InData.lpsKey = (LPTSTR)(LPCTSTR)strKeyName;  // ¹«Ô¿Ãû×Ö
-	InData.dwUse = (WORD)lUse;  // ¹«Ô¿ÓÃ·¨£ºPROT_CHN_USESM2PUBLIC »òÕß WFS_PIN_USERSAPUBLIC
+	InData.lpsKey = (LPTSTR)(LPCTSTR)strKeyName;  // ï¿½ï¿½Ô¿ï¿½ï¿½ï¿½ï¿½
+	InData.dwUse = (WORD)lUse;  // ï¿½ï¿½Ô¿ï¿½Ã·ï¿½ï¿½ï¿½PROT_CHN_USESM2PUBLIC ï¿½ï¿½ï¿½ï¿½ WFS_PIN_USERSAPUBLIC
 
-	// ¹«Ô¿Ö¤ÊéÊý¾Ý
+	// ï¿½ï¿½Ô¿Ö¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	int nLenBytes = strlen(strDataHex) / 2;
 	BYTE * pszValue = new BYTE[nLenBytes];
 	memset(pszValue, 0, nLenBytes);
@@ -1717,7 +1717,7 @@ HRESULT CDCPinPad_30::CMD_PIN_DERIVE_KEY(long wDerivationAlgorithm, LPCTSTR strK
 	HRESULT hResult = DC_ERROR;
 
 	LFSPINDERIVE pinderive = { 0 };
-	pinderive.derivation_algorithm = (WORD)wDerivationAlgorithm;  // WFS_PIN_KEYDES »òÕß WFS_PIN_KEYSM4
+	pinderive.derivation_algorithm = (WORD)wDerivationAlgorithm;  // WFS_PIN_KEYDES ï¿½ï¿½ï¿½ï¿½ WFS_PIN_KEYSM4
 	pinderive.key = (NULL == strKeyName || 0 == strlen(strKeyName)) ? NULL : (LPTSTR)(LPCTSTR)strKeyName;
 	pinderive.key_gen_key = (NULL == strKeyGenKey || 0 == strlen(strKeyGenKey)) ? NULL : (LPTSTR)(LPCTSTR)strKeyGenKey;  // NULL
 	pinderive.start_value_key = (NULL == strStartValueKey || 0 == strlen(strStartValueKey)) ? NULL : (LPTSTR)(LPCTSTR)strStartValueKey;  // NULL
@@ -1816,7 +1816,7 @@ HRESULT CDCPinPad_30::CMD_PIN_DERIVE_KEY(long wDerivationAlgorithm, LPCTSTR strK
 	HRESULT hResult = DC_ERROR;
 
 	LFSPINDERIVE pinderive = { 0 };
-	pinderive.derivation_algorithm = (WORD)wDerivationAlgorithm;  // WFS_PIN_KEYDES »òÕß WFS_PIN_KEYSM4
+	pinderive.derivation_algorithm = (WORD)wDerivationAlgorithm;  // WFS_PIN_KEYDES ï¿½ï¿½ï¿½ï¿½ WFS_PIN_KEYSM4
 	// pinderive.key = (NULL == strKeyName || 0 == strlen(strKeyName)) ? NULL : strdup(strKeyName);
 	pinderive.key = "RandomKey";
 	// pinderive.key_gen_key = (NULL == strKeyGenKey || 0 == strlen(strKeyGenKey)) ? NULL : strdup(strKeyGenKey);  // NULL
