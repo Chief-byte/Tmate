@@ -1,7 +1,6 @@
 #ifndef CUTILS_H
 #define CUTILS_H
 
-#include "stdafx.h"
 
 #ifdef PROTOCOL_PISA
 #include "lfsapi.h"

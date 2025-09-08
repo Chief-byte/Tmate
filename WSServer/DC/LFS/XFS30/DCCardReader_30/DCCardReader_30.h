@@ -12,7 +12,6 @@
 #include "DC_30.h"
 #include "DC.h"
 #include "lfsidc.h"
-#include "stdafx.h"
 
 class CDCCardReader_30 : public CDC_30
 {

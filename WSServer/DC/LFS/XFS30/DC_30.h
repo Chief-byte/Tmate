@@ -15,7 +15,6 @@
 #include "DC.h"
 #include "lfsapi.h"
 #include "lfsadmin.h"
-#include "stdafx.h"
 
 // ʹ���ź���
 #include <sys/types.h>

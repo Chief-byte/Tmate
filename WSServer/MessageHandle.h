@@ -1,6 +1,5 @@
 #pragma once
 
-#include "stdafx.h"
 #include "libwebsockets.h"
 #include <string.h>
 #include <map>

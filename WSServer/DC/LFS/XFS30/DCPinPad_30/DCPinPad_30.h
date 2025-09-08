@@ -12,7 +12,6 @@
 #include "DC_30.h"
 #include "DC.h"
 #include "lfspin.h"
-#include "stdafx.h"
 
 class CDCPinPad_30 : public CDC_30  
 {

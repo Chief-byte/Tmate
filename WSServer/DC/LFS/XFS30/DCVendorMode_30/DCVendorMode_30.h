@@ -12,7 +12,6 @@
 #include "DC_30.h"
 #include "DC.h"
 #include "lfsvdm.h"
-#include "stdafx.h"
 
 class CDCVendorMode_30 : public CDC_30
 {

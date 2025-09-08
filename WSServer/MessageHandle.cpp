@@ -1,12 +1,11 @@
 #include "MessageHandle.h"
-#include "stdafx.h"
 #include "Utils.h"
 #include "Extension.h"
 #include "DC.h"
 #include <mutex>
 
 extern struct session_data session_data4send;
-extern std::mutex mtx_session_data4send;  // WebSocketµÄ»á»°user_sessionÔÚÊÕ·¢Ê±¿ÉÄÜ³åÍ»£¬·¢ËÍµ¥¶ÀÊ¹ÓÃ·¢ËÍ½á¹¹£¬²¢Ê¹ÓÃ»¥³âËø¿ØÖÆ
+extern std::mutex mtx_session_data4send;  // WebSocketï¿½Ä»á»°user_sessionï¿½ï¿½ï¿½Õ·ï¿½Ê±ï¿½ï¿½ï¿½Ü³ï¿½Í»ï¿½ï¿½ï¿½ï¿½ï¿½Íµï¿½ï¿½ï¿½Ê¹ï¿½Ã·ï¿½ï¿½Í½á¹¹ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 extern MessageHandle messagehandle;
 
 std::string trim(const std::string &s)
@@ -17,7 +16,7 @@ std::string trim(const std::string &s)
 }
 
 /*
-´Óssa.callDCºÍssa.callExtension±¨ÎÄ×Ö·û´®ÖÐ£¬½ØÈ¡²ÎÊý×Ö·û´®ÁÐ±í£¨¸÷²ÎÊýÖÐ·Ö¸îÊ¹ÓÃ "^,^"£¬·ÀÖ¹²ÎÊýÖÐ×Ö·û´®ÓÐ","£©
+ï¿½ï¿½ssa.callDCï¿½ï¿½ssa.callExtensionï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½Ð£ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½Ð±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð·Ö¸ï¿½Ê¹ï¿½ï¿½ "^,^"ï¿½ï¿½ï¿½ï¿½Ö¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½","ï¿½ï¿½
 */
 CStringArray GetParamList(char * recvbuf)
 {
@@ -46,22 +45,22 @@ CStringArray GetParamList(char * recvbuf)
 	printf("GetParamList pch_start : %s\n", pch_start);
 	CUtils::SplitString(strarr, (LPSTR)pch_start, "^,^");
 
-	// È¥³ý²ÎÊýÁÐ±íÖÐ¸÷ÏîµÄÇ°ºó¿Õ¸ñ
+	// È¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½ï¿½Ð¸ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½Õ¸ï¿½
 	list<string>::iterator iter;
 	for (iter = strarr.begin(); iter != strarr.end(); iter++)
 	{
-		// ÔÝÊ±²»È¥£¬JSÖÐ´«ÈëµÄ²»Ó¦¸Ã´øÇ°ºó¿Õ¸ñ
+		// ï¿½ï¿½Ê±ï¿½ï¿½È¥ï¿½ï¿½JSï¿½Ð´ï¿½ï¿½ï¿½Ä²ï¿½Ó¦ï¿½Ã´ï¿½Ç°ï¿½ï¿½Õ¸ï¿½
 	}
 
 	return strarr;
 }
 
-// ÖÐ¼ä¼þÊÂ¼þ»Øµ÷·½·¨
+// ï¿½Ð¼ï¿½ï¿½ï¿½Â¼ï¿½ï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½
 void DCCallBackFunc(std::string strDCName, long messageid, std::string wfsresult)
 {
 	printf("DCCallBackFunc start\n");
 
-	// »Øµ÷JS·½·¨
+	// ï¿½Øµï¿½JSï¿½ï¿½ï¿½ï¿½
 	/*
 	std::string strCallbackJs = std::string(strDCName.size() + wfsresult.size() + 1024, 0);
 	sprintf((char *)strCallbackJs.c_str(), "onDCCallBack('%s', %ld, '%s')",
@@ -76,13 +75,13 @@ void DCCallBackFunc(std::string strDCName, long messageid, std::string wfsresult
 	int nRetLen = strlen(strCallbackJs);
 
 	printf("mtx_session_data4send.lock ->\n");
-	mtx_session_data4send.lock();  //±¨ÎÄ·¢ËÍºó»á½âËø
+	mtx_session_data4send.lock();  //ï¿½ï¿½ï¿½Ä·ï¿½ï¿½Íºï¿½ï¿½ï¿½ï¿½ï¿½
 	printf("mtx_session_data4send.lock <-\n");
 	memset(session_data4send.buf, 0, sizeof(session_data4send.buf));
 	memcpy(&session_data4send.buf[LWS_PRE], strCallbackJs, nRetLen);
 	session_data4send.len = nRetLen;
 
-	struct lws * wsi_session = messagehandle.GetSession("SSApp");  // ÖÐ¼ä¼þ¹Ì¶¨·¢ËÍµ½SSAppµÄsessionÁ¬½Ó
+	struct lws * wsi_session = messagehandle.GetSession("SSApp");  // ï¿½Ð¼ï¿½ï¿½ï¿½Ì¶ï¿½ï¿½ï¿½ï¿½Íµï¿½SSAppï¿½ï¿½sessionï¿½ï¿½ï¿½ï¿½
 	if (nullptr != wsi_session)
 	{
 		lws_write(wsi_session, &session_data4send.buf[LWS_PRE], session_data4send.len, LWS_WRITE_TEXT);
@@ -102,10 +101,10 @@ void DCCallBackFunc(std::string strDCName, long messageid, std::string wfsresult
 extern void kbdms_open_dev();
 void MessageHandle::Init()
 {
-	// ´ò¿ªÄ£Äâ¼üÅÌÉè±¸
+	// ï¿½ï¿½Ä£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½è±¸
 	kbdms_open_dev();
 
-	// ÉèÖÃÖÐ¼ä¼þÊÂ¼þµÄ»Øµ÷º¯Êý
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Ð¼ï¿½ï¿½ï¿½Â¼ï¿½ï¿½Ä»Øµï¿½ï¿½ï¿½ï¿½ï¿½
 	SetDCCallbackFunc(DCCallBackFunc);
 }
 
@@ -174,21 +173,21 @@ int MessageHandle::Process(char * recvbuf, size_t len1, struct lws *wsi, void *u
 
 	printf("message handle start\n");
 	
-	// ½ÓÈëµÄ±¨ÎÄÀàÐÍ£º
+	// ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í£ï¿½
 	// ssa.callDC
 	// ssa.callExtension
 	if (0 == strncmp((char *)recvbuf, "setSessionName", strlen("setSessionName")))
 	{
 		CStringArray strarr = GetParamList(recvbuf);
-		if (strarr.size() >= 1) // ÖÁÉÙÒªÓÐÒ»¸ö²ÎÊý£¬SessionName
+		if (strarr.size() >= 1) // ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½SessionName
 		{
 			std::list<string>::iterator it = strarr.begin();
 			string strSessionName = (*it);
 			
 			printf("strSessionName : %s\n", strSessionName.c_str());
 
-			// Ã¿´ÎÊÕµ½±¨ÎÄÊ±¶¼ÖØÐÂÉèÖÃÒ»´ÎSession±äÁ¿£¬Ò»¸öWSServerÓ¦¸ÃÖ»ÓÐÒ»ÖÖÀàÐÍµÄ¿Í»§¶ËÁ¬½Ó£¬Èç¹ûÐèÒª¶àÖÖ¿Í»§¶ËÁ¬½Ó£¬ÐèÒªÆô¶¯¶à¸öWSServer£¬·ñÔòSessionÊý¾Ý»áÂÒ£º
-			// Ò»¸öWSServerÍ¬Ê±ÓÐÓ¦ÓÃÒ³ÃæºÍ¼à¿ØÒ³ÃæÁ¬½ÓÊ±£¬SocketÊÕµ½µÄ±¨ÎÄ²»ÖªµÀ¸ÃÍ¨ÖªÄÄ¸öÒ³Ãæ£¨ÒòÎªÊÇÒì²½·½Ê½£¬²»ºÃÇø·Ö£©
+			// Ã¿ï¿½ï¿½ï¿½Õµï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½Sessionï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½WSServerÓ¦ï¿½ï¿½Ö»ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ÍµÄ¿Í»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½Ö¿Í»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó£ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½WSServerï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Sessionï¿½ï¿½ï¿½Ý»ï¿½ï¿½Ò£ï¿½
+			// Ò»ï¿½ï¿½WSServerÍ¬Ê±ï¿½ï¿½Ó¦ï¿½ï¿½Ò³ï¿½ï¿½Í¼ï¿½ï¿½Ò³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Socketï¿½Õµï¿½ï¿½Ä±ï¿½ï¿½Ä²ï¿½Öªï¿½ï¿½ï¿½ï¿½Í¨Öªï¿½Ä¸ï¿½Ò³ï¿½æ£¨ï¿½ï¿½Îªï¿½ï¿½ï¿½ì²½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö£ï¿½
 			SetSession(strSessionName, wsi);
 
 			nRet = 0;
@@ -197,7 +196,7 @@ int MessageHandle::Process(char * recvbuf, size_t len1, struct lws *wsi, void *u
 	else if (0 == strncmp((char *)recvbuf, "ssa.callDC", strlen("ssa.callDC")))
 	{
 		CStringArray strarr = GetParamList(recvbuf);
-		if (strarr.size() >= 2) // ÖÁÉÙÒªÓÐÁ½¸ö²ÎÊý£¬µÚÒ»¸öÊÇstrDCName£¬µÚ¶þ¸öÊÇstrMethod
+		if (strarr.size() >= 2) // ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½strDCNameï¿½ï¿½ï¿½Ú¶ï¿½ï¿½ï¿½ï¿½ï¿½strMethod
 		{
 			std::list<string>::iterator it = strarr.begin();
 			string strDCName = (*it);
@@ -245,7 +244,7 @@ int MessageHandle::Process(char * recvbuf, size_t len1, struct lws *wsi, void *u
 									(char *)lpszOperation.c_str(),
 									(char *)lpszTrace.c_str());
 			}
-			else if (strarr.size() >= 3)  // XFS ·½·¨
+			else if (strarr.size() >= 3)  // XFS ï¿½ï¿½ï¿½ï¿½
 			{
 				std::advance(it, 1);
 				std::string strParams = (*it);
@@ -253,7 +252,7 @@ int MessageHandle::Process(char * recvbuf, size_t len1, struct lws *wsi, void *u
 									(char *)strMethod.c_str(),  // strMethod
 									(char *)strParams.c_str());  // strParams
 			}
-			else  // XFS ·½·¨
+			else  // XFS ï¿½ï¿½ï¿½ï¿½
 			{
 				nRet = CallDC((char *)strDCName.c_str(),  // strDCName
 					(char *)strMethod.c_str(),  // strMethod
@@ -274,7 +273,7 @@ int MessageHandle::Process(char * recvbuf, size_t len1, struct lws *wsi, void *u
 		unsigned long nRequestId = 0;
 		if (strarr.size() > 0)
 		{
-			// µÚÒ»¸ö²ÎÊýÊÇÇëÇóID£¬ÓÃÓÚ±ê¼Ç»Øµ÷JSÊ±»Øµ÷µ½Ö¸¶¨IDµÄ»Øµ÷
+			// ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½IDï¿½ï¿½ï¿½ï¿½ï¿½Ú±ï¿½Ç»Øµï¿½JSÊ±ï¿½Øµï¿½ï¿½ï¿½Ö¸ï¿½ï¿½IDï¿½Ä»Øµï¿½
 			nRequestId = atol(strarr.front().c_str());
 			strarr.erase(strarr.begin());
 		}
@@ -291,9 +290,9 @@ int MessageHandle::Process(char * recvbuf, size_t len1, struct lws *wsi, void *u
 			printf("CallExtension failed : invalid format\n");
 		}
 
-		// ²»ÂÛExtension::CallExtension´¦ÀíÓë·ñ»òÕß½á¹û£¬¶¼»Øµ÷
-		strRet = replace_all_distinct(strRet, "\r", "&CR;");  // »Ø³µ£¬²ÎÕÕ&nbsp;¸ñÊ½
-		strRet = replace_all_distinct(strRet, "\n", "&LF;");  // »»ÐÐ£¬²ÎÕÕ&nbsp;¸ñÊ½
+		// ï¿½ï¿½ï¿½ï¿½Extension::CallExtensionï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Øµï¿½
+		strRet = replace_all_distinct(strRet, "\r", "&CR;");  // ï¿½Ø³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½&nbsp;ï¿½ï¿½Ê½
+		strRet = replace_all_distinct(strRet, "\n", "&LF;");  // ï¿½ï¿½ï¿½Ð£ï¿½ï¿½ï¿½ï¿½ï¿½&nbsp;ï¿½ï¿½Ê½
 
 		int nLength = 1024 + strlen(strRet.c_str());
 		printf("CallExtension nLength : %d\n", nLength);
@@ -306,7 +305,7 @@ int MessageHandle::Process(char * recvbuf, size_t len1, struct lws *wsi, void *u
 		printf("CallExtension strCallbackJs : %s\n", strCallbackJs);
 
 		printf("mtx_session_data4send.lock ->\n");
-		mtx_session_data4send.lock();  //±¨ÎÄ·¢ËÍºó»á½âËø
+		mtx_session_data4send.lock();  //ï¿½ï¿½ï¿½Ä·ï¿½ï¿½Íºï¿½ï¿½ï¿½ï¿½ï¿½
 		printf("mtx_session_data4send.lock <-\n");
 		memset(session_data4send.buf, 0, sizeof(session_data4send.buf));
 		memcpy(&session_data4send.buf[LWS_PRE], strCallbackJs, nRetLen);

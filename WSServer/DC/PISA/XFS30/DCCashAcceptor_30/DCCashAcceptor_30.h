@@ -12,7 +12,6 @@
 #include "DC_30.h"
 #include "DC.h"
 #include "lfscim.h"
-#include "stdafx.h"
 
 class CDCCashAcceptor_30 : public CDC_30
 {

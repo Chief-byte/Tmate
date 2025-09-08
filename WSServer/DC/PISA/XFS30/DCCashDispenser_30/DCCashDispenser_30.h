@@ -12,7 +12,6 @@
 #include "DC_30.h"
 #include "DC.h"
 #include "lfscdm.h"
-#include "stdafx.h"
 
 class CDCCashDispenser_30 : public CDC_30
 {

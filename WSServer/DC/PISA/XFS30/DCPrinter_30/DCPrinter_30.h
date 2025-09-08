@@ -12,7 +12,6 @@
 #include "DC_30.h"
 #include "DC.h"
 #include "lfsptr.h"
-#include "stdafx.h"
 
 class CDCPrinter_30 : public CDC_30
 {

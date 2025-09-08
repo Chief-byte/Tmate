@@ -12,7 +12,6 @@
 #include "DC_30.h"
 #include "DC.h"
 #include "lfssiu.h"
-#include "stdafx.h"
 
 class CDCSensorsAndIndicators_30 : public CDC_30 
 {

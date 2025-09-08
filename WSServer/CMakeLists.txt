@@ -43,7 +43,6 @@ set(Headers
     "include/Utils.h"
     "include/xmlhelper.h"
     "MessageHandle.h"
-    "stdafx.h"
 )
 source_group("Headers" FILES ${Headers})
 
