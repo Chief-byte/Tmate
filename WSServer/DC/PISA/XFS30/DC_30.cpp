@@ -11,7 +11,7 @@
 
 #include <X11/Xlib.h>
 
-//*
+//
 LPLFSSTARTUP				LFSStartUp = NULL;
 LPLFSCREATEAPPHANDLE		LFSCreateAppHandle = NULL;
 LPLFSOPEN 					LFSOpen = NULL;
