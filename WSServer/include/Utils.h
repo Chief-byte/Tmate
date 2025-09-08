@@ -1,11 +1,12 @@
 #ifndef CUTILS_H
 #define CUTILS_H
 
+#include "../stdafx.h"
 
 #ifdef PROTOCOL_PISA
-#include "lfsapi.h"
+#include "../DC/PISA/include/lfsapi.h"
 #else
-#include "lfsapi.h"
+#include "../DC/LFS/include/lfsapi.h"
 #endif
 
 class CUtils
@@ -15,9 +16,9 @@ public:
 	~CUtils();
 
 public:
-/*  *  ï¿½Ãµï¿½ÏµÍ³Ê±ï¿½ï¿½,ï¿½ï¿½Ê½Îª *  YYYYMMDDhhmmss */
+/*  *  µÃµ½ÏµÍ³Ê±¼ä,¸ñÊ½Îª *  YYYYMMDDhhmmss */
 	void  GetSysTime(PCHAR,PCHAR);
-/* * ï¿½ï¿½ï¿½ï¿½ÏµÍ³ï¿½ï¿½Ê±ï¿½ï¿½ */
+/* * ÉèÖÃÏµÍ³µÄÊ±¼ä */
 	void  SetSysTime(PCHAR,PCHAR);
 	
 	BYTE  HextoBcd(BYTE Hex);
@@ -29,7 +30,7 @@ public:
 	void  HextoStr(PBYTE pbHex, int sLen, PCHAR pch);
 
 	/*
-	 * ï¿½Ö½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	 * ·Ö½â×Ö·û´®µ½×Ö·û´®Êý×é
 	 */
 	static int SplitString(CStringArray & strarr, LPSTR str, LPCSTR sep);
 };

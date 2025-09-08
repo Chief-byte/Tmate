@@ -3,7 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "DCVendorMode_30.h"
-#include "JavaScriptStringParam.h"
+#include "../../../include/JavaScriptStringParam.h"
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
@@ -23,7 +23,7 @@ CDCVendorMode_30::~CDCVendorMode_30()
 
 HRESULT CDCVendorMode_30::_CallDC(LPCTSTR strMethod, CString & strSingleParam, CStringArray & strarrParams, BOOL & bValid)
 {
-	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	// µ÷ÓÃÃüÁî
 	HRESULT hResult = DC_ERROR;
 	if (0 == stricmp(strMethod, "WFS_CMD_VDM_ENTER_MODE_REQ"))
 	{
@@ -235,7 +235,7 @@ CString	CDCVendorMode_30::GetXFSErrStr(HRESULT hResult)
 
 int CDCVendorMode_30::OnDCMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
-	if (FALSE == m_DCObject.m_bWosaXFSRun && LFS_OPEN_COMPLETE != uMsg)  // ï¿½ì²½ï¿½ï¿½Ä£ï¿½ï¿½Ê±ï¿½ï¿½ï¿½á·µï¿½ï¿½Ä£ï¿½ï¿½ò¿ª³É¹ï¿½ï¿½Â¼ï¿½
+	if (FALSE == m_DCObject.m_bWosaXFSRun && LFS_OPEN_COMPLETE != uMsg)  // Òì²½´ò¿ªÄ£¿éÊ±£¬»á·µ»ØÄ£¿é´ò¿ª³É¹¦ÊÂ¼þ
 	{
 		return -1;
 	}

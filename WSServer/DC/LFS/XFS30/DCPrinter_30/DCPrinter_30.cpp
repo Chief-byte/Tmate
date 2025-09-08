@@ -2,7 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 #include "DCPrinter_30.h"
-#include "JavaScriptStringParam.h"
+#include "../../../include/JavaScriptStringParam.h"
 #include <codecvt>
 
 //////////////////////////////////////////////////////////////////////
@@ -21,7 +21,7 @@ CDCPrinter_30::~CDCPrinter_30()
 
 HRESULT CDCPrinter_30::_CallDC(LPCTSTR strMethod, CString & strSingleParam, CStringArray & strarrParams, BOOL & bValid)
 {
-	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	// µ÷ÓÃÃüÁî
 	HRESULT hResult = DC_ERROR;
 	if (0 == stricmp(strMethod, "WFS_CMD_PTR_CONTROL_MEDIA"))
 	{
@@ -380,7 +380,7 @@ CString CDCPrinter_30::HandleEXEEvtResult(LPLFSRESULT lpWfsRet)
 		case LFS_EXEE_PTR_FIELDWARNING:
 			break;
 		/*
-		// linux ï¿½ï¿½ï¿½Ý²ï¿½Ö§ï¿½ï¿½
+		// linux ÖÐÔÝ²»Ö§³Ö
 		case LFS_EXEE_PTR_MEDIAPRESENTED:
 			{
 				LPLFSPTRMEDIAPRESENTED lpMediaPresented = (LPLFSPTRMEDIAPRESENTED)lpWfsRet->buffer;
@@ -1062,7 +1062,7 @@ CString CDCPrinter_30::HandleInfResult(LPLFSRESULT lpWfsRet)
 		printf("CDCPrinter_30:HandleInfResult LFS_INF_PTR_FORM_LIST 2\n");
 
 		strWfsResult = string((NULL == lpszFormList ? 0 : strlen(lpszFormList)) + 1024, 0);
-		// wfsresult.lpbufferï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½LFS_INF_PTR_FORM_LISTï¿½ï¿½LFS_INF_PTR_MEDIA_LISTï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½Ã±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		// wfsresult.lpbufferÒò²»ÄÜÇø·ÖLFS_INF_PTR_FORM_LIST¡¢LFS_INF_PTR_MEDIA_LISTÃüÁî½á¹û£¬Ê¹ÓÃ±äÁ¿ÃûÌæ´ú
 		sprintf((char *)strWfsResult.c_str(), "wfsresult.u.dwcommandcode=%d"
 			"%s"
 			"wfsresult.lpszformlist=%s",
@@ -1093,7 +1093,7 @@ CString CDCPrinter_30::HandleInfResult(LPLFSRESULT lpWfsRet)
 		printf("CDCPrinter_30:HandleInfResult LFS_INF_PTR_MEDIA_LIST 2\n");
 
 		strWfsResult = string((NULL == lpszMediaList ? 0 : strlen(lpszMediaList)) + 1024, 0);
-		// wfsresult.lpbufferï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½LFS_INF_PTR_FORM_LISTï¿½ï¿½LFS_INF_PTR_MEDIA_LISTï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½Ã±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		// wfsresult.lpbufferÒò²»ÄÜÇø·ÖLFS_INF_PTR_FORM_LIST¡¢LFS_INF_PTR_MEDIA_LISTÃüÁî½á¹û£¬Ê¹ÓÃ±äÁ¿ÃûÌæ´ú
 		sprintf((char *)strWfsResult.c_str(), "wfsresult.u.dwcommandcode=%d"
 			"%s"
 			"wfsresult.lpszmedialist=%s",
@@ -1523,7 +1523,7 @@ HRESULT CDCPrinter_30::CMD_PTR_DISPENSE_PAPER(long lPaperSource)
 
 HRESULT CDCPrinter_30::CMD_PTR_MEDIA_EXTENTS(long lBase, long lUnitX, long lUnitY) 
 {
-	// Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê²Ã´ï¿½Ã£ï¿½ï¿½Ý²ï¿½Ö§ï¿½ï¿½
+	// Ã»Åöµ½Õâ¸ö·½·¨ÓÐÊ²Ã´ÓÃ£¬ÔÝ²»Ö§³Ö
 	return (short)DC_ERROR;
 }
 
@@ -1796,7 +1796,7 @@ HRESULT CDCPrinter_30::CMD_PTR_RETRACT_MEDIA(long lBinNumber)
 
 int CDCPrinter_30::OnDCMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
-	if (FALSE == m_DCObject.m_bWosaXFSRun && LFS_OPEN_COMPLETE != uMsg)  // ï¿½ì²½ï¿½ï¿½Ä£ï¿½ï¿½Ê±ï¿½ï¿½ï¿½á·µï¿½ï¿½Ä£ï¿½ï¿½ò¿ª³É¹ï¿½ï¿½Â¼ï¿½
+	if (FALSE == m_DCObject.m_bWosaXFSRun && LFS_OPEN_COMPLETE != uMsg)  // Òì²½´ò¿ªÄ£¿éÊ±£¬»á·µ»ØÄ£¿é´ò¿ª³É¹¦ÊÂ¼þ
 	{
 		return -1;
 	}

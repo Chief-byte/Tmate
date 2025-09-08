@@ -3,38 +3,38 @@
 #include "DC.h"
 
 #ifdef PROTOCOL_PISA
-#include "DCCardReader_30.h"
-#include "DCPinPad_30.h"
-#include "DCPrinter_30.h"
-#include "DCCashAcceptor_30.h"
-#include "DCCashDispenser_30.h"
-#include "DCSensorsAndIndicators_30.h"
+#include "../PISA/XFS30/DCCardReader_30/DCCardReader_30.h"
+#include "../PISA/XFS30/DCPinPad_30/DCPinPad_30.h"
+#include "../PISA/XFS30/DCPrinter_30/DCPrinter_30.h"
+#include "../PISA/XFS30/DCCashAcceptor_30/DCCashAcceptor_30.h"
+#include "../PISA/XFS30/DCCashDispenser_30/DCCashDispenser_30.h"
+#include "../PISA/XFS30/DCSensorsAndIndicators_30/DCSensorsAndIndicators_30.h"
 // #include "../PISA/XFS30/DCVendorMode_30/DCVendorMode_30.h"
 // #include "../PISA/XFS30/DCScanner_30/DCScanner_30.h"
 // #include "../PISA/XFS30/DCBarcode_31/DCBarcode_31.h"
 // #include "../PISA/XFS30/DCCardDispenser_31/DCCardDispenser_31.h"
-#include "DCCamera_31.h"
+#include "../PISA/XFS30/DCCamera_31/DCCamera_31.h"
 #else
-#include "DCCardReader_30.h"
-#include "DCPinPad_30.h"
-#include "DCPrinter_30.h"
-#include "DCCashAcceptor_30.h"
-#include "DCCashDispenser_30.h"
-#include "DCSensorsAndIndicators_30.h"
-#include "DCVendorMode_30.h"
+#include "../LFS/XFS30/DCCardReader_30/DCCardReader_30.h"
+#include "../LFS/XFS30/DCPinPad_30/DCPinPad_30.h"
+#include "../LFS/XFS30/DCPrinter_30/DCPrinter_30.h"
+#include "../LFS/XFS30/DCCashAcceptor_30/DCCashAcceptor_30.h"
+#include "../LFS/XFS30/DCCashDispenser_30/DCCashDispenser_30.h"
+#include "../LFS/XFS30/DCSensorsAndIndicators_30/DCSensorsAndIndicators_30.h"
+#include "../LFS/XFS30/DCVendorMode_30/DCVendorMode_30.h"
 // #include "../LFS/XFS30/DCScanner_30/DCScanner_30.h"
 // #include "../LFS/XFS30/DCBarcode_31/DCBarcode_31.h"
 // #include "../LFS/XFS30/DCCardDispenser_31/DCCardDispenser_31.h"
-#include "DCCamera_31.h"
+#include "../LFS/XFS30/DCCamera_31/DCCamera_31.h"
 #endif
 
-#include <stdio.h>
+#include<stdio.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <sys/time.h>
 #include <unistd.h>
 
-// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿??S
+// ¿ØÖÆÊä³öÎÄ¼þ´óÐ¡£¬Ã»ÓÐÆäËû×÷ÓÃ
 char __szUnuseful[10 * 1024] = {0};
 
 IDC * m_pIDeviceController = nullptr;
@@ -199,7 +199,7 @@ PDCRUNNINGTIME CreateDC(LPCTSTR strDCName, LPCTSTR strServiceName, LPCTSTR strVe
 
 	char * pTraceComponent = NULL;
 
-	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	// ¶Á¿¨Æ÷
 	if (0 == strnicmp(strDCName, "DCCardReader", strlen("DCCardReader")))
 	{
 		printf("<DC> m_lpszTraceComponent = %s\n", CardReader);
@@ -212,7 +212,7 @@ PDCRUNNINGTIME CreateDC(LPCTSTR strDCName, LPCTSTR strServiceName, LPCTSTR strVe
 			printf("<DC> new CDCCardReader_30 <<<\n");
 		}
 	}
-	// ICï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	// IC¶Á¿¨Æ÷
 	else if (0 == strnicmp(strDCName, "DCChipCardReader", strlen("DCChipCardReader")))
 	{
 		pTraceComponent = ChipCardReader;
@@ -221,7 +221,7 @@ PDCRUNNINGTIME CreateDC(LPCTSTR strDCName, LPCTSTR strServiceName, LPCTSTR strVe
 			pIDeviceController = new CDCCardReader_30(strDCName, pTraceComponent);
 		}
 	}
-	// ï¿½Ç½ï¿½ICï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	// ·Ç½ÓIC¶Á¿¨Æ÷
 	else if (0 == strnicmp(strDCName, "DCRFChipCardReader", strlen("DCRFChipCardReader")))
 	{
 		pTraceComponent = RFChipCardReader;
@@ -230,7 +230,7 @@ PDCRUNNINGTIME CreateDC(LPCTSTR strDCName, LPCTSTR strServiceName, LPCTSTR strVe
 			pIDeviceController = new CDCCardReader_30(strDCName, pTraceComponent);
 		}
 	}
-	// ï¿½ï¿½ï¿½ï¿½Ö¤
+	// Éí·ÝÖ¤
 	else if (0 == strnicmp(strDCName, "DCIDCardReader", strlen("DCIDCardReader")))
 	{
 		pTraceComponent = IDCardReader;
@@ -239,7 +239,7 @@ PDCRUNNINGTIME CreateDC(LPCTSTR strDCName, LPCTSTR strServiceName, LPCTSTR strVe
 			pIDeviceController = new CDCCardReader_30(strDCName, pTraceComponent);
 		}
 	}
-	// UKeyï¿½ï¿½ï¿½ï¿½ï¿½Ä¶ï¿½ï¿½ï¿½
+	// UKeyÌõÂëÔÄ¶ÁÆ÷
 	else if (0 == strnicmp(strDCName, "DCUKeyReader", strlen("DCUKeyReader")))
 	{
 		pTraceComponent = UKeyReader;
@@ -248,24 +248,24 @@ PDCRUNNINGTIME CreateDC(LPCTSTR strDCName, LPCTSTR strServiceName, LPCTSTR strVe
 			pIDeviceController = new CDCCardReader_30(strDCName, pTraceComponent);
 		}
 	}
-	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿??
+	// ÃÜÂë¼üÅÌ
 	else if (0 == strnicmp(strDCName, "DCPinPad", strlen("DCPinPad")))
 	{
 		pTraceComponent = Encryptor;
 		if (-1 != CString(strVersion).find("XFS30"))
 		{
-			// Ó²ï¿½ï¿½ï¿½ï¿½
+			// Ó²¼ÓÃÜ
 			pIDeviceController = new CDCPinPad_30(strDCName, pTraceComponent);
 		}
-		/*  // Linuxï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Ö§ï¿½ï¿½EDS
+		/*  // LinuxÏÂÔÝÊ±²»Ö§³ÖEDS
 		else if (-1 != CString(strVersion).find("EDS30"))
 		{
-			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			// Èí¼ÓÃÜ
 			m_pIDeviceController = new CDCPinPad_30_EDS();
 		}
 		*/
 	}
-	// ï¿½ï¿½Ë®ï¿½ï¿½Ó¡ï¿½ï¿½
+	// Á÷Ë®´òÓ¡»ú
 	if (0 == strnicmp(strDCName, "DCJournalPrinter", strlen("DCJournalPrinter")))
 	{
 		pTraceComponent = JournalPrinter;
@@ -274,7 +274,7 @@ PDCRUNNINGTIME CreateDC(LPCTSTR strDCName, LPCTSTR strServiceName, LPCTSTR strVe
 			pIDeviceController = new CDCPrinter_30(strDCName, pTraceComponent);
 		}
 	}
-	// Æ¾ï¿½ï¿½ï¿½ï¿½Ó¡ï¿½ï¿½
+	// Æ¾Ìõ´òÓ¡»ú
 	else if (0 == strnicmp(strDCName, "DCReceiptPrinter", strlen("DCReceiptPrinter")))
 	{
 		pTraceComponent = ReceiptPrinter;
@@ -283,7 +283,7 @@ PDCRUNNINGTIME CreateDC(LPCTSTR strDCName, LPCTSTR strServiceName, LPCTSTR strVe
 			pIDeviceController = new CDCPrinter_30(strDCName, pTraceComponent);
 		}
 	}
-	// ï¿½ï¿½ï¿½Û´ï¿½Ó¡ï¿½ï¿½
+	// ´æÕÛ´òÓ¡»ú
 	else if (0 == strnicmp(strDCName, "DCPassBookPrinter", strlen("DCPassBookPrinter")))
 	{
 		pTraceComponent = PassBookPrinter;
@@ -292,7 +292,7 @@ PDCRUNNINGTIME CreateDC(LPCTSTR strDCName, LPCTSTR strServiceName, LPCTSTR strVe
 			pIDeviceController = new CDCPrinter_30(strDCName, pTraceComponent);
 		}
 	}
-	// ï¿½ï¿½ï¿½Ëµï¿½ï¿½ï¿½Ó¡ï¿½ï¿½
+	// ¶ÔÕËµ¥´òÓ¡»ú
 	else if (0 == strnicmp(strDCName, "DCStatementPrinter", strlen("DCStatementPrinter")))
 	{
 		pTraceComponent = StatementPrinter;
@@ -301,7 +301,7 @@ PDCRUNNINGTIME CreateDC(LPCTSTR strDCName, LPCTSTR strServiceName, LPCTSTR strVe
 			pIDeviceController = new CDCPrinter_30(strDCName, pTraceComponent);
 		}
 	}
-	// ï¿½ï¿½Æ±ï¿½ï¿½Ó¡ï¿½ï¿½
+	// ·¢Æ±´òÓ¡»ú
 	else if (0 == strnicmp(strDCName, "DCInvoicePrinter", strlen("DCInvoicePrinter")))
 	{
 		pTraceComponent = InvoicePrinter;
@@ -310,7 +310,7 @@ PDCRUNNINGTIME CreateDC(LPCTSTR strDCName, LPCTSTR strServiceName, LPCTSTR strVe
 			pIDeviceController = new CDCPrinter_30(strDCName, pTraceComponent);
 		}
 	}
-	// ï¿½Äµï¿½ï¿½ï¿½Ó¡ï¿½ï¿½
+	// ÎÄµµ´òÓ¡»ú
 	else if (0 == strnicmp(strDCName, "DCDocumentPrinter", strlen("DCDocumentPrinter")))
 	{
 		pTraceComponent = DocumentPrinter;
@@ -319,7 +319,7 @@ PDCRUNNINGTIME CreateDC(LPCTSTR strDCName, LPCTSTR strServiceName, LPCTSTR strVe
 			pIDeviceController = new CDCPrinter_30(strDCName, pTraceComponent);
 		}
 	}
-	// ï¿½Äµï¿½ï¿½ï¿½ï¿½ï¿½
+	// ÎÄµµ»ØÊÕ
 	else if (0 == strnicmp(strDCName, "DCDocumentRetractPrinter", strlen("DCDocumentRetractPrinter")))
 	{
 		pTraceComponent = DocumentRetractPrinter;
@@ -328,7 +328,7 @@ PDCRUNNINGTIME CreateDC(LPCTSTR strDCName, LPCTSTR strServiceName, LPCTSTR strVe
 			pIDeviceController = new CDCPrinter_30(strDCName, pTraceComponent);
 		}
 	}
-	// Ö¸ï¿½ï¿½ï¿½Ç£ï¿½ï¿½ï¿½ï¿½Ú´ï¿½Ó¡ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½
+	// Ö¸ÎÆÒÇ£º»ùÓÚ´òÓ¡»úµÄÖ¸ÎÆÒÇ
 	else if (0 == strnicmp(strDCName, "DCFingerPrinter", strlen("DCFingerPrinter")))
 	{
 		pTraceComponent = FingerPrinter;
@@ -337,7 +337,7 @@ PDCRUNNINGTIME CreateDC(LPCTSTR strDCName, LPCTSTR strServiceName, LPCTSTR strVe
 			pIDeviceController = new CDCPrinter_30(strDCName, pTraceComponent);
 		}
 	}
-	// ï¿½ï¿½ï¿½Ä£ï¿½ï¿??
+	// ´æ¿îÄ£¿é
 	else if (0 == strnicmp(strDCName, "DCCashAcceptor", strlen("DCCashAcceptor")))
 	{
 		pTraceComponent = CashAcceptor;
@@ -346,7 +346,7 @@ PDCRUNNINGTIME CreateDC(LPCTSTR strDCName, LPCTSTR strServiceName, LPCTSTR strVe
 			pIDeviceController = new CDCCashAcceptor_30(strDCName, pTraceComponent);
 		}
 	}
-	// È¡ï¿½ï¿½Ä£ï¿½ï¿½
+	// È¡¿îÄ£¿é
 	else if (0 == strnicmp(strDCName, "DCCashDispenser", strlen("DCCashDispenser")))
 	{
 		pTraceComponent = CashDispenser;
@@ -355,7 +355,7 @@ PDCRUNNINGTIME CreateDC(LPCTSTR strDCName, LPCTSTR strServiceName, LPCTSTR strVe
 			pIDeviceController = new CDCCashDispenser_30(strDCName, pTraceComponent);
 		}
 	}
-	// ï¿½ï¿½ï¿½ï¿½Ô±ï¿½ï¿½ï¿??
+	// ²Ù×÷Ô±Ãæ°å
 	else if (0 == strnicmp(strDCName, "DCOperatorPanel", strlen("DCOperatorPanel")))
 	{
 		pTraceComponent = OperatorPanel;
@@ -364,7 +364,7 @@ PDCRUNNINGTIME CreateDC(LPCTSTR strDCName, LPCTSTR strServiceName, LPCTSTR strVe
 			pIDeviceController = new CDCPinPad_30(strDCName, pTraceComponent);
 		}
 	}
-	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½/Ö¸Ê¾ï¿½ï¿½
+	// ´«¸ÐÆ÷/Ö¸Ê¾µÆ
 	else if (0 == strnicmp(strDCName, "DCSensorsAndIndicators", strlen("DCSensorsAndIndicators")))
 	{
 		pTraceComponent = SensorsAndIndicators;
@@ -373,8 +373,8 @@ PDCRUNNINGTIME CreateDC(LPCTSTR strDCName, LPCTSTR strServiceName, LPCTSTR strVe
 			pIDeviceController = new CDCSensorsAndIndicators_30(strDCName, pTraceComponent);
 		}
 	}
-	// ï¿½ï¿½ï¿½ï¿½Ä£Ê½
-	/*  // Linuxï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Ö§ï¿½Ö³ï¿½ï¿½ï¿½Ä£Ê½
+	// ³§ÉÌÄ£Ê½
+	/*  // LinuxÏÂÔÝÊ±²»Ö§³Ö³§ÉÌÄ£Ê½
 	else if (0 == strnicmp(strDCName, "DCVendorMode", strlen("DCVendorMode")))
 	{
 		pTraceComponent = VendorMode;
@@ -384,8 +384,8 @@ PDCRUNNINGTIME CreateDC(LPCTSTR strDCName, LPCTSTR strServiceName, LPCTSTR strVe
 		}
 	}
 	//*/
-	// É¨ï¿½ï¿½ï¿½ï¿½
-	/*  // Linuxï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Ö§ï¿½ï¿½É¨ï¿½ï¿½ï¿½ï¿½
+	// É¨ÃèÒÇ
+	/*  // LinuxÏÂÔÝÊ±²»Ö§³ÖÉ¨ÃèÒÇ
 	else if (0 == strnicmp(strDCName, "DCScanner", strlen("DCScanner")))
 	{
 		pTraceComponent = Scanner;
@@ -395,8 +395,8 @@ PDCRUNNINGTIME CreateDC(LPCTSTR strDCName, LPCTSTR strServiceName, LPCTSTR strVe
 		}
 	}
 	//*/
-	// ï¿½ï¿½Î¬ï¿½ï¿½
-	/*  // Linuxï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Ö§ï¿½Ö¶ï¿½Î¬ï¿½ï¿½
+	// ¶þÎ¬Âë
+	/*  // LinuxÏÂÔÝÊ±²»Ö§³Ö¶þÎ¬Âë
 	else if (0 == strnicmp(strDCName, "DCBarcode", strlen("DCBarcode")))
 	{
 		pTraceComponent = Barcode;
@@ -406,8 +406,8 @@ PDCRUNNINGTIME CreateDC(LPCTSTR strDCName, LPCTSTR strServiceName, LPCTSTR strVe
 		}
 	}
 	//*/
-	// ï¿½ï¿½ï¿½ï¿½
-	/*  // Linuxï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Ö§ï¿½Ö·ï¿½ï¿½ï¿½
+	// ·¢¿¨
+	/*  // LinuxÏÂÔÝÊ±²»Ö§³Ö·¢¿¨
 	else if (0 == strnicmp(strDCName, "DCCardDispenser", strlen("DCCardDispenser")))
 	{
 		pTraceComponent = CardDispenser;
@@ -417,7 +417,7 @@ PDCRUNNINGTIME CreateDC(LPCTSTR strDCName, LPCTSTR strServiceName, LPCTSTR strVe
 		}
 	}
 	//*/
-	// ï¿½ï¿½ï¿½ï¿½Í·
+	// ÉãÏñÍ·
 	else if (0 == strnicmp(strDCName, "DCCamera", strlen("DCCamera")))
 	{
 		pTraceComponent = Camera;
@@ -435,7 +435,7 @@ PDCRUNNINGTIME CreateDC(LPCTSTR strDCName, LPCTSTR strServiceName, LPCTSTR strVe
 
 		CString strTrace(strlen(strDCName) + 256, 0);
 		sprintf((char *)strTrace.c_str(), "Invalid DCName(%s)", strDCName);
-		WriteTrace("ï¿½ï¿½ï¿½ï¿½", XFSApiRtn, strTrace.c_str());
+		WriteTrace("¹«¹²", XFSApiRtn, strTrace.c_str());
 	}
 	else
 	{
@@ -557,7 +557,7 @@ long OnXFSManagerMessage(char * strDCName, long nMessageID, long nPtrWfsRet)
 {
 	printf("onManagerMessage(%s, %ld, %ld)\n", strDCName, nMessageID, nPtrWfsRet);
 
-	// ï¿½ï¿½mapï¿½ï¿½ï¿½Ò£ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½ï¿½ m_mapPtrIDeviceController.find(strDCName);ï¿½ï¿½ï¿½ï¿½Îª strDCName ï¿½Ç´ï¿½DBUSÂ·ï¿½ï¿½ï¿½Ð½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½Ä£ï¿½ï¿½ï¿½ï¿½ï¿½ "_30"ï¿½ï¿½"_31"Ö®ï¿½ï¿½Äºï¿½×ºï¿½ï¿½ï¿½ï¿½m_mapPtrIDeviceControllerï¿½Ðµï¿½keyï¿½Ç´ï¿½ï¿½ï¿½×ºï¿½ï¿½
+	// ´ÓmapÖÐÕÒ£¬²»ÄÜÖ±½Ó m_mapPtrIDeviceController.find(strDCName);£¬ÒòÎª strDCName ÊÇ´ÓDBUSÂ·¾¶ÖÐ½ØÈ¡³öÀ´µÄ£¬²»´ø "_30"¡¢"_31"Ö®ÀàµÄºó×º£¬µ«m_mapPtrIDeviceControllerÖÐµÄkeyÊÇ´øºó×ºµÄ
 	PDCRUNNINGTIME pDCRunningTime = NULL;
 	map<CString, PDCRUNNINGTIME>::iterator iter = m_mapPtrIDeviceController.begin();
 	while (iter != m_mapPtrIDeviceController.end())

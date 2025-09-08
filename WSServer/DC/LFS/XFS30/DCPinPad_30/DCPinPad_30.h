@@ -9,14 +9,15 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-#include "DC_30.h"
-#include "DC.h"
-#include "lfspin.h"
+#include "../DC_30.h"
+#include "../../../DC/DC.h"
+#include "../../include/lfspin.h"
+#include "../../../../stdafx.h"
 
 class CDCPinPad_30 : public CDC_30  
 {
 public:
-	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	// ¹¹ÔìÎö¹¹º¯Êý
 	CDCPinPad_30(LPCTSTR strDCName, LPCTSTR strTraceComponent);
 	virtual ~CDCPinPad_30();
 
@@ -45,7 +46,7 @@ public:
 	HRESULT INF_PIN_KEY_DETAIL(char * strKeyName);
 	HRESULT INF_PIN_FUNCKEY_DETAIL();
 
-	// ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½
+	// ÃüÁîÖ´ÐÐ
 	HRESULT CMD_PIN_CRYPT(LPCTSTR strBytesHex, LPCTSTR strKeyName, long wMode, long wAlgorithm, short chPadChar);
 	HRESULT CMD_PIN_IMPORT_KEY(LPCTSTR strKeyName, LPCTSTR strBytesHexKeyValue, LPCTSTR strEncKeyName, DWORD fwUse, LPCTSTR strBytesHexIdentification);
 	HRESULT CMD_PIN_GET_PIN(short nMinLength, short nMaxLength, short nAutoEnd, ULONG active_keys, ULONG active_fdks, ULONG terminate_keys, ULONG terminate_fdks);
@@ -54,7 +55,7 @@ public:
 	HRESULT CMD_PIN_INITIALIZATION();
 	HRESULT CMD_PIN_RESET();
 
-	// ï¿½ï¿½Ô¿ï¿½Ö·ï¿½ï¿½ï¿½ï¿½Ö§ï¿½ï¿½
+	// ÃÜÔ¿·Ö·¢Ïà¹ØÖ§³Ö
 	HRESULT CMD_PIN_ENC_IO(long lCommand, LPCTSTR strKeyName, LPCTSTR strDataHex, long lUse, LPCTSTR strSigKey, long lSM2SignatureAlgorithm, LPCTSTR strSignatureHex);
 	HRESULT CMD_PIN_DERIVE_KEY(long wDerivationAlgorithm, LPCTSTR strKeyName, LPCTSTR strKeyGenKey, LPCTSTR strStartValueKey, LPCTSTR strBytesHexStartValue, long lPadding, LPCTSTR strBytesHexInputData, LPCTSTR strBytesHexIdentification);
 	HRESULT CMD_PIN_IMPORT_KEY_EX(LPCTSTR strKeyName, LPCTSTR strBytesHexKeyValue, LPCTSTR strEncKeyName, LPCTSTR strBytesHexControlVector, DWORD fwUse, WORD wKeyCheckMode, LPCTSTR strBytesHexKeyCheckValue);

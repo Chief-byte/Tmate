@@ -43,6 +43,7 @@ set(Headers
     "include/Utils.h"
     "include/xmlhelper.h"
     "MessageHandle.h"
+    "stdafx.h"
 )
 source_group("Headers" FILES ${Headers})
 
@@ -79,15 +80,16 @@ set(ALL_FILES
 ################################################################################
 
 add_executable(WSServer ${ALL_FILES})
-target_include_directories(WSServer PRIVATE
-	DC/DC
-	DC/PISA/include
-	DC/PISA/XFS30
-	Extension
-	include
+target_include_directories(WSServer PUBLIC
+	# DC/DC
+	# DC/PISA/include
+	# DC/PISA/XFS30
+	# Extension
+	# include
+    ${PROJECT_SOURCE_DIR}
 )
 
-target_link_libraries(WSServer PRIVATE
+target_link_libraries(WSServer PUBLIC
 	websockets
 	pthread
 	dl
@@ -98,7 +100,7 @@ target_link_libraries(WSServer PRIVATE
 	gthread-2.0
 	gobject-2.0	
 )
-target_compile_options(WSServer PRIVATE -Wall)
+target_compile_options(WSServer PUBLIC -Wall)
 
 #use_props(${PROJECT_NAME} "${CMAKE_CONFIGURATION_TYPES}" "${DEFAULT_CXX_PROPS}")
 #set(ROOT_NAMESPACE WSServer)

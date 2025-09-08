@@ -9,11 +9,12 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
+#include "../stdafx.h"
 
 #ifdef PROTOCOL_PISA
-#include "lfsapi.h"
+#include "../DC/PISA/include/lfsapi.h"
 #else
-#include "lfsapi.h"
+#include "../DC/LFS/include/lfsapi.h"
 #endif
 
 /*

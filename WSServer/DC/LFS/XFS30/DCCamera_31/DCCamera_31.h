@@ -9,9 +9,9 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-#include "DC_30.h"
-#include "DC.h"
-#include "lfscam.h"
+#include "../DC_30.h"
+#include "../../../DC/DC.h"
+#include "../../include/lfscam.h"
 
 class CDCCamera_31 : public CDC_30  
 {	
@@ -42,7 +42,7 @@ public:
 	HRESULT INF_CAM_STATUS();
 	HRESULT INF_CAM_CAPABILITIES();
 	
-	// ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½
+	// ÃüÁîÖ´ÐÐ
 	HRESULT CMD_CAM_TAKE_PICTURE(long lCamera, LPCTSTR lpszCamData, LPCTSTR lpszUNICODECamData, LPCTSTR lpszFilePath, long lScanSize);
 	HRESULT CMD_CAM_RESET();
 	HRESULT CMD_CAM_DISPLAY(long lCamera, long lAction, long lX, long lY, long lWidth, long lHeight);

@@ -2,7 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 #include "DCBarcode_31.h"
-#include "JavaScriptStringParam.h"
+#include "../../include/JavaScriptStringParam.h"
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
@@ -21,7 +21,7 @@ CDCBarcode_31::~CDCBarcode_31()
 
 HRESULT CDCBarcode_31::_CallDC(LPCTSTR strMethod, CString & strSingleParam, CStringArray & strarrParams, BOOL & bValid)
 {
-	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	// µ÷ÓÃÃüÁî
 	HRESULT hResult = DC_ERROR;
 	if (0 == stricmp(strMethod, "WFS_CMD_BCR_READ"))
 	{
@@ -240,7 +240,7 @@ int CDCBarcode_31::OnDCMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
 	{
 		CString strWfsResult2Trace = strWfsResult;
 
-		// ï¿½ï¿½ï¿½Î´Åµï¿½ï¿½ï¿½ï¿½ï¿½
+		// ÆÁ±Î´ÅµÀÊý¾Ý
 		for (int nLoop = 0; nLoop < 3; nLoop ++)
 		{
 			CString strFlag(100, 0);

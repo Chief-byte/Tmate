@@ -9,6 +9,7 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
+#include "../stdafx.h"
 #include "KDMexp.h"
 
 class CKeyou
@@ -30,10 +31,10 @@ public:
 public:
 	short GetSM4Key(string strSessionName, int nMaxPortNum, char * strTermNum);
 	short CancelGetKey();
-	short CompleteKey(int nResult); // = 0Ê§ï¿½Ü£ï¿½ = 1ï¿½É¹ï¿½
+	short CompleteKey(int nResult); // = 0Ê§°Ü£» = 1³É¹¦
 
 private:
-	// ï¿½ï¿½È¡ï¿½ï¿½Ô¿ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¿ï¿½ß³ï¿½
+	// »ñÈ¡ÃÜÔ¿·Ö·¢Æ÷¹úÃÜÃÜÔ¿Ïß³Ì
 	static void * GetSM4KeyThread(void * lpParam);
 
 	static CKeyou * m_pInstance;

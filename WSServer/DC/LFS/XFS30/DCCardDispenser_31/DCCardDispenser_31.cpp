@@ -2,7 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 #include "DCCardDispenser_31.h"
-#include "JavaScriptStringParam.h"
+#include "../../include/JavaScriptStringParam.h"
 
 // #pragma comment(lib, "../../XFS310SDK/LIB/msxfs.lib")
 
@@ -23,7 +23,7 @@ CDCCardDispenser_31::~CDCCardDispenser_31()
 
 HRESULT CDCCardDispenser_31::_CallDC(LPCTSTR strMethod, CString & strSingleParam, CStringArray & strarrParams, BOOL & bValid)
 {
-	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	// µ÷ÓÃÃüÁî
 	HRESULT hResult = DC_ERROR;
 	if (0 == stricmp(strMethod, "WFS_CMD_CRD_DISPENSE_CARD"))
 	{
@@ -97,7 +97,7 @@ HRESULT CDCCardDispenser_31::CMD_CRD_SET_CARD_UNIT_INFO(LPCTSTR strCUInfo)
 
 	HRESULT hResult = DC_ERROR;
 
-	// ï¿½ï¿½ï¿½ï¿½GET_WFS_INF_CRD_CARD_UNIT_INFOï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½á¹¹
+	// µ÷ÓÃGET_WFS_INF_CRD_CARD_UNIT_INFO»ñÈ¡¿¨Ïä½á¹¹
 	LPWFSRESULT lpResult = NULL;
 	hResult = INF_CRD_CARD_UNIT_INFO((LPVOID *)&lpResult);
 	if (WFS_SUCCESS != hResult || NULL == lpResult)
@@ -459,10 +459,10 @@ HRESULT CDCCardDispenser_31::INF_CRD_CARD_UNIT_INFO(LPVOID * lppResult)
 		strWfsResult += strCardUnit;
 	}
 
-	// EXE_WFS_CMD_CRD_SET_CARD_UNIT_INFOï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã´ï¿½GET_WFS_INF_CRD_UNIT_INFOï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú»ï¿½È¡ï¿½ï¿½ï¿½Ýµï¿½SPï¿½Ä¼Ó³ï¿½ï¿½Ä½á¹¹
+	// EXE_WFS_CMD_CRD_SET_CARD_UNIT_INFO·½·¨»áµ÷ÓÃ´ËGET_WFS_INF_CRD_UNIT_INFO·½·¨£¬ÓÃÓÚ»ñÈ¡´«µÝµ½SPµÄ¼Ó³®µÄ½á¹¹
 	if (NULL != lppResult)
 	{
-		// ï¿½ï¿½ï¿½ï¿½ï¿½Ò²ï¿½ï¿½Í·ï¿½WFSï¿½ï¿½ï¿½
+		// ·µ»ØÇÒ²»ÊÍ·ÅWFS½á¹û
 		* (LPWFSRESULT *)lppResult = lpResult;
 	}
 	else

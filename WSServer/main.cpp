@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "libwebsockets.h"
 #include <signal.h>
 #include <string.h>
@@ -5,7 +6,7 @@
 
 #include "MessageHandle.h"
 
-// ï¿½ï¿½ï¿½ß³ï¿½ï¿½Ë³ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½Ö¾ï¿½ï¿½killÊ±ï¿½ï¿½ï¿½ï¿½
+// Ö÷Ïß³ÌÍË³öÑ­»·±êÖ¾£¬killÊ±´¥·¢
 static volatile int exit_sig = 0;
 
 void sighdl(int sig) {
@@ -13,37 +14,37 @@ void sighdl(int sig) {
 	exit_sig = 1;
 }
 
-// ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+// ÏûÏ¢´¦Àí¶ÔÏó
 MessageHandle messagehandle;
 struct session_data session_data4send;
-std::mutex mtx_session_data4send;  // WebSocketï¿½Ä»á»°user_sessionï¿½ï¿½ï¿½Õ·ï¿½Ê±ï¿½ï¿½ï¿½Ü³ï¿½Í»ï¿½ï¿½ï¿½ï¿½ï¿½Íµï¿½ï¿½ï¿½Ê¹ï¿½Ã·ï¿½ï¿½Í½á¹¹ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+std::mutex mtx_session_data4send;  // WebSocketµÄ»á»°user_sessionÔÚÊÕ·¢Ê±¿ÉÄÜ³åÍ»£¬·¢ËÍµ¥¶ÀÊ¹ÓÃ·¢ËÍ½á¹¹£¬²¢Ê¹ÓÃ»¥³âËø¿ØÖÆ
 static int server_callback(struct lws *wsi, enum lws_callback_reasons reason, void *user, void *in, size_t len) {
 	switch (reason)
 	{
-		case LWS_CALLBACK_ESTABLISHED:       // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¿Í»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öºï¿½
+		case LWS_CALLBACK_ESTABLISHED:       // µ±·þÎñÆ÷ºÍ¿Í»§¶ËÍê³ÉÎÕÊÖºó
 		{
 			printf("client connected, user label: %ld\n", (long)user);
 
 			break;
 		}
-		case LWS_CALLBACK_RECEIVE:           // ï¿½ï¿½ï¿½ï¿½ï¿½Õµï¿½ï¿½Í»ï¿½ï¿½Ë·ï¿½ï¿½ï¿½ï¿½ï¿½Ö¡ï¿½Ôºï¿½
+		case LWS_CALLBACK_RECEIVE:           // µ±½ÓÊÕµ½¿Í»§¶Ë·¢À´µÄÖ¡ÒÔºó
 		{
 			/*
-			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½userï¿½Ç»á»°ï¿½ï¿½ï¿½ï¿½ï¿½Ä¹ï¿½ï¿½Ã£ï¿½ï¿½Õµï¿½ï¿½ï¿½Ï¢ï¿½Í´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢Ê±ï¿½Ç´ï¿½ï¿½ï¿½ï¿½Í¬Ò»ï¿½ï¿½Ö¸ï¿½ë£¬ï¿½ï¿½ï¿½ï¿½Ê±ï¿½áµ¼ï¿½Â´Ë±ï¿½ï¿½ï¿½ï¿½ï¿½Í»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÎªÖ»ï¿½ï¿½ï¿½ï¿½ï¿½Õ£ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½Ê±Ê¹ï¿½Ã·ï¿½ï¿½Í½á¹¹ï¿½ï¿½ï¿½Ò¶Ô·ï¿½ï¿½Í½á¹¹ï¿½ï¿½ï¿½Ð¼ï¿½ï¿½ï¿½ï¿½ï¿½
+			// ·½·¨²ÎÊýÖÐµÄuserÊÇ»á»°ÉÏÏÂÎÄ¹²ÓÃ£¬ÊÕµ½ÏûÏ¢ºÍ´ý·¢ËÍÏûÏ¢Ê±ÊÇ´«ÈëµÄÍ¬Ò»¸öÖ¸Õë£¬²¢·¢Ê±»áµ¼ÖÂ´Ë±äÁ¿³åÍ»£¬¸ü¸ÄÎªÖ»ÓÃÀ´ÊÕ£¬ÐèÒª·¢ËÍÊ±Ê¹ÓÃ·¢ËÍ½á¹¹£¨ÇÒ¶Ô·¢ËÍ½á¹¹½øÐÐ¼ÓËø£©
 			struct session_data *data = (struct session_data *) user;
-			// ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½Ò»Ö¡
+			// ÅÐ¶ÏÊÇ·ñ×îºóÒ»Ö¡
 			data->fin = lws_is_final_fragment(wsi);
-			// ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
+			// ÅÐ¶ÏÊÇ·ñ¶þ½øÖÆÏûÏ¢
 			data->bin = lws_frame_is_binary(wsi);
-			// ï¿½Ô·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä½ï¿½ï¿½Õ¶Ë½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¿ï¿½ï¿½ï¿½Ö®
-			// ï¿½ï¿½ï¿½ï¿½Äµï¿½ï¿½Ã½ï¿½Ö¹ï¿½Ú´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			// ¶Ô·þÎñÆ÷µÄ½ÓÊÕ¶Ë½øÐÐÁ÷Á¿¿ØÖÆ£¬Èç¹ûÀ´²»¼°´¦Àí£¬¿ÉÒÔ¿ØÖÆÖ®
+			// ÏÂÃæµÄµ÷ÓÃ½ûÖ¹ÔÚ´ËÁ¬½ÓÉÏ½ÓÊÕÊý¾Ý
 			lws_rx_flow_control(wsi, 0);
 			*/
 			lws_rx_flow_control(wsi, 0);
 
 			struct session_data *data = (struct session_data *) user;
 
-			if (len < 0)  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÕµÄ±ï¿½ï¿½Ä³ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½0ï¿½ï¿½Ö±ï¿½Ó¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+			if (len < 0)  //Èç¹û½ÓÊÕµÄ±¨ÎÄ³¤¶ÈÐ¡ÓÚ0£¬Ö±½Ó¶ªÆúÕû¸ö±¨ÎÄ 
 			{
 				printf("message recvied(length : %ld): invalid data\n", len);
 				memset(data->buf, 0, sizeof(data->buf));
@@ -54,7 +55,7 @@ static int server_callback(struct lws *wsi, enum lws_callback_reasons reason, vo
 				sprintf((char *)&data->buf[data->len], "%s", (char *)in);
 				data->len += len;
 
-				if (!lws_is_final_fragment(wsi))  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»Ö¡ï¿½ï¿½ï¿½ï¿½ï¿½Õµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Äºï¿½ï¿½Ù´ï¿½ï¿½ï¿½
+				if (!lws_is_final_fragment(wsi))  // ²»ÊÇ×îºóÒ»Ö¡£¬´ýÊÕµ½ÍêÕû±¨ÎÄºóÔÙ´¦Àí
 				{
 					printf("message recvied(length : %ld, strlen(in) : %ld): not final fragment, wait ...\n", len, strlen((char *)in));
 				}
@@ -62,13 +63,13 @@ static int server_callback(struct lws *wsi, enum lws_callback_reasons reason, vo
 				{
 					printf("message recvied(length : %ld, strlen(data->buf) : %ld): %s\n", data->len, strlen((char *)data->buf), data->buf);
 
-					// ï¿½Ñ±ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ò£¬ºï¿½ï¿½ï¿½ï¿½Ù¾ï¿½ï¿½Õ±ï¿½ï¿½Ä£ï¿½ï¿½Í³ï¿½ï¿½(struct session_data *) userï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë£ï¿½ï¿½Øµï¿½ï¿½ï¿½Ç°ï¿½æ´¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½Ê¹ï¿½Ãµï¿½Ô´ï¿½ï¿½ï¿½Ý·ï¿½ï¿½ï¿½ï¿½ä»¯
+					// °Ñ±¨ÎÄ¿½±´³öÀ´´¦Àí£¬·ñÔò£¬ºóÃæÔÙ¾ÍÊÕ±¨ÎÄ£¬¾Í³åµô(struct session_data *) userÖÐµÄÊý¾ÝÁË£¬»Øµ¼ÖÂÇ°Ãæ´¦Àí¹ý³ÌÖÐµÄÊ¹ÓÃµÄÔ´Êý¾Ý·¢Éú±ä»¯
 					int nBufLen = data->len;
 					char * pszBuf = new char[nBufLen + 16];
 					memset(pszBuf, 0, nBufLen + 16);
 					memcpy(pszBuf, data->buf, nBufLen);
 
-					// ï¿½ï¿½ï¿½sessionï¿½Ã»ï¿½ï¿½ï¿½ï¿½Ý£ï¿½Ã¿ï¿½ï¿½ï¿½ï¿½Ò»ï¿½Î£ï¿½ï¿½Ñ»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½
+					// Çå¿ÕsessionÓÃ»§Êý¾Ý£ºÃ¿´¦ÀíÒ»´Î£¬°Ñ»º³åÇøÇå¿ÕÒ»´Î
 					memset(data->buf, 0, sizeof(data->buf));
 					data->len = 0;
 
@@ -82,12 +83,12 @@ static int server_callback(struct lws *wsi, enum lws_callback_reasons reason, vo
 
 			lws_rx_flow_control(wsi, 1);
 
-			// ï¿½ï¿½ï¿½ï¿½×¼ï¿½ï¿½Ð´Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ£ï¿½ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½Ê§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë£ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î´ï¿½ï¿½ï¿½Íµï¿½ï¿½ï¿½ï¿½Ý£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½
+			// ¿ÉÄÜ×¼±¸Ð´Ê±´¥·¢ÁËÊÕ£¬µ¼ÖÂÐ´µÄÊÂ¼þ¶ªÊ§£¬»¥³âËøËøËÀÁË£¬²¹³¥Ò»´ÎÐ´£ºÈç¹ûÓÐÎ´·¢ËÍµÄÊý¾Ý£¬Ôò·¢ËÍÁË²¢½âËø
 			lws_callback_on_writable(wsi);
 
 			break;
 		}
-		case LWS_CALLBACK_SERVER_WRITEABLE:   // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¿ï¿½Ð´Ê±
+		case LWS_CALLBACK_SERVER_WRITEABLE:   // µ±´ËÁ¬½Ó¿ÉÐ´Ê±
 		{
 			/*
 			// lws_write(wsi, &data->buf[LWS_PRE], data->len, LWS_WRITE_TEXT);
@@ -101,9 +102,9 @@ static int server_callback(struct lws *wsi, enum lws_callback_reasons reason, vo
 				session_data4send.len = 0;
 
 
-				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í½á¹¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½é½¨ï¿½ï¿½ï¿½Í½á¹¹ï¿½ï¿½ï¿½Ý´ï¿½
+				// ½âËø·¢ËÍ½á¹¹£º¼ÓËøÔÚ×é½¨·¢ËÍ½á¹¹Êý¾Ý´¦
 				printf("mtx_session_data4send.unlock ->\n");
-				mtx_session_data4send.unlock();  //ï¿½ï¿½ï¿½Ä·ï¿½ï¿½Íºï¿½ï¿½ï¿½ï¿½ï¿½
+				mtx_session_data4send.unlock();  //±¨ÎÄ·¢ËÍºó»á½âËø
 				printf("mtx_session_data4send.unlock <-\n");
 			}
 			else
@@ -111,7 +112,7 @@ static int server_callback(struct lws *wsi, enum lws_callback_reasons reason, vo
 				printf("no response data to write\n");
 			}
 
-			// ï¿½ï¿½ï¿½ï¿½Äµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			// ÏÂÃæµÄµ÷ÓÃÔÊÐíÔÚ´ËÁ¬½ÓÉÏ½ÓÊÕÊý¾Ý
 			// lws_rx_flow_control(wsi, 1);
 			*/
 
@@ -121,9 +122,9 @@ static int server_callback(struct lws *wsi, enum lws_callback_reasons reason, vo
 		{	
 			printf("client closed, user label: %ld\n", (long)user);
 
-			// É¾ï¿½ï¿½strSessionNameï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½strSessionNameï¿½Òµï¿½ï¿½ï¿½wsi_sessionï¿½Ñ¾ï¿½ï¿½ï¿½libwebsocketsï¿½ï¿½ï¿½Í·Å£ï¿½ï¿½Ù·ï¿½ï¿½Í±ï¿½ï¿½Ä»áµ¼ï¿½Â³ï¿½ï¿½ï¿½ï¿½ì³£ï¿½ï¿½ï¿½ï¿½
+			// É¾³ýstrSessionName£¬·ñÔò´ÓstrSessionNameÕÒµ½µÄwsi_sessionÒÑ¾­±»libwebsockets¿âÊÍ·Å£¬ÔÙ·¢ËÍ±¨ÎÄ»áµ¼ÖÂ³ÌÐòÒì³£±ÀÀ£
 			printf("LWS_CALLBACK_CLOSED.lock ->\n");
-			mtx_session_data4send.lock();  // É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½sessionï¿½ï¿½ï¿½Ýºï¿½ï¿½ï¿½ï¿½ï¿½
+			mtx_session_data4send.lock();  // É¾³ý±£´æµÄsessionÊý¾Ýºó»á½âËø
 			printf("LWS_CALLBACK_CLOSED.lock <-\n");
 			
 			messagehandle.RemoveSession(wsi);
@@ -133,53 +134,53 @@ static int server_callback(struct lws *wsi, enum lws_callback_reasons reason, vo
 		}
 	}
 
-	// ï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Þ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	// »Øµ÷º¯Êý×îÖÕÒª·µ»Ø0£¬·ñÔòÎÞ·¨´´½¨·þÎñÆ÷
 	return 0;
 }
 
 /**
- * Ö§ï¿½Öµï¿½WebSocketï¿½ï¿½Ð­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
- * ï¿½ï¿½Ð­ï¿½é¼´JavaScriptï¿½Í»ï¿½ï¿½ï¿½WebSocket(url, protocols)ï¿½ï¿½2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ôªï¿½ï¿½
- * ï¿½ï¿½ï¿½ï¿½ÒªÎªÃ¿ï¿½ï¿½Ð­ï¿½ï¿½ï¿½á¹©ï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½
+ * Ö§³ÖµÄWebSocket×ÓÐ­ÒéÊý×é
+ * ×ÓÐ­Òé¼´JavaScript¿Í»§¶ËWebSocket(url, protocols)µÚ2²ÎÊýÊý×éµÄÔªËØ
+ * ÄãÐèÒªÎªÃ¿ÖÖÐ­ÒéÌá¹©»Øµ÷º¯Êý
  */
 struct lws_protocols protocols[] = {
 	{
-		//Ð­ï¿½ï¿½ï¿½ï¿½ï¿½Æ£ï¿½Ð­ï¿½ï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡
+		//Ð­ÒéÃû³Æ£¬Ð­Òé»Øµ÷£¬½ÓÊÕ»º³åÇø´óÐ¡
 		"ws", server_callback, sizeof(struct session_data), MAX_PAYLOAD_SIZE,
 	},
 	{
-		nullptr, nullptr,   0 // ï¿½ï¿½ï¿½Ò»ï¿½ï¿½Ôªï¿½Ø¹Ì¶ï¿½Îªï¿½Ë¸ï¿½Ê½
+		nullptr, nullptr,   0 // ×îºóÒ»¸öÔªËØ¹Ì¶¨Îª´Ë¸ñÊ½
 	}
 };
 
 int main(int argc, char **argv)
 {
-	// Ã¿ï¿½ï¿½ï¿½Þ¸Ä´ï¿½ï¿½ï¿½Ê±Ó¦ï¿½Þ¸Ä´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô±ï¿½Ê¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÐµÄ°æ±¾ï¿½ï¿½Ê¹ï¿½ï¿½LFSï¿½ï¿½ï¿½ï¿½PISAï¿½ï¿½Ê¶Ê¹ï¿½Ãµï¿½SPÐ­ï¿½ï¿½æ±¾
+	// Ã¿´ÎÐÞ¸Ä´úÂëÊ±Ó¦ÐÞ¸Ä´ËÈÕÆÚÒÔ±êÊ¶³ÌÐòÔËÐÐµÄ°æ±¾£¬Ê¹ÓÃLFS»òÕßPISA±êÊ¶Ê¹ÓÃµÄSPÐ­Òé°æ±¾
 	// printf("WebSocket Server version 2025-02-12(LFS)\n");
 	printf("WebSocket Server version 2025-06-16(PISA)\n");
 
-	// ï¿½ÅºÅ´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	// ÐÅºÅ´¦Àíº¯Êý
 	signal(SIGTERM, sighdl);
 
-	// ï¿½ï¿½ï¿½ï¿½ï¿½Ð²ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½Ë¿Úºï¿½
-	int nPort = 3899;  // Ä¬ï¿½Ï¼ï¿½ï¿½ï¿½ï¿½Ë¿Úºï¿½ 3899ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½Ä¬ï¿½Ï¶Ë¿Ú£ï¿½ï¿½Ú¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½
+	// ÃüÁîÐÐ²ÎÊýÎª¼àÌý¶Ë¿ÚºÅ
+	int nPort = 3899;  // Ä¬ÈÏ¼àÌý¶Ë¿ÚºÅ 3899£¬Ö»ÄÜÆô¶¯Ò»¸öÄ¬ÈÏ¶Ë¿Ú£¬µÚ¶þ¸ö»á¼àÌýÊ§°Ü
 	if (argc > 1)
 	{
 		nPort = atoi(argv[1]);
 	}
 
-	// ï¿½ï¿½Ê¼ï¿½ï¿½MessageHandle
+	// ³õÊ¼»¯MessageHandle
 	messagehandle.Init();
 
 	struct lws_context_creation_info ctx_info = { 0 };
 	ctx_info.port = nPort;
-	ctx_info.iface = nullptr; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¿ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½
+	ctx_info.iface = nullptr; // ÔÚËùÓÐÍøÂç½Ó¿ÚÉÏ¼àÌý
 	ctx_info.protocols = protocols;
 	ctx_info.gid = -1;
 	ctx_info.uid = -1;
 	ctx_info.options = LWS_SERVER_OPTION_VALIDATE_UTF8;
 
-	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½wssÐ­ï¿½ï¿½
+	// ²»´¦ÀíwssÐ­Òé
 	// ctx_info.ssl_ca_filepath = "../ca/ca-cert.pem";
 	// ctx_info.ssl_cert_filepath = "./server-cert.pem";
 	// ctx_info.ssl_private_key_filepath = "./server-key.pem";

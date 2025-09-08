@@ -2,7 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 #include "DCSensorsAndIndicators_30.h"
-#include "JavaScriptStringParam.h"
+#include "../../../include/JavaScriptStringParam.h"
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
@@ -21,7 +21,7 @@ CDCSensorsAndIndicators_30::~CDCSensorsAndIndicators_30()
 
 HRESULT CDCSensorsAndIndicators_30::_CallDC(LPCTSTR strMethod, CString & strSingleParam, CStringArray & strarrParams, BOOL & bValid)
 {
-	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	// µ÷ÓÃÃüÁî
 	HRESULT hResult = DC_ERROR;
 	if (0 == stricmp(strMethod, "WFS_CMD_SIU_ENABLE_EVENTS"))
 	{
@@ -520,7 +520,7 @@ CString CDCSensorsAndIndicators_30::HandleUSEREvtResult(LPLFSRESULT lpWfsRet)
 
 int CDCSensorsAndIndicators_30::OnDCMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
-	if (FALSE == m_DCObject.m_bWosaXFSRun && LFS_OPEN_COMPLETE != uMsg)  // ï¿½ì²½ï¿½ï¿½Ä£ï¿½ï¿½Ê±ï¿½ï¿½ï¿½á·µï¿½ï¿½Ä£ï¿½ï¿½ò¿ª³É¹ï¿½ï¿½Â¼ï¿½
+	if (FALSE == m_DCObject.m_bWosaXFSRun && LFS_OPEN_COMPLETE != uMsg)  // Òì²½´ò¿ªÄ£¿éÊ±£¬»á·µ»ØÄ£¿é´ò¿ª³É¹¦ÊÂ¼þ
 	{
 		return -1;
 	}
@@ -658,7 +658,7 @@ CString CDCSensorsAndIndicators_30::HandleInfResult(LPLFSRESULT lpWfsRet)
 
 		int nLoop = 0;
 		CString strSensors = "";
-		for (nLoop = 0; nLoop <= LFS_SIU_ENHANCEDAUDIO; nLoop ++)  // ï¿½ï¿½ï¿½ï¿½ÒªÈ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä´ï¿½Ð¡LFS_SIU_SENSORS_SIZE(32)
+		for (nLoop = 0; nLoop <= LFS_SIU_ENHANCEDAUDIO; nLoop ++)  // ²»ÐèÒªÈ¡Õû¸öÊý×éµÄ´óÐ¡LFS_SIU_SENSORS_SIZE(32)
 		{
 			CString strSensor(256, 0);
 			sprintf((char *)strSensor.c_str(), "%s"
@@ -673,7 +673,7 @@ CString CDCSensorsAndIndicators_30::HandleInfResult(LPLFSRESULT lpWfsRet)
 		// #define     LFS_SIU_SAFE                        (1)
 		// #define     LFS_SIU_VANDALSHIELD                (2)
 		CString strDoors = "";
-		for (nLoop = 0; nLoop <= LFS_SIU_VANDALSHIELD; nLoop ++)  // ï¿½ï¿½ï¿½ï¿½ÒªÈ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä´ï¿½Ð¡LFS_SIU_DOORS_SIZE(16)
+		for (nLoop = 0; nLoop <= LFS_SIU_VANDALSHIELD; nLoop ++)  // ²»ÐèÒªÈ¡Õû¸öÊý×éµÄ´óÐ¡LFS_SIU_DOORS_SIZE(16)
 		{
 			CString strDoor(256, 0);
 			sprintf((char *)strDoor.c_str(), "%s"
@@ -685,7 +685,7 @@ CString CDCSensorsAndIndicators_30::HandleInfResult(LPLFSRESULT lpWfsRet)
 		}
 
 		CString strSensorsAndIndicators = "";
-		for (nLoop = 0; nLoop <= LFS_SIU_HEATING; nLoop ++)  // ï¿½ï¿½ï¿½ï¿½ÒªÈ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä´ï¿½Ð¡LFS_SIU_INDICATORS_SIZE(16)
+		for (nLoop = 0; nLoop <= LFS_SIU_HEATING; nLoop ++)  // ²»ÐèÒªÈ¡Õû¸öÊý×éµÄ´óÐ¡LFS_SIU_INDICATORS_SIZE(16)
 		{
 			CString strIndicator(256, 0);
 			sprintf((char *)strIndicator.c_str(), "%s"
@@ -697,7 +697,7 @@ CString CDCSensorsAndIndicators_30::HandleInfResult(LPLFSRESULT lpWfsRet)
 		}
 
 		CString strAuxiliaries = "";
-		for (nLoop = 0; nLoop <= LFS_SIU_HEATING; nLoop ++)  // ï¿½ï¿½ï¿½ï¿½ÒªÈ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä´ï¿½Ð¡LFS_SIU_AUXILIARIES_SIZE(16)
+		for (nLoop = 0; nLoop <= LFS_SIU_HEATING; nLoop ++)  // ²»ÐèÒªÈ¡Õû¸öÊý×éµÄ´óÐ¡LFS_SIU_AUXILIARIES_SIZE(16)
 		{
 			CString strAuxiliarie(256, 0);
 			sprintf((char *)strAuxiliarie.c_str(), "%s"
@@ -709,7 +709,7 @@ CString CDCSensorsAndIndicators_30::HandleInfResult(LPLFSRESULT lpWfsRet)
 		}
 
 		CString strGuidLights = "";
-		for (nLoop = 0; nLoop <= LFS_SIU_SCANNER; nLoop ++)  // ï¿½ï¿½ï¿½ï¿½ÒªÈ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä´ï¿½Ð¡LFS_SIU_GUIDLIGHTS_SIZE(16)
+		for (nLoop = 0; nLoop <= LFS_SIU_SCANNER; nLoop ++)  // ²»ÐèÒªÈ¡Õû¸öÊý×éµÄ´óÐ¡LFS_SIU_GUIDLIGHTS_SIZE(16)
 		{
 			CString strGuidLight(256, 0);
 			sprintf((char *)strGuidLight.c_str(), "%s"
@@ -753,7 +753,7 @@ CString CDCSensorsAndIndicators_30::HandleInfResult(LPLFSRESULT lpWfsRet)
 
 		int nLoop = 0;
 		CString strSensors = "";
-		for (nLoop = 0; nLoop <= LFS_SIU_ENHANCEDAUDIO; nLoop++)  // ï¿½ï¿½ï¿½ï¿½ÒªÈ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä´ï¿½Ð¡LFS_SIU_SENSORS_SIZE(32)
+		for (nLoop = 0; nLoop <= LFS_SIU_ENHANCEDAUDIO; nLoop++)  // ²»ÐèÒªÈ¡Õû¸öÊý×éµÄ´óÐ¡LFS_SIU_SENSORS_SIZE(32)
 		{
 			CString strSensor(256, 0);
 			sprintf((char *)strSensor.c_str(), "%s"
@@ -765,7 +765,7 @@ CString CDCSensorsAndIndicators_30::HandleInfResult(LPLFSRESULT lpWfsRet)
 		}
 
 		CString strDoors = "";
-		for (nLoop = 0; nLoop <= LFS_SIU_VANDALSHIELD; nLoop++)  // ï¿½ï¿½ï¿½ï¿½ÒªÈ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä´ï¿½Ð¡LFS_SIU_DOORS_SIZE(16)
+		for (nLoop = 0; nLoop <= LFS_SIU_VANDALSHIELD; nLoop++)  // ²»ÐèÒªÈ¡Õû¸öÊý×éµÄ´óÐ¡LFS_SIU_DOORS_SIZE(16)
 		{
 			CString strDoor(256, 0);
 			sprintf((char *)strDoor.c_str(), "%s"
@@ -777,7 +777,7 @@ CString CDCSensorsAndIndicators_30::HandleInfResult(LPLFSRESULT lpWfsRet)
 		}
 
 		CString strSensorsAndIndicators = "";
-		for (nLoop = 0; nLoop <= LFS_SIU_HEATING; nLoop++)  // ï¿½ï¿½ï¿½ï¿½ÒªÈ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä´ï¿½Ð¡LFS_SIU_INDICATORS_SIZE(16)
+		for (nLoop = 0; nLoop <= LFS_SIU_HEATING; nLoop++)  // ²»ÐèÒªÈ¡Õû¸öÊý×éµÄ´óÐ¡LFS_SIU_INDICATORS_SIZE(16)
 		{
 			CString strIndicator(256, 0);
 			sprintf((char *)strIndicator.c_str(), "%s"
@@ -789,7 +789,7 @@ CString CDCSensorsAndIndicators_30::HandleInfResult(LPLFSRESULT lpWfsRet)
 		}
 
 		CString strAuxiliaries = "";
-		for (nLoop = 0; nLoop <= LFS_SIU_HEATING; nLoop++)  // ï¿½ï¿½ï¿½ï¿½ÒªÈ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä´ï¿½Ð¡LFS_SIU_AUXILIARIES_SIZE(16)
+		for (nLoop = 0; nLoop <= LFS_SIU_HEATING; nLoop++)  // ²»ÐèÒªÈ¡Õû¸öÊý×éµÄ´óÐ¡LFS_SIU_AUXILIARIES_SIZE(16)
 		{
 			CString strAuxiliarie(256, 0);
 			sprintf((char *)strAuxiliarie.c_str(), "%s"
@@ -801,7 +801,7 @@ CString CDCSensorsAndIndicators_30::HandleInfResult(LPLFSRESULT lpWfsRet)
 		}
 
 		CString strGuidLights = "";
-		for (nLoop = 0; nLoop <= LFS_SIU_SCANNER; nLoop++)  // ï¿½ï¿½ï¿½ï¿½ÒªÈ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä´ï¿½Ð¡LFS_SIU_GUIDLIGHTS_SIZE(16)
+		for (nLoop = 0; nLoop <= LFS_SIU_SCANNER; nLoop++)  // ²»ÐèÒªÈ¡Õû¸öÊý×éµÄ´óÐ¡LFS_SIU_GUIDLIGHTS_SIZE(16)
 		{
 			CString strGuidLight(256, 0);
 			sprintf((char *)strGuidLight.c_str(), "%s"

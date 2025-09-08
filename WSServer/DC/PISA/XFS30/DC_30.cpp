@@ -3,15 +3,15 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "DC_30.h"
-// #include "JavaScriptStringParam.h"
-#include "JavaScriptStringParam.h"
+// #include "../../../include/JavaScriptStringParam.h"
+#include "include/JavaScriptStringParam.h"
 #include <unistd.h>
 #include <pthread.h>
 #include <dlfcn.h>
 
 #include <X11/Xlib.h>
 
-//
+//*
 LPLFSSTARTUP				LFSStartUp = NULL;
 LPLFSCREATEAPPHANDLE		LFSCreateAppHandle = NULL;
 LPLFSOPEN 					LFSOpen = NULL;
@@ -222,11 +222,11 @@ HRESULT CDC_30::CallDC(LPCTSTR strMethod, LPCTSTR strParams)
 		return -1;
 	}
 
-	// ï¿½ï¿½Â¼ï¿½ï¿½ï¿½Ã²ï¿½ï¿½ï¿½ï¿½ï¿½Ë®
+	// ¼ÇÂ¼µ÷ÓÃ²ÎÊýÁ÷Ë®
 	CString strTrace(strlen(strMethod) + strlen(strParams) + 256, 0);
 
-	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð²ï¿½ï¿½ï¿½
-	// 1ï¿½ï¿½ï¿½ï¿½Ô¿Öµ
+	// ÆÁ±ÎÃô¸Ð²ÎÊý
+	// 1¡¢ÃÜÔ¿Öµ
 	if (0 == strcmp(strMethod, "WFS_CMD_PIN_IMPORT_KEY"))
 	{
 		std::string strParamsLog = strParams;
@@ -252,7 +252,7 @@ HRESULT CDC_30::CallDC(LPCTSTR strMethod, LPCTSTR strParams)
 	CStringArray strarrParams;
 	if (0 == strncmp(strParams, "=", 1))
 	{
-		// = ï¿½ï¿½Í·ï¿½Ä²ï¿½ï¿½ï¿½Îªï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð½ï¿½ï¿½ï¿½
+		// = ¿ªÍ·µÄ²ÎÊýÎªµ¥Ò»²ÎÊý£¬·½·¨×ÔÐÐ½âÎö
 		strSingleParam = ((LPTSTR)(LPCTSTR)strParams) + 1;
 	}
 	else
@@ -260,11 +260,11 @@ HRESULT CDC_30::CallDC(LPCTSTR strMethod, LPCTSTR strParams)
 		CJSStringParam::GetStringParams(strParams, GetStringSplitChar(), strarrParams);
 	}
 
-	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	// µ÷ÓÃÃüÁî
 	BOOL bValid = FALSE;
 	HRESULT hResult = _CallDC(strMethod, strSingleParam, strarrParams, bValid);
 
-	// ï¿½ï¿½Â¼ï¿½ï¿½ï¿½Ã½ï¿½ï¿½ï¿½ï¿½Ë®
+	// ¼ÇÂ¼µ÷ÓÃ½á¹ûÁ÷Ë®
 	if (TRUE == bValid)
 	{
 		strTrace = CString(1024, 0);
@@ -318,7 +318,7 @@ HRESULT CDC_30::OpenDC(LPCTSTR strServiceName, long dwVersionsRequired)
 	{
 		printf("<DC> CDC_30::OpenDC FALSE == m_DCObject.m_bWosaXFSRun\n");
 
-		// ×¢ï¿½ï¿½Ó¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä»Øµï¿½ï¿½ï¿½ï¿½ï¿½
+		// ×¢²á´Ó¹ÜÀíÆ÷µÄ»Øµ÷·½·¨
 		printf("<DC> CDC_30::OpenDC LFMRegCallBack >>>\n");
 		LPLFMRegCallBack((LPSTR)m_strDCName.c_str(), (CallBack *)&m_lpLFSCallBack);
 		printf("<DC> CDC_30::OpenDC LFMRegCallBack <<<\n");
@@ -331,7 +331,7 @@ HRESULT CDC_30::OpenDC(LPCTSTR strServiceName, long dwVersionsRequired)
 		pthread_create(&dwWosaThreadID, NULL, OpenThread, this);
 		printf("<DC> CDC_30::OpenDC pthread_create <<<\n");
 
-		// 20180521 ï¿½ï¿½ï¿½à¸» PC2050 ï¿½ï¿½ï¿½ï¿½180ï¿½ï¿½ï¿½ï¿½Î´ï¿½ï¿½ï¿½ï¿½ï¿½ È¡ï¿½ï¿½ Ä£ï¿½ï¿½ò¿ª²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª600ï¿½ë£¬ï¿½ï¿½ï¿½ï¿½
+		// 20180521 Àû¶à¸» PC2050 »úÆ÷180ÃëÄÚÎ´ÄÜÍê³É È¡¿î Ä£¿é´ò¿ª²Ù×÷£¬¸ü¸ÄÎª600Ãë£¬ÖØÊÔ
 		// DWORD dwWaitOb = WaitForSingleObject(m_evtOpenThreadFinish.m_hObject, 180000);
 		/*
 		DWORD dwWaitOb = WaitForSingleObject(m_evtOpenThreadFinish.m_hObject, 600000);
@@ -349,7 +349,7 @@ HRESULT CDC_30::OpenDC(LPCTSTR strServiceName, long dwVersionsRequired)
 		}
 		else if (LFS_SUCCESS != m_DCObject.m_hOpenResult)
 		{
-			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ò¿ªµï¿½m_DCObject.m_hOpenResultï¿½ï¿½LFS_SUCCESSï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½Ç³É¹ï¿½
+			// ·ÇÕý³£´ò¿ªµÄm_DCObject.m_hOpenResultµÄLFS_SUCCESS½á¹û²»±»ÈÏÎªÊÇ³É¹¦
 			hResult = m_DCObject.m_hOpenResult;
 		}
 	}
@@ -473,7 +473,7 @@ void * CDC_30::OpenThread(LPVOID lpParam)
 							&(pDC_30->m_DCObject.m_hService));
 		*/
 			
-		pDC_30->m_bIsOenCompleted = FALSE;  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½È´ï¿½SPï¿½ï¿½Ä£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½
+		pDC_30->m_bIsOenCompleted = FALSE;  // ºóÐøÐèÒªµÈ´ýSPµÄÄ£¿é´ò¿ªÍê³ÉÊÂ¼þ
 
 		ULONG requestid = 0;
 		printf("LFSAsyncOpen >>>\n");
@@ -811,10 +811,10 @@ CString	CDC_30::GetXFSErrStr(HRESULT hResult)
 
 LPTSTR CDC_30::FormatExtra(LPTSTR lpszExtra)
 {
-	// ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½Õ¹ï¿½Ö¶ï¿½ï¿½ï¿½ï¿½ï¿½
-	// ï¿½ó²¿·ï¿½ï¿½ï¿½ï¿½ï¿½Â£ï¿½ï¿½ï¿½Õ¹ï¿½Ö¶ï¿½ï¿½ï¿½\0ï¿½ï¿½ï¿½ï¿½
-	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â£ï¿½ï¿½ï¿½Õ¹ï¿½Ö¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½\0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¼ï¿½Äµï¿½ï¿½ï¿½\0Ö»ï¿½ï¿½ï¿½Ú·Ö¸ï¿½ï¿½ï¿½Õ¹ï¿½Ö¶ï¿½ï¿½ÐµÄ¶ï¿½ï¿½ï¿½ï¿½ï¿½Ý£ï¿½ï¿½ï¿½ï¿½SPï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½Ô½ï¿½ï¿½ï¿½ì³£ï¿½ï¿½ï¿½ï¿½
-	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ /SSA/WSServer/extra2null.flag Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½\0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	// ¸ñÊ½»¯À©Õ¹×Ö¶ÎÊý¾Ý
+	// ´ó²¿·ÖÇé¿öÏÂ£¬À©Õ¹×Ö¶ÎÒÔ\0½áÊø
+	// ²¿·ÖÇé¿öÏÂ£¬À©Õ¹×Ö¶ÎÒÔÁ¬ÐøÁ½¸ö\0½áÊø£¬ÖÐ¼äµÄµ¥¸ö\0Ö»ÓÃÓÚ·Ö¸îÀ©Õ¹×Ö¶ÎÖÐµÄ¶à¶ÎÊý¾Ý£¬Èç¹ûSP²»ÊÇÕâÖÖÇé¿ö°´ÕÕÕâÑù´¦Àí¿ÉÄÜÖ¸ÕëÔ½½çÒì³£±ÀÀ£
+	// ÕâÁ½ÖÖÇé¿ö²»¼æÈÝ£ºÈç¹û´æÔÚÎÄ¼þ /SSA/WSServer/extra2null.flag Ê±°´ÕÕÁ¬ÐøÁ½¸ö\0½áÊø´¦Àí
 	struct stat s_buf = { 0 };
 
 	if (0 == stat("/SSA/WSServer/extra2null.flag", &s_buf))
@@ -824,10 +824,10 @@ LPTSTR CDC_30::FormatExtra(LPTSTR lpszExtra)
 			if ((NULL == lpszExtra[nLoop] && NULL == lpszExtra[nLoop + 1])
 				|| lpszExtra[nLoop] > 128)
 			{
-				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½NULLÊ±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¿É¼ï¿½Ó¢ï¿½ï¿½ï¿½Ö·ï¿½Ê±ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½Ö¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
+				// Óöµ½Á¬ÐøÁ½¸öNULLÊ±½áÊø£¬»òÓö·Ç¿É¼ûÓ¢ÎÄ×Ö·ûÊ±½áÊø(·ÀÖ¹¶Áµ½ÂÒÂë)
 				break;
 			}
-			else if (NULL == lpszExtra[nLoop] || '\r' == lpszExtra[nLoop] || '\n' == lpszExtra[nLoop])  // ï¿½ï¿½ï¿½Ð·ï¿½ï¿½áµ¼ï¿½ï¿½jsï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			else if (NULL == lpszExtra[nLoop] || '\r' == lpszExtra[nLoop] || '\n' == lpszExtra[nLoop])  // »»ÐÐ·û»áµ¼ÖÂjs½âÎöÓÐÎÊÌâ
 			{
 				lpszExtra[nLoop] = ' ';
 			}
@@ -840,11 +840,11 @@ LPTSTR CDC_30::FormatExtra(LPTSTR lpszExtra)
 			if (NULL == lpszExtra[nLoop]
 				|| lpszExtra[nLoop] > 128)
 			{
-				// ï¿½ï¿½ï¿½ï¿½NULLÊ±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¿É¼ï¿½Ó¢ï¿½ï¿½ï¿½Ö·ï¿½Ê±ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½Ö¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
+				// Óöµ½NULLÊ±½áÊø£¬»òÓö·Ç¿É¼ûÓ¢ÎÄ×Ö·ûÊ±½áÊø(·ÀÖ¹¶Áµ½ÂÒÂë)
 				lpszExtra[nLoop] = '\0';
 				break;
 			}
-			else if ('\r' == lpszExtra[nLoop] || '\n' == lpszExtra[nLoop])  // ï¿½ï¿½ï¿½Ð·ï¿½ï¿½áµ¼ï¿½ï¿½jsï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			else if ('\r' == lpszExtra[nLoop] || '\n' == lpszExtra[nLoop])  // »»ÐÐ·û»áµ¼ÖÂjs½âÎöÓÐÎÊÌâ
 			{
 				lpszExtra[nLoop] = ' ';
 			}
@@ -860,7 +860,7 @@ VOID LFSCallBack(LPSTR lpstrObject_Name, DWORD dwEventID, UINT wParam, LONG lPar
 	UINT uMsg = dwEventID;
 	string strDCName = lpstrObject_Name;
 
-	// ï¿½ï¿½mapï¿½ï¿½ï¿½Ò£ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½ï¿½ m_mapPtrIDeviceController.find(strDCName);ï¿½ï¿½ï¿½ï¿½Îª strDCName ï¿½Ç´ï¿½DBUSÂ·ï¿½ï¿½ï¿½Ð½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½Ä£ï¿½ï¿½ï¿½ï¿½ï¿½ "_30"ï¿½ï¿½"_31"Ö®ï¿½ï¿½Äºï¿½×ºï¿½ï¿½ï¿½ï¿½m_mapPtrIDeviceControllerï¿½Ðµï¿½keyï¿½Ç´ï¿½ï¿½ï¿½×ºï¿½ï¿½
+	// ´ÓmapÖÐÕÒ£¬²»ÄÜÖ±½Ó m_mapPtrIDeviceController.find(strDCName);£¬ÒòÎª strDCName ÊÇ´ÓDBUSÂ·¾¶ÖÐ½ØÈ¡³öÀ´µÄ£¬²»´ø "_30"¡¢"_31"Ö®ÀàµÄºó×º£¬µ«m_mapPtrIDeviceControllerÖÐµÄkeyÊÇ´øºó×ºµÄ
 	PDCRUNNINGTIME pDCRunningTime = NULL;
 	map<CString, PDCRUNNINGTIME>::iterator iter = m_mapPtrIDeviceController.begin();
 	while (iter != m_mapPtrIDeviceController.end())

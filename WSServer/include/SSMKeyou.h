@@ -2,7 +2,8 @@
 #define AFX_SSMKEYOUCTL_H__B1A81CC3_6FBB_4193_ABD6_EA35B69D9C78__INCLUDED_
 #pragma once
 
-#include "lfsapi.h"
+#include "../stdafx.h"
+#include "../DC/PISA/include/lfsapi.h"
 #include "Utils.h"
 #include "ssm.h"
 

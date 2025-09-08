@@ -9,9 +9,10 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-#include "DC_30.h"
-#include "DC.h"
-#include "lfsptr.h"
+#include "../DC_30.h"
+#include "../../../DC/DC.h"
+#include "../../include/lfsptr.h"
+#include "../../../../stdafx.h"
 
 class CDCPrinter_30 : public CDC_30
 {

@@ -2,8 +2,8 @@
 //
 //////////////////////////////////////////////////////////////////////
 #include "DCPinPad_30.h"
-// #include "JavaScriptStringParam.h"
-#include "JavaScriptStringParam.h"
+// #include "../../../include/JavaScriptStringParam.h"
+#include "include/JavaScriptStringParam.h"
 #include "XFSPINCHN.h"
 
 #ifdef _DEBUG
@@ -28,7 +28,7 @@ CDCPinPad_30::~CDCPinPad_30()
 
 HRESULT CDCPinPad_30::_CallDC(LPCTSTR strMethod, CString & strSingleParam, CStringArray & strarrParams, BOOL & bValid)
 {
-	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	// µ÷ÓÃÃüÁî
 	HRESULT hResult = DC_ERROR;
 	if (0 == stricmp(strMethod, "WFS_CMD_PIN_CRYPT"))
 	{
@@ -313,7 +313,7 @@ CString CDCPinPad_30::HandleInfResult(LPLFSRESULT lpWfsRet)
 		LPLFSPINFUNCKEYDETAIL lpFK = (LPLFSPINFUNCKEYDETAIL)lpWfsRet->lpvdBuffer;
 		if (NULL != lpFK)
 		{
-			// ï¿½ï¿½ï¿½Ö¼ï¿½ï¿½Ì°ï¿½ï¿½ï¿½
+			// Êý×Ö¼üÅÌ°´¼ü
 			strWfsResult = CString(256, 0);
 			sprintf((char *)strWfsResult.c_str(), "wfsresult.u.dwcommandcode=%d"
 				"%s"
@@ -326,7 +326,7 @@ CString CDCPinPad_30::HandleInfResult(LPLFSRESULT lpWfsRet)
 				GetStringSplitChar(),
 				lpFK->usNumber_FDKs);
 
-			// ï¿½ï¿½ï¿½Ü¼ï¿½ï¿½Ì°ï¿½ï¿½ï¿½
+			// ¹¦ÄÜ¼üÅÌ°´¼ü
 			for (int nLoop = 0; nLoop < lpFK->usNumber_FDKs; nLoop++)
 			{
 				CString strFunctionPad(256, 0);
@@ -444,7 +444,7 @@ HRESULT CDCPinPad_30::CMD_PIN_CRYPT(LPCTSTR strBytesHex, LPCTSTR strKeyName, lon
 	strcpy((char*)lpCrypt->lpstrKey, strKeyName);
 	lpCrypt->lpxKey_EncKey = NULL;
 	// lpCrypt->algorithm = (WORD)wAlgorithm;
-	lpCrypt->wAlgorithm = LFS_PIN_CRYPTSM4;  // ï¿½Ì¶ï¿½Ê¹ï¿½Ã¹ï¿½ï¿½ï¿½ï¿½ã·¨SM4
+	lpCrypt->wAlgorithm = LFS_PIN_CRYPTSM4;  // ¹Ì¶¨Ê¹ÓÃ¹úÃÜËã·¨SM4
 	lpCrypt->lpstrStart_ValueKey = NULL;
 	lpCrypt->lpxStart_Value = NULL;
 	lpCrypt->bPadding = (BYTE)chPadChar;
@@ -640,7 +640,7 @@ HRESULT CDCPinPad_30::CMD_PIN_GET_PINBLOCK(WORD format, LPCTSTR strCustomerData,
 	
 	lpPinBlock->bPadding = (BYTE)chPadChar;
 	lpPinBlock->wFormat = format;
-	// lpPinBlock->algorithm = LFS_PIN_CRYPTSM4; // ï¿½Ì¶ï¿½Ê¹ï¿½Ã¹ï¿½ï¿½ï¿½ï¿½ã·¨SM4ï¿½ï¿½PISAï¿½ï¿½È¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	// lpPinBlock->algorithm = LFS_PIN_CRYPTSM4; // ¹Ì¶¨Ê¹ÓÃ¹úÃÜËã·¨SM4£ºPISAÖÐÈ¥µôÁËÕâ¸ö²ÎÊý
 
 	hResult = LFSAsyncExecute(m_DCObject.m_hService,
 		LFS_CMD_PIN_GET_PINBLOCK,
@@ -748,7 +748,7 @@ HRESULT CDCPinPad_30::CMD_PIN_IMPORT_KEY(LPCTSTR strKeyName, LPCTSTR strBytesHex
 	}
 
 	// lpImport->wUse = (WORD)(fwUse | LFS_PIN_USESM4);
-	lpImport->wUse = (WORD)fwUse;  // PISAÈ¥ï¿½ï¿½ï¿½ï¿½ LFS_PIN_USESM4 ï¿½Ä¶ï¿½ï¿½ï¿½
+	lpImport->wUse = (WORD)fwUse;  // PISAÈ¥³ýÁË LFS_PIN_USESM4 µÄ¶¨Òå
 
 	hResult = LFSAsyncExecute(	m_DCObject.m_hService,
 								LFS_CMD_PIN_IMPORT_KEY,
@@ -826,7 +826,7 @@ HRESULT CDCPinPad_30::CMD_PIN_RESET()
 
 int CDCPinPad_30::OnDCMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
-	if (FALSE == m_DCObject.m_bWosaXFSRun && LFS_OPEN_COMPLETE != uMsg)  // ï¿½ì²½ï¿½ï¿½Ä£ï¿½ï¿½Ê±ï¿½ï¿½ï¿½á·µï¿½ï¿½Ä£ï¿½ï¿½ò¿ª³É¹ï¿½ï¿½Â¼ï¿½
+	if (FALSE == m_DCObject.m_bWosaXFSRun && LFS_OPEN_COMPLETE != uMsg)  // Òì²½´ò¿ªÄ£¿éÊ±£¬»á·µ»ØÄ£¿é´ò¿ª³É¹¦ÊÂ¼þ
 	{
 		return -1;
 	}
@@ -908,8 +908,8 @@ int CDCPinPad_30::OnDCMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
 	{
 		CString strTrace(strlen(strWfsResult.c_str()) + 256, 0);
 
-		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
-		// 1ï¿½ï¿½PinBlock
+		// ÆÁ±ÎÃô¸ÐÐÅÏ¢
+		// 1¡¢PinBlock
 		std::string strWfsResultLog = strWfsResult;
 		if (-1 != strWfsResultLog.find("wfsresult.lpbuffer.lpbdata="))
 		{
@@ -1630,7 +1630,7 @@ CString	CDCPinPad_30::GetXFSSysEvtStr(DWORD dwEventID)
 	return strRes;
 }
 
-// ï¿½ï¿½Ô¿ï¿½Ö·ï¿½ï¿½ï¿½ï¿½Ö§ï¿½ï¿½
+// ÃÜÔ¿·Ö·¢Ïà¹ØÖ§³Ö
 HRESULT CDCPinPad_30::CMD_PIN_ENC_IO(long lCommand, LPCTSTR strKeyName, LPCTSTR strDataHex, long lUse, LPCTSTR strSigKey, long lSM2SignatureAlgorithm, LPCTSTR strSignatureHex)
 {
 	if (NULL == strKeyName || NULL == strDataHex || NULL == strSigKey || NULL == strSignatureHex)
@@ -1643,12 +1643,12 @@ HRESULT CDCPinPad_30::CMD_PIN_ENC_IO(long lCommand, LPCTSTR strKeyName, LPCTSTR 
 	LFSPINENCIO pinEncIo = { 0 };
 	PROTCHNIMPORTSM2PUBLICKEYIN InData = { 0 };
 
-	InData.wCommand = (WORD)lCommand;  // WFS_CMD_ENC_IO_CHN_IMPORT_SM2_PUBLIC_KEY ï¿½ï¿½ï¿½ï¿½ WFS_CMD_ENC_IO_CHN_IMPORT_RSA_PUBLIC_KEY
+	InData.wCommand = (WORD)lCommand;  // WFS_CMD_ENC_IO_CHN_IMPORT_SM2_PUBLIC_KEY »òÕß WFS_CMD_ENC_IO_CHN_IMPORT_RSA_PUBLIC_KEY
 
-	InData.lpsKey = (LPTSTR)(LPCTSTR)strKeyName;  // ï¿½ï¿½Ô¿ï¿½ï¿½ï¿½ï¿½
-	InData.dwUse = (WORD)lUse;  // ï¿½ï¿½Ô¿ï¿½Ã·ï¿½ï¿½ï¿½PROT_CHN_USESM2PUBLIC ï¿½ï¿½ï¿½ï¿½ WFS_PIN_USERSAPUBLIC
+	InData.lpsKey = (LPTSTR)(LPCTSTR)strKeyName;  // ¹«Ô¿Ãû×Ö
+	InData.dwUse = (WORD)lUse;  // ¹«Ô¿ÓÃ·¨£ºPROT_CHN_USESM2PUBLIC »òÕß WFS_PIN_USERSAPUBLIC
 
-	// ï¿½ï¿½Ô¿Ö¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	// ¹«Ô¿Ö¤ÊéÊý¾Ý
 	int nLenBytes = strlen(strDataHex) / 2;
 	BYTE * pszValue = new BYTE[nLenBytes];
 	memset(pszValue, 0, nLenBytes);
@@ -1716,7 +1716,7 @@ HRESULT CDCPinPad_30::CMD_PIN_DERIVE_KEY(long wDerivationAlgorithm, LPCTSTR strK
 	HRESULT hResult = DC_ERROR;
 
 	LFSPINDERIVE pinderive = { 0 };
-	pinderive.wDerivation_Algorithm = (WORD)wDerivationAlgorithm;  // WFS_PIN_KEYDES ï¿½ï¿½ï¿½ï¿½ WFS_PIN_KEYSM4
+	pinderive.wDerivation_Algorithm = (WORD)wDerivationAlgorithm;  // WFS_PIN_KEYDES »òÕß WFS_PIN_KEYSM4
 	pinderive.lpsKey = (NULL == strKeyName || 0 == strlen(strKeyName)) ? NULL : (LPTSTR)(LPCTSTR)strKeyName;
 	pinderive.lpsKey_Gen_Key = (NULL == strKeyGenKey || 0 == strlen(strKeyGenKey)) ? NULL : (LPTSTR)(LPCTSTR)strKeyGenKey;  // NULL
 	pinderive.lpsStart_Value_Key = (NULL == strStartValueKey || 0 == strlen(strStartValueKey)) ? NULL : (LPTSTR)(LPCTSTR)strStartValueKey;  // NULL
@@ -1815,7 +1815,7 @@ HRESULT CDCPinPad_30::CMD_PIN_DERIVE_KEY(long wDerivationAlgorithm, LPCTSTR strK
 	HRESULT hResult = DC_ERROR;
 
 	LFSPINDERIVE pinderive = { 0 };
-	pinderive.derivation_algorithm = (WORD)wDerivationAlgorithm;  // WFS_PIN_KEYDES ï¿½ï¿½ï¿½ï¿½ WFS_PIN_KEYSM4
+	pinderive.derivation_algorithm = (WORD)wDerivationAlgorithm;  // WFS_PIN_KEYDES »òÕß WFS_PIN_KEYSM4
 	// pinderive.key = (NULL == strKeyName || 0 == strlen(strKeyName)) ? NULL : strdup(strKeyName);
 	pinderive.key = "RandomKey";
 	// pinderive.key_gen_key = (NULL == strKeyGenKey || 0 == strlen(strKeyGenKey)) ? NULL : strdup(strKeyGenKey);  // NULL

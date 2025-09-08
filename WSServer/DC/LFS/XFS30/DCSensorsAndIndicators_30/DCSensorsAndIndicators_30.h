@@ -9,9 +9,10 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-#include "DC_30.h"
-#include "DC.h"
-#include "lfssiu.h"
+#include "../DC_30.h"
+#include "../../../DC/DC.h"
+#include "../../include/lfssiu.h"
+#include "../../../../stdafx.h"
 
 class CDCSensorsAndIndicators_30 : public CDC_30 
 {
@@ -42,7 +43,7 @@ public:
 	HRESULT INF_SIU_CAPABILITIES();
 	HRESULT INF_SIU_STATUS();
 
-	// ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½
+	// ÃüÁîÖ´ÐÐ
 	HRESULT CMD_SIU_ENABLE_EVENTS(LPCTSTR strEnable);
 	HRESULT CMD_SIU_SET_AUXILIARY(long lAuxiliary, long lCommand);
 	HRESULT CMD_SIU_SET_DOOR(long lDoor, long lCommand);
