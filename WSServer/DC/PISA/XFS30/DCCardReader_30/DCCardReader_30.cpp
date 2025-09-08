@@ -3,7 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "DCCardReader_30.h"
-// #include "../../../include/JavaScriptStringParam.h"
+// #include "JavaScriptStringParam.h"
 #include "include/JavaScriptStringParam.h"
 
 //////////////////////////////////////////////////////////////////////
@@ -24,7 +24,7 @@ CDCCardReader_30::~CDCCardReader_30()
 
 HRESULT CDCCardReader_30::_CallDC(LPCTSTR strMethod, CString & strSingleParam, CStringArray & strarrParams, BOOL & bValid)
 {
-	// µ÷ÓÃÃüÁî
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	HRESULT hResult = DC_ERROR;
 	if (0 == stricmp(strMethod, "WFS_CMD_IDC_EJECT_CARD"))
 	{
@@ -287,7 +287,7 @@ CString	CDCCardReader_30::GetXFSErrStr(HRESULT hResult)
 
 int CDCCardReader_30::OnDCMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
-	if (FALSE == m_DCObject.m_bWosaXFSRun && LFS_OPEN_COMPLETE != uMsg)  // Òì²½´ò¿ªÄ£¿éÊ±£¬»á·µ»ØÄ£¿é´ò¿ª³É¹¦ÊÂ¼þ
+	if (FALSE == m_DCObject.m_bWosaXFSRun && LFS_OPEN_COMPLETE != uMsg)  // ï¿½ì²½ï¿½ï¿½Ä£ï¿½ï¿½Ê±ï¿½ï¿½ï¿½á·µï¿½ï¿½Ä£ï¿½ï¿½ò¿ª³É¹ï¿½ï¿½Â¼ï¿½
 	{
 		return -1;
 	}
@@ -389,7 +389,7 @@ int CDCCardReader_30::OnDCMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
 	{
 		CString strWfsResult2Trace = strWfsResult;
 
-		// Á÷Ë®ÎÄ¼þÖÐ¼ÇÂ¼Êý¾Ý£¬ÆÁ±Î¿¨´ÅµÀÊý¾Ý£ºÒ»¶þÈý´ÅµÀ
+		// ï¿½ï¿½Ë®ï¿½Ä¼ï¿½ï¿½Ð¼ï¿½Â¼ï¿½ï¿½ï¿½Ý£ï¿½ï¿½ï¿½ï¿½Î¿ï¿½ï¿½Åµï¿½ï¿½ï¿½ï¿½Ý£ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Åµï¿½
 		for (int nLoop = 0; nLoop < 3; nLoop ++)
 		{
 			char szFlag[64] = {0};
@@ -529,7 +529,7 @@ CString CDCCardReader_30::HandleCmdResult(LPLFSRESULT lpWfsRet)
 						&& lppCardData[nLoop]->ulData_Length < 2 * 1024 * 1024)
 					{
 						if (LFS_IDC_CHIP == lppCardData[nLoop]->wData_Source
-							// && lppCardData[nLoop]->ulData_Length < 128)  // 20250620 ÖÐµç½ðÈÚ»úÆ÷LFS_IDC_CHIP·µ»ØÁË³¤¶ÈÎª512
+							// && lppCardData[nLoop]->ulData_Length < 128)  // 20250620 ï¿½Ðµï¿½ï¿½ï¿½Ú»ï¿½ï¿½ï¿½LFS_IDC_CHIPï¿½ï¿½ï¿½ï¿½ï¿½Ë³ï¿½ï¿½ï¿½Îª512
 							&& lppCardData[nLoop]->ulData_Length < 8 * 1024)
 						{
 							pszTrack = new char[lppCardData[nLoop]->ulData_Length * 2 + 2];

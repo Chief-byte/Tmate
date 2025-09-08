@@ -1,8 +1,8 @@
 #include "MessageHandle.h"
 #include "stdafx.h"
-#include "include/Utils.h"
-#include "Extension/Extension.h"
-#include "DC/DC/DC.h"
+#include "Utils.h"
+#include "Extension.h"
+#include "DC.h"
 #include <mutex>
 
 extern struct session_data session_data4send;

@@ -2,7 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 #include "DCScanner_30.h"
-#include "../../include/JavaScriptStringParam.h"
+#include "JavaScriptStringParam.h"
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
@@ -20,7 +20,7 @@ CDCScanner_30::~CDCScanner_30()
 
 HRESULT CDCScanner_30::_CallDC(LPCTSTR strMethod, CString & strSingleParam, CStringArray & strarrParams, BOOL & bValid)
 {
-	// µ÷ÓÃÃüÁî
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	HRESULT hResult = DC_ERROR;
 	if (0 == stricmp(strMethod, "WFS_CMD_CHK_PROCESS_FORM"))
 	{
@@ -999,7 +999,7 @@ HRESULT CDCScanner_30::INF_CHK_FORM_LIST()
 	}
 
 	CString strWfsResult((NULL == lpszFormList ? 0 : strlen(lpszFormList)) + 1024, 0);
-	// wfsresult.lpbufferÒò²»ÄÜÇø·ÖWFS_INF_CHK_FORM_LIST¡¢WFS_INF_CHK_MEDIA_LISTÃüÁî½á¹û£¬Ê¹ÓÃ±äÁ¿ÃûÌæ´ú
+	// wfsresult.lpbufferï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½WFS_INF_CHK_FORM_LISTï¿½ï¿½WFS_INF_CHK_MEDIA_LISTï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½Ã±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	sprintf((char *)strWfsResult.c_str(), "wfsresult.u.dwcommandcode=%d"
 						"%s"
 						"wfsresult.lpszformlist=%s",
@@ -1058,7 +1058,7 @@ HRESULT CDCScanner_30::INF_CHK_MEDIA_LIST()
 	}
 
 	CString strWfsResult((NULL == lpszMediaList ? 0 : strlen(lpszMediaList)) + 1024, 0);
-	// wfsresult.lpbufferÒò²»ÄÜÇø·ÖWFS_INF_CHK_FORM_LIST¡¢WFS_INF_CHK_MEDIA_LISTÃüÁî½á¹û£¬Ê¹ÓÃ±äÁ¿ÃûÌæ´ú
+	// wfsresult.lpbufferï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½WFS_INF_CHK_FORM_LISTï¿½ï¿½WFS_INF_CHK_MEDIA_LISTï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½Ã±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	sprintf((char *)strWfsResult.c_str(), "wfsresult.u.dwcommandcode=%d"
 						"%s"
 						"wfsresult.lpszmedialist=%s",

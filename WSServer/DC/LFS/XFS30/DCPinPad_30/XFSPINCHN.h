@@ -14,7 +14,7 @@
 extern "C" {
 #endif
 
-#include "../../include/lfsapi.h"
+#include "lfsapi.h"
 
 /*   be aware of alignment   */
 #pragma pack(push,1)

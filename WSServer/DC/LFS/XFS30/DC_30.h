@@ -9,15 +9,15 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-#include "../../../include/DCTrace.h"
-#include "../../../include/Utils.h"
-#include "../../DC/IDC.h"
-#include "../../DC/DC.h"
-#include "../include/lfsapi.h"
-#include "../include/lfsadmin.h"
-#include "../../../stdafx.h"
+#include "DCTrace.h"
+#include "Utils.h"
+#include "IDC.h"
+#include "DC.h"
+#include "lfsapi.h"
+#include "lfsadmin.h"
+#include "stdafx.h"
 
-// 使用信号量
+// 使锟斤拷锟脚猴拷锟斤拷
 #include <sys/types.h>
 #include <sys/ipc.h>
 #include <sys/sem.h>
@@ -104,7 +104,7 @@ public:
 
 public:
 	// static UINT OpenThread(LPVOID lpParam);
-	bool m_bIsOenCompleted;  // 20200805 Linux设备上因打开模块时需要传入D-Bus的路径，不能使用同步打开模块方式，更改为异步打开方式：收到异步模块打开完成才能认为模块打开完成
+	bool m_bIsOenCompleted;  // 20200805 Linux锟借备锟斤拷锟斤拷锟侥ｏ拷锟绞憋拷锟揭拷锟斤拷锟紻-Bus锟斤拷路锟斤拷锟斤拷锟斤拷锟斤拷使锟斤拷同锟斤拷锟斤拷模锟介方式锟斤拷锟斤拷锟斤拷为锟届步锟津开凤拷式锟斤拷锟秸碉拷锟届步模锟斤拷锟斤拷锟缴诧拷锟斤拷锟斤拷为模锟斤拷锟斤拷锟斤拷
 	bool m_bIsOpenThreadEnd;
 	static void * OpenThread(LPVOID lpParam);
 
@@ -125,7 +125,7 @@ public:
 public:
 	HRESULT CallDC(LPCTSTR strMethod, LPCTSTR strParams);
 
-// 信号量处理
+// 锟脚猴拷锟斤拷锟斤拷锟斤拷
 protected:
 	union semun
 	{

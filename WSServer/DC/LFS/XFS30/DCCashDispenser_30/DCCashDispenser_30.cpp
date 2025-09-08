@@ -2,7 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 #include "DCCashDispenser_30.h"
-#include "../../../include/JavaScriptStringParam.h"
+#include "JavaScriptStringParam.h"
 #include <unistd.h>
 
 //////////////////////////////////////////////////////////////////////
@@ -26,7 +26,7 @@ CDCCashDispenser_30::~CDCCashDispenser_30()
 
 HRESULT CDCCashDispenser_30::_CallDC(LPCTSTR strMethod, CString & strSingleParam, CStringArray & strarrParams, BOOL & bValid)
 {
-	// µ÷ÓÃÃüÁî
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	HRESULT hResult = DC_ERROR;
 	if (0 == stricmp(strMethod, "WFS_CMD_CDM_DENOMINATE"))
 	{
@@ -79,13 +79,13 @@ HRESULT CDCCashDispenser_30::_CallDC(LPCTSTR strMethod, CString & strSingleParam
 	}
 	else if (0 == stricmp(strMethod, "WFS_CMD_CDM_SET_TELLER_INFO"))
 	{
-		// ²»Ê¹ÓÃ´Ë·½·¨
+		// ï¿½ï¿½Ê¹ï¿½Ã´Ë·ï¿½ï¿½ï¿½
 		// bValid = TRUE;
 		// hResult = CMD_CDM_SET_TELLER_INFO();
 	}
 	else if (0 == stricmp(strMethod, "WFS_CMD_CDM_SET_CASH_UNIT_INFO"))
 	{
-		// ²»Ê¹ÓÃ´Ë·½·¨
+		// ï¿½ï¿½Ê¹ï¿½Ã´Ë·ï¿½ï¿½ï¿½
 		// bValid = TRUE;
 		// hResult = CMD_CDM_SET_CASH_UNIT_INFO();
 	}
@@ -101,19 +101,19 @@ HRESULT CDCCashDispenser_30::_CallDC(LPCTSTR strMethod, CString & strSingleParam
 	}
 	else if (0 == stricmp(strMethod, "WFS_CMD_CDM_OPEN_SAFE_DOOR"))
 	{
-		// ²»Ê¹ÓÃ´Ë·½·¨
+		// ï¿½ï¿½Ê¹ï¿½Ã´Ë·ï¿½ï¿½ï¿½
 		// bValid = TRUE;
 		// hResult = CMD_CDM_OPEN_SAFE_DOOR();
 	}
 	else if (0 == stricmp(strMethod, "WFS_CMD_CDM_CALIBRATE_CASH_UNIT"))
 	{
-		// ²»Ê¹ÓÃ´Ë·½·¨
+		// ï¿½ï¿½Ê¹ï¿½Ã´Ë·ï¿½ï¿½ï¿½
 		// bValid = TRUE;
 		// hResult = CMD_CDM_CALIBRATE_CASH_UNIT();
 	}
 	else if (0 == stricmp(strMethod, "WFS_CMD_CDM_SET_MIX_TABLE"))
 	{
-		// ²»Ê¹ÓÃ´Ë·½·¨
+		// ï¿½ï¿½Ê¹ï¿½Ã´Ë·ï¿½ï¿½ï¿½
 		// bValid = TRUE;
 		// hResult = CMD_CDM_SET_MIX_TABLE();
 	}
@@ -264,11 +264,11 @@ CString CDCCashDispenser_30::HandleSRVEvtResult(LPLFSRESULT lpWfsRet)
 		return "";
 	}
 
-	// Èç¹ûÐèÒªÊ¹ÓÃLFS_SRVE_CDM_MEDIADETECTEDÊÂ¼þ£¬ÐèÒª×¢ÒâWOSAÎÄµµÖÐµÄLFS_SRVE_CDM_MEDIADETECTEDÊÂ¼þµÄ²ÎÊý
-	// ¶¨ÒåµÄÊÇ"LPLFSCDMITEMPOSITION * lpItemPosition"
-	// Õâ¸öÓÐÆçÒå£¬Õý³£LP??? * ºóÃæµÄ±äÁ¿ÃûÓ¦ÊÇlpp¿ªÍ·£¬Èç¹ûÊÇlp¿ªÍ·£¬¾ÍÓ¦¸ÃÊÇÖ»ÓÐLP???
-	// CIMÎÄµµÖÐÕâ¸öÃ»ÓÐÎÊÌâ£¬Ã»ÓÐ"*"
-	// Áí£ºÈ¡¿îÖÐÓ¦×÷Îª"LPLFSCDMITEMPOSITION lpItemPosition"£¨Ã»ÓÐ"*"£©£¬´Ë´¦²»ÐèÒªÖ¸ÕëÊý×é£¬¼ÆËãÒªÓÃÖ¸ÕëÊý×éÒ²Ó¦¸ÃÊÇCIMÖÐÏÈÊ¹ÓÃ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ÒªÊ¹ï¿½ï¿½LFS_SRVE_CDM_MEDIADETECTEDï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½Òª×¢ï¿½ï¿½WOSAï¿½Äµï¿½ï¿½Ðµï¿½LFS_SRVE_CDM_MEDIADETECTEDï¿½Â¼ï¿½ï¿½Ä²ï¿½ï¿½ï¿½
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"LPLFSCDMITEMPOSITION * lpItemPosition"
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½å£¬ï¿½ï¿½ï¿½ï¿½LP??? * ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½lppï¿½ï¿½Í·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½lpï¿½ï¿½Í·ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½Ö»ï¿½ï¿½LP???
+	// CIMï¿½Äµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½â£¬Ã»ï¿½ï¿½"*"
+	// ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½Îª"LPLFSCDMITEMPOSITION lpItemPosition"ï¿½ï¿½Ã»ï¿½ï¿½"*"ï¿½ï¿½ï¿½ï¿½ï¿½Ë´ï¿½ï¿½ï¿½ï¿½ï¿½ÒªÖ¸ï¿½ï¿½ï¿½ï¿½ï¿½é£¬ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò²Ó¦ï¿½ï¿½ï¿½ï¿½CIMï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½
 
 	CString strWfsResult(256, 0);
 	sprintf((char *)strWfsResult.c_str(), "wfsresult.hresult=%d"
@@ -663,12 +663,12 @@ CString CDCCashDispenser_30::HandleCmdResult(LPLFSRESULT lpWfsRet)
 	{
 		case LFS_CMD_CDM_DENOMINATE:
 		{
-			// ²»break ;£¬ÏÂÃæµÄLFS_CMD_CDM_DISPENSE·ÖÖ§ºÍLFS_CMD_CDM_DENOMINATE·ÖÖ§¶¼·µ»ØLFSCDMDENOMINATION½á¹¹
+			// ï¿½ï¿½break ;ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½LFS_CMD_CDM_DISPENSEï¿½ï¿½Ö§ï¿½ï¿½LFS_CMD_CDM_DENOMINATEï¿½ï¿½Ö§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½LFSCDMDENOMINATIONï¿½á¹¹
 			// break ;
 		}
 		case LFS_CMD_CDM_DISPENSE:
 		{
-			// ×¢Òâ£ºÉÏÃæµÄLFS_CMD_CDM_DENOMINATE·ÖÖ§´¦Àí½áÊøºóÃ»ÓÐbreak ;£¬¹Ê»áÖØÓÃ´Ë·ÖÖ§µÄ´úÂë
+			// ×¢ï¿½â£ºï¿½ï¿½ï¿½ï¿½ï¿½LFS_CMD_CDM_DENOMINATEï¿½ï¿½Ö§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½break ;ï¿½ï¿½ï¿½Ê»ï¿½ï¿½ï¿½ï¿½Ã´Ë·ï¿½Ö§ï¿½Ä´ï¿½ï¿½ï¿½
 
 			LPLFSCDMDENOMINATION lpDenomination = (LPLFSCDMDENOMINATION)lpWfsRet->buffer;
 			if (NULL == lpDenomination)
@@ -779,7 +779,7 @@ CString CDCCashDispenser_30::HandleCmdResult(LPLFSRESULT lpWfsRet)
 
 int CDCCashDispenser_30::OnDCMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
-	if (FALSE == m_DCObject.m_bWosaXFSRun && LFS_OPEN_COMPLETE != uMsg)  // Òì²½´ò¿ªÄ£¿éÊ±£¬»á·µ»ØÄ£¿é´ò¿ª³É¹¦ÊÂ¼þ
+	if (FALSE == m_DCObject.m_bWosaXFSRun && LFS_OPEN_COMPLETE != uMsg)  // ï¿½ì²½ï¿½ï¿½Ä£ï¿½ï¿½Ê±ï¿½ï¿½ï¿½á·µï¿½ï¿½Ä£ï¿½ï¿½ò¿ª³É¹ï¿½ï¿½Â¼ï¿½
 	{
 		return -1;
 	}
@@ -824,7 +824,7 @@ int CDCCashDispenser_30::OnDCMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
 				strWfsResult = HandleInfResult(lpWfsRet);
 			}
 
-			if (FALSE == m_bCashUnitInfo4EndExchange)  // LFS_CMD_CDM_END_EXCHANGEºóÐøÐèÒªÊ¹ÓÃ´Ë×´Ì¬ÐÅÏ¢ÖÐµÄ³®Ïä½á¹¹£¬EndExchangeÊ¹ÓÃÍê±ÏºóÔÙÊÍ·Å
+			if (FALSE == m_bCashUnitInfo4EndExchange)  // LFS_CMD_CDM_END_EXCHANGEï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÒªÊ¹ï¿½Ã´ï¿½×´Ì¬ï¿½ï¿½Ï¢ï¿½ÐµÄ³ï¿½ï¿½ï¿½á¹¹ï¿½ï¿½EndExchangeÊ¹ï¿½ï¿½ï¿½ï¿½Ïºï¿½ï¿½ï¿½ï¿½Í·ï¿½
 			{
 				LFSFreeResult(lpWfsRet);
 			}
@@ -1204,10 +1204,10 @@ CString CDCCashDispenser_30::HandleInfResult(LPLFSRESULT lpWfsRet)
 			strWfsResult = string(strWfsResult.c_str()) + strCdmCashUnit;
 		}
 
-		// EXE_LFS_CMD_CDM_END_EXCHANGE·½·¨»áµ÷ÓÃ´ËGET_LFS_INF_CDM_CASH_UNIT_INFO·½·¨£¬ÓÃÓÚ»ñÈ¡´«µÝµ½SPµÄ¼Ó³®µÄ½á¹¹
+		// EXE_LFS_CMD_CDM_END_EXCHANGEï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã´ï¿½GET_LFS_INF_CDM_CASH_UNIT_INFOï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú»ï¿½È¡ï¿½ï¿½ï¿½Ýµï¿½SPï¿½Ä¼Ó³ï¿½ï¿½Ä½á¹¹
 		if (TRUE == m_bCashUnitInfo4EndExchange)
 		{
-			// ·µ»ØÇÒ²»ÊÍ·ÅLFS½á¹û
+			// ï¿½ï¿½ï¿½ï¿½ï¿½Ò²ï¿½ï¿½Í·ï¿½LFSï¿½ï¿½ï¿½
 			m_lpResult4EndExchange = lpWfsRet;
 		}
 	}
@@ -1437,8 +1437,8 @@ HRESULT CDCCashDispenser_30::INF_CDM_CASH_UNIT_INFO()
 
 HRESULT CDCCashDispenser_30::INF_CDM_CURRENCY_EXP()
 {
-	// ¶ÔÓÚÓ¦ÓÃ¶øÑÔ£¬Õâ¸öÃüÁîÃ»ÓÐÓÃ´¦£¬¶øÇÒ´¦ÀíÐèÒªºÜÂÞàÂ£¬·µ»ØÊ§°Ü
-	// ÏàÍ¬µÄÓÐ£ºGET_LFS_INF_CDM_MIX_TYPES¡¢GET_LFS_INF_CDM_MIX_TABLE¡¢GET_LFS_INF_CDM_CURRENCY_EXP
+	// ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½Ã¶ï¿½ï¿½Ô£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½Ã´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò´ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½Â£ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½
+	// ï¿½ï¿½Í¬ï¿½ï¿½ï¿½Ð£ï¿½GET_LFS_INF_CDM_MIX_TYPESï¿½ï¿½GET_LFS_INF_CDM_MIX_TABLEï¿½ï¿½GET_LFS_INF_CDM_CURRENCY_EXP
 	return (short)DC_ERROR;
 
 	HRESULT hResult = DC_ERROR;
@@ -1458,18 +1458,18 @@ HRESULT CDCCashDispenser_30::INF_CDM_CURRENCY_EXP()
 
 HRESULT CDCCashDispenser_30::INF_CDM_MIX_TYPES()
 {
-	// ¶ÔÓÚÓ¦ÓÃ¶øÑÔ£¬Õâ¸öÃüÁîÃ»ÓÐÓÃ´¦£¬¶øÇÒ´¦ÀíÐèÒªºÜÂÞàÂ£¬·µ»ØÊ§°Ü
-	// ÏàÍ¬µÄÓÐ£ºGET_LFS_INF_CDM_MIX_TYPES¡¢GET_LFS_INF_CDM_MIX_TABLE¡¢GET_LFS_INF_CDM_CURRENCY_EXP
+	// ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½Ã¶ï¿½ï¿½Ô£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½Ã´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò´ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½Â£ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½
+	// ï¿½ï¿½Í¬ï¿½ï¿½ï¿½Ð£ï¿½GET_LFS_INF_CDM_MIX_TYPESï¿½ï¿½GET_LFS_INF_CDM_MIX_TABLEï¿½ï¿½GET_LFS_INF_CDM_CURRENCY_EXP
 	return (short)DC_ERROR;
 }
 
 HRESULT CDCCashDispenser_30::INF_CDM_MIX_TABLE()
 {
-	// ¶ÔÓÚÓ¦ÓÃ¶øÑÔ£¬Õâ¸öÃüÁîÃ»ÓÐÓÃ´¦£¬¶øÇÒ´¦ÀíÐèÒªºÜÂÞàÂ£¬·µ»ØÊ§°Ü
-	// ÏàÍ¬µÄÓÐ£ºGET_LFS_INF_CDM_MIX_TYPES¡¢GET_LFS_INF_CDM_MIX_TABLE¡¢GET_LFS_INF_CDM_CURRENCY_EXP
+	// ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½Ã¶ï¿½ï¿½Ô£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½Ã´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò´ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½Â£ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½
+	// ï¿½ï¿½Í¬ï¿½ï¿½ï¿½Ð£ï¿½GET_LFS_INF_CDM_MIX_TYPESï¿½ï¿½GET_LFS_INF_CDM_MIX_TABLEï¿½ï¿½GET_LFS_INF_CDM_CURRENCY_EXP
 	return (short)DC_ERROR;
 
-	// ×¢Òâ£¬ÏÂÃæµÄ´úÂëÃ»ÓÐ¾­¹ý²âÊÔ£¬Èç·Å¿ª£¬ÇëÏÈ²âÊÔ
+	// ×¢ï¿½â£¬ï¿½ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½Ã»ï¿½Ð¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô£ï¿½ï¿½ï¿½Å¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È²ï¿½ï¿½ï¿½
 
 	HRESULT hResult = DC_ERROR;
 
@@ -1506,7 +1506,7 @@ HRESULT CDCCashDispenser_30::CMD_CDM_COUNT(LPCTSTR strPhysicalLocation, long lPo
 	HRESULT hResult = DC_ERROR;
 
 	LFSCDMPHYSICALCU PhysicalCU = {0};
-	if (0 == stricmp(strPhysicalLocation, "_ALL_"))  // ×Ô¶¨Òå¹Ø¼ü×Ö£¬´«Èë _ALL_ Ê±½«³®ÏäÖÐËùÓÐ³®Æ±Çå¿Õ²¢¼ÆÊý
+	if (0 == stricmp(strPhysicalLocation, "_ALL_"))  // ï¿½Ô¶ï¿½ï¿½ï¿½Ø¼ï¿½ï¿½Ö£ï¿½ï¿½ï¿½ï¿½ï¿½ _ALL_ Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð³ï¿½Æ±ï¿½ï¿½Õ²ï¿½ï¿½ï¿½ï¿½ï¿½
 	{
 		PhysicalCU.empty_all = TRUE;
 	}
@@ -1612,8 +1612,8 @@ HRESULT CDCCashDispenser_30::CMD_CDM_END_EXCHANGE(LPCTSTR strCUInfo)
 
 	HRESULT hResult = DC_ERROR;
 
-	// µ÷ÓÃGET_LFS_INF_CDM_CASH_UNIT_INFO»ñÈ¡³®Ïä½á¹¹
-	if (NULL != m_lpResult4EndExchange)  // ·ÀÖ¹ÓÐ²ÐÁôÄÚ´æÃ»ÓÐÊÍ·Å
+	// ï¿½ï¿½ï¿½ï¿½GET_LFS_INF_CDM_CASH_UNIT_INFOï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½á¹¹
+	if (NULL != m_lpResult4EndExchange)  // ï¿½ï¿½Ö¹ï¿½Ð²ï¿½ï¿½ï¿½ï¿½Ú´ï¿½Ã»ï¿½ï¿½ï¿½Í·ï¿½
 	{
 		LFSFreeResult(m_lpResult4EndExchange);
 		m_lpResult4EndExchange = NULL;
@@ -1629,7 +1629,7 @@ HRESULT CDCCashDispenser_30::CMD_CDM_END_EXCHANGE(LPCTSTR strCUInfo)
 		return hResult;
 	}
 
-	// ×î¶àµÈ´ýINF_CIM_CASH_UNIT_INFO 30ÃëÈ¡×´Ì¬Íê³É£¬»ñÈ¡³®Ïä½á¹¹ÒÔ½øÐÐÊý¾ÝÌî³ä
+	// ï¿½ï¿½ï¿½È´ï¿½INF_CIM_CASH_UNIT_INFO 30ï¿½ï¿½È¡×´Ì¬ï¿½ï¿½É£ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½á¹¹ï¿½Ô½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	int nCount = 0;
 	while (NULL == m_lpResult4EndExchange && (++ nCount) < 300)
 	{
@@ -1659,7 +1659,7 @@ HRESULT CDCCashDispenser_30::CMD_CDM_END_EXCHANGE(LPCTSTR strCUInfo)
 	BOOL bEndWithNoChange = FALSE;
 	if (0 == strlen(strCUInfo) || NULL != strstr(strCUInfo, "ccurrencyid"))
 	{
-		// ²»¸Ä±ä³®ÏäÕÅÊýµÄ¼Ó³®£¬ÓÃÓÚÈ¡¿îÄ£¿é¸´Î»¡¢½µ³®ÏäµÈ²Ù×÷ÖÐµÄ¸ü»»³®ÏäÃüÁî£¬»òÕßÉèÖÃ³®Ïä±ÒÖÖÃæÖµµÄ²Ù×÷
+		// ï¿½ï¿½ï¿½Ä±ä³®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼Ó³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½Ä£ï¿½é¸´Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È²ï¿½ï¿½ï¿½ï¿½ÐµÄ¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½î£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½Ä²ï¿½ï¿½ï¿½
 		bEndWithNoChange = TRUE;
 	}
 
@@ -1708,9 +1708,9 @@ HRESULT CDCCashDispenser_30::CMD_CDM_END_EXCHANGE(LPCTSTR strCUInfo)
 			}
 			else
 			{
-				// ³®Ïä¼ÆÊý²»¸Ä±ä
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½
 
-				// ¸ü¸Ä±ÒÖÖ
+				// ï¿½ï¿½ï¿½Ä±ï¿½ï¿½ï¿½
 				strParamKey = CString(256, 0);
 				sprintf((char *)strParamKey.c_str(), "wfsresult.lpbuffer.lpplist[%d].ccurrencyid", nLoop);
 				if (TRUE == CJSStringParam::GetStringParam(strarrParams, strParamKey.c_str(), strParamValue))
@@ -1732,7 +1732,7 @@ HRESULT CDCCashDispenser_30::CMD_CDM_END_EXCHANGE(LPCTSTR strCUInfo)
 							strParamValue.length());
 				}
 
-				// ¸ü¸ÄÃæÖµ
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
 				strParamKey = CString(256, 0);
 				sprintf((char *)strParamKey.c_str(), "wfsresult.lpbuffer.lpplist[%d].ulvalues", nLoop);
 				if (TRUE == CJSStringParam::GetStringParam(strarrParams, strParamKey.c_str(), strParamValue))
@@ -1769,7 +1769,7 @@ HRESULT CDCCashDispenser_30::CMD_CDM_END_EXCHANGE(LPCTSTR strCUInfo)
 					}
 					else
 					{
-						// ³®Ïä¼ÆÊý²»¸Ä±ä£¬»òÕß¸ü¸Ä±ÒÖÖºÍÃæÖµÊ±²»ÐèÒª¸Ä¶¯ÎïÀí³®Ïä
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ä£¬ï¿½ï¿½ï¿½ß¸ï¿½ï¿½Ä±ï¿½ï¿½Öºï¿½ï¿½ï¿½ÖµÊ±ï¿½ï¿½ï¿½ï¿½Òªï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 					}
 				}
 			}

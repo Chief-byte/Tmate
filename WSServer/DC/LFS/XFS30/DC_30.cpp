@@ -3,8 +3,8 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "DC_30.h"
-#include "../../../include/JavaScriptStringParam.h"
-#include "../DBusService.h"
+#include "JavaScriptStringParam.h"
+#include "DBusService.h"
 #include <unistd.h>
 #include <pthread.h>
 #include <dlfcn.h>
@@ -158,7 +158,7 @@ bool CDC_30::LoadXFS()
 		return false;
 	}
 
-	// Æô¶¯DBUS·þÎñÏß³ÌÓÃÓÚ»ñÈ¡SP·µ»ØµÄÏûÏ¢
+	// ï¿½ï¿½ï¿½ï¿½DBUSï¿½ï¿½ï¿½ï¿½ï¿½ß³ï¿½ï¿½ï¿½ï¿½Ú»ï¿½È¡SPï¿½ï¿½ï¿½Øµï¿½ï¿½ï¿½Ï¢
 	pthread_t dwDBusThreadID = 0; 
 	pthread_create(&dwDBusThreadID, NULL, DBusService::Init, this);
 
@@ -200,11 +200,11 @@ HRESULT CDC_30::CallDC(LPCTSTR strMethod, LPCTSTR strParams)
 		return -1;
 	}
 
-	// ¼ÇÂ¼µ÷ÓÃ²ÎÊýÁ÷Ë®
+	// ï¿½ï¿½Â¼ï¿½ï¿½ï¿½Ã²ï¿½ï¿½ï¿½ï¿½ï¿½Ë®
 	CString strTrace(strlen(strMethod) + strlen(strParams) + 256, 0);
 
-	// ÆÁ±ÎÃô¸Ð²ÎÊý
-	// 1¡¢ÃÜÔ¿Öµ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð²ï¿½ï¿½ï¿½
+	// 1ï¿½ï¿½ï¿½ï¿½Ô¿Öµ
 	if (0 == strcmp(strMethod, "WFS_CMD_PIN_IMPORT_KEY"))
 	{
 		std::string strParamsLog = strParams;
@@ -230,7 +230,7 @@ HRESULT CDC_30::CallDC(LPCTSTR strMethod, LPCTSTR strParams)
 	CStringArray strarrParams;
 	if (0 == strncmp(strParams, "=", 1))
 	{
-		// = ¿ªÍ·µÄ²ÎÊýÎªµ¥Ò»²ÎÊý£¬·½·¨×ÔÐÐ½âÎö
+		// = ï¿½ï¿½Í·ï¿½Ä²ï¿½ï¿½ï¿½Îªï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð½ï¿½ï¿½ï¿½
 		strSingleParam = ((LPTSTR)(LPCTSTR)strParams) + 1;
 	}
 	else
@@ -238,11 +238,11 @@ HRESULT CDC_30::CallDC(LPCTSTR strMethod, LPCTSTR strParams)
 		CJSStringParam::GetStringParams(strParams, GetStringSplitChar(), strarrParams);
 	}
 
-	// µ÷ÓÃÃüÁî
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	BOOL bValid = FALSE;
 	HRESULT hResult = _CallDC(strMethod, strSingleParam, strarrParams, bValid);
 
-	// ¼ÇÂ¼µ÷ÓÃ½á¹ûÁ÷Ë®
+	// ï¿½ï¿½Â¼ï¿½ï¿½ï¿½Ã½ï¿½ï¿½ï¿½ï¿½Ë®
 	if (TRUE == bValid)
 	{
 		strTrace = CString(1024, 0);
@@ -285,8 +285,8 @@ HRESULT CDC_30::OpenDC(LPCTSTR strServiceName, long dwVersionsRequired)
 
 	printf("<DC> CDC_30::OpenDC(%s, %d)\n", strServiceName, dwVersionsRequired);
 
-	// °Ñ_strDCNameµÄºó×º"_30"¡¢"_31"¡¢"_40"Ö®ÀàµÄÈ¥µô
-	// ÒòÎªDBUSÖÐ×¢²áµÄÂ·¾¶ÊÇ²»º¬ºó×ºµÄ£¬ÎªÁËºóÐøÄÜ´ÓDBUSÖÐ»ñÈ¡µ½½á¹ûÏûÏ¢£¬ÐèÒªÈ¥µôºó×º
+	// ï¿½ï¿½_strDCNameï¿½Äºï¿½×º"_30"ï¿½ï¿½"_31"ï¿½ï¿½"_40"Ö®ï¿½ï¿½ï¿½È¥ï¿½ï¿½
+	// ï¿½ï¿½ÎªDBUSï¿½ï¿½×¢ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½Ç²ï¿½ï¿½ï¿½ï¿½ï¿½×ºï¿½Ä£ï¿½Îªï¿½Ëºï¿½ï¿½ï¿½ï¿½Ü´ï¿½DBUSï¿½Ð»ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ÒªÈ¥ï¿½ï¿½ï¿½ï¿½×º
 	string strDCNameNoSuffix = m_strDCName;
 	repalce_all_ditinct(strDCNameNoSuffix, string("_30"), string(""));
 	repalce_all_ditinct(strDCNameNoSuffix, string("_31"), string(""));
@@ -319,7 +319,7 @@ HRESULT CDC_30::OpenDC(LPCTSTR strServiceName, long dwVersionsRequired)
 		pthread_create(&dwWosaThreadID, NULL, OpenThread, this);
 		printf("<DC> CDC_30::OpenDC pthread_create <<<\n");
 
-		// 20180521 Àû¶à¸» PC2050 »úÆ÷180ÃëÄÚÎ´ÄÜÍê³É È¡¿î Ä£¿é´ò¿ª²Ù×÷£¬¸ü¸ÄÎª600Ãë£¬ÖØÊÔ
+		// 20180521 ï¿½ï¿½ï¿½à¸» PC2050 ï¿½ï¿½ï¿½ï¿½180ï¿½ï¿½ï¿½ï¿½Î´ï¿½ï¿½ï¿½ï¿½ï¿½ È¡ï¿½ï¿½ Ä£ï¿½ï¿½ò¿ª²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª600ï¿½ë£¬ï¿½ï¿½ï¿½ï¿½
 		// DWORD dwWaitOb = WaitForSingleObject(m_evtOpenThreadFinish.m_hObject, 180000);
 		/*
 		DWORD dwWaitOb = WaitForSingleObject(m_evtOpenThreadFinish.m_hObject, 600000);
@@ -337,7 +337,7 @@ HRESULT CDC_30::OpenDC(LPCTSTR strServiceName, long dwVersionsRequired)
 		}
 		else if (LFS_SUCCESS != m_DCObject.m_hOpenResult)
 		{
-			// ·ÇÕý³£´ò¿ªµÄm_DCObject.m_hOpenResultµÄLFS_SUCCESS½á¹û²»±»ÈÏÎªÊÇ³É¹¦
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ò¿ªµï¿½m_DCObject.m_hOpenResultï¿½ï¿½LFS_SUCCESSï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½Ç³É¹ï¿½
 			hResult = m_DCObject.m_hOpenResult;
 		}
 	}
@@ -458,7 +458,7 @@ void * CDC_30::OpenThread(LPVOID lpParam)
 							&(pDC_30->m_DCObject.m_hService));
 		*/
 			
-		pDC_30->m_bIsOenCompleted = FALSE;  // ºóÐøÐèÒªµÈ´ýSPµÄÄ£¿é´ò¿ªÍê³ÉÊÂ¼þ
+		pDC_30->m_bIsOenCompleted = FALSE;  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½È´ï¿½SPï¿½ï¿½Ä£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½
 
 		ULONG requestid = 0;
 		printf("LFSAsyncOpen >>>\n");
@@ -515,7 +515,7 @@ void * CDC_30::OpenThread(LPVOID lpParam)
 		{
 			while (FALSE == pDC_30->m_bIsOenCompleted)
 			{
-				// 20240821 Ô­150Ãë£¬âù»¯ÄÏ¾©ÒøÐÐ½ðÊ¤Â·Ö§ÐÐ¼ÇÂ¼Æô¶¯Ê±¼ä156Ãë£¬¸ü¸ÄÎª180Ãë
+				// 20240821 Ô­150ï¿½ë£¬ï¿½ï¿½ï¿½ï¿½ï¿½Ï¾ï¿½ï¿½ï¿½ï¿½Ð½ï¿½Ê¤Â·Ö§ï¿½Ð¼ï¿½Â¼ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½156ï¿½ë£¬ï¿½ï¿½ï¿½ï¿½Îª180ï¿½ï¿½
 				if ((pDC_30->GetTickCount() - dwStart) > (180 * 1000))
 				{
 					hResult = DC_ERROR;
@@ -797,10 +797,10 @@ CString	CDC_30::GetXFSErrStr(HRESULT hResult)
 
 LPTSTR CDC_30::FormatExtra(LPTSTR lpszExtra)
 {
-	// ¸ñÊ½»¯À©Õ¹×Ö¶ÎÊý¾Ý
-	// ´ó²¿·ÖÇé¿öÏÂ£¬À©Õ¹×Ö¶ÎÒÔ\0½áÊø
-	// ²¿·ÖÇé¿öÏÂ£¬À©Õ¹×Ö¶ÎÒÔÁ¬ÐøÁ½¸ö\0½áÊø£¬ÖÐ¼äµÄµ¥¸ö\0Ö»ÓÃÓÚ·Ö¸îÀ©Õ¹×Ö¶ÎÖÐµÄ¶à¶ÎÊý¾Ý£¬Èç¹ûSP²»ÊÇÕâÖÖÇé¿ö°´ÕÕÕâÑù´¦Àí¿ÉÄÜÖ¸ÕëÔ½½çÒì³£±ÀÀ£
-	// ÕâÁ½ÖÖÇé¿ö²»¼æÈÝ£ºÈç¹û´æÔÚÎÄ¼þ /SSA/WSServer/extra2null.flag Ê±°´ÕÕÁ¬ÐøÁ½¸ö\0½áÊø´¦Àí
+	// ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½Õ¹ï¿½Ö¶ï¿½ï¿½ï¿½ï¿½ï¿½
+	// ï¿½ó²¿·ï¿½ï¿½ï¿½ï¿½ï¿½Â£ï¿½ï¿½ï¿½Õ¹ï¿½Ö¶ï¿½ï¿½ï¿½\0ï¿½ï¿½ï¿½ï¿½
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â£ï¿½ï¿½ï¿½Õ¹ï¿½Ö¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½\0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¼ï¿½Äµï¿½ï¿½ï¿½\0Ö»ï¿½ï¿½ï¿½Ú·Ö¸ï¿½ï¿½ï¿½Õ¹ï¿½Ö¶ï¿½ï¿½ÐµÄ¶ï¿½ï¿½ï¿½ï¿½ï¿½Ý£ï¿½ï¿½ï¿½ï¿½SPï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½Ô½ï¿½ï¿½ï¿½ì³£ï¿½ï¿½ï¿½ï¿½
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ /SSA/WSServer/extra2null.flag Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½\0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	struct stat s_buf = { 0 };
 
 	string strExtra = "";
@@ -811,7 +811,7 @@ LPTSTR CDC_30::FormatExtra(LPTSTR lpszExtra)
 			if ((NULL == lpszExtra[nLoop] && NULL == lpszExtra[nLoop + 1])
 				|| lpszExtra[nLoop] > 128)
 			{
-				// Óöµ½Á¬ÐøÁ½¸öNULLÊ±½áÊø£¬»òÓö·Ç¿É¼ûÓ¢ÎÄ×Ö·ûÊ±½áÊø(·ÀÖ¹¶Áµ½ÂÒÂë)
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½NULLÊ±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¿É¼ï¿½Ó¢ï¿½ï¿½ï¿½Ö·ï¿½Ê±ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½Ö¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
 				break;
 			}
 			else if (NULL == lpszExtra[nLoop])
@@ -831,7 +831,7 @@ LPTSTR CDC_30::FormatExtra(LPTSTR lpszExtra)
 			if (NULL == lpszExtra[nLoop]
 				|| lpszExtra[nLoop] > 128)
 			{
-				// Óöµ½Á¬ÐøNULLÊ±½áÊø£¬»òÓö·Ç¿É¼ûÓ¢ÎÄ×Ö·ûÊ±½áÊø(·ÀÖ¹¶Áµ½ÂÒÂë)
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½NULLÊ±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¿É¼ï¿½Ó¢ï¿½ï¿½ï¿½Ö·ï¿½Ê±ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½Ö¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
 				break;
 			}
 			else

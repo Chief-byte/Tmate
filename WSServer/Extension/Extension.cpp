@@ -14,12 +14,12 @@
 #include "libwebsockets.h"
 #include <nettle/md5.h>
 
-#include "../include/FileHelper.h"
-#include "../include/Utils.h"
-#include "../include/xmlhelper.h"
-#include "../include/Keyou.h"
-#include "../include/SSMKeyou.h"
-#include "../MessageHandle.h"
+#include "FileHelper.h"
+#include "Utils.h"
+#include "xmlhelper.h"
+#include "Keyou.h"
+#include "SSMKeyou.h"
+#include "MessageHandle.h"
 
 #include <unistd.h>
 #include <sys/reboot.h>
@@ -38,10 +38,10 @@
 #include <errno.h>
 
 extern struct session_data session_data4send;
-extern std::mutex mtx_session_data4send;  // WebSocketµÄ»á»°user_sessionÔÚÊÕ·¢Ê±¿ÉÄÜ³åÍ»£¬·¢ËÍµ¥¶ÀÊ¹ÓÃ·¢ËÍ½á¹¹£¬²¢Ê¹ÓÃ»¥³âËø¿ØÖÆ
+extern std::mutex mtx_session_data4send;  // WebSocketï¿½Ä»á»°user_sessionï¿½ï¿½ï¿½Õ·ï¿½Ê±ï¿½ï¿½ï¿½Ü³ï¿½Í»ï¿½ï¿½ï¿½ï¿½ï¿½Íµï¿½ï¿½ï¿½Ê¹ï¿½Ã·ï¿½ï¿½Í½á¹¹ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 extern MessageHandle messagehandle;
 
-// Õâ¸ö·½·¨Ã»ÓÐÓÃ£¬gtk_window_list_toplevelsÖ±½Ó·µ»ØÊ§°Ü£¬²»¹ÜÊÇÓÃµÄbrowser»¹ÊÇuosbrowser
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½Ã£ï¿½gtk_window_list_toplevelsÖ±ï¿½Ó·ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½browserï¿½ï¿½ï¿½ï¿½uosbrowser
 /*
 #include <gdk/gdk.h>
 #include <gdk/gdkx.h>
@@ -137,7 +137,7 @@ void kbdms_send_button_event(unsigned short key_code) {
 
 	struct input_event ev;
 	memset(&ev, 0, sizeof(ev));
-	// Ä£Äâ°´ÏÂ
+	// Ä£ï¿½â°´ï¿½ï¿½
 	ev.type = EV_KEY;
 	ev.code = key_code;
 	ev.value = 1;
@@ -146,7 +146,7 @@ void kbdms_send_button_event(unsigned short key_code) {
 		printf("kbdms_send_button_event faile\n");
 	}
 
-	// Í¬²½ÊÂ¼þ
+	// Í¬ï¿½ï¿½ï¿½Â¼ï¿½
 	memset(&ev, 0, sizeof(ev));
 	ev.type = EV_SYN;
 	ev.code = SYN_REPORT;
@@ -156,7 +156,7 @@ void kbdms_send_button_event(unsigned short key_code) {
 		printf("kbdms_send_button_event faile\n");
 	}
 
-	// Ä£ÄâËÉ¿ª
+	// Ä£ï¿½ï¿½ï¿½É¿ï¿½
 	ev.type = EV_KEY;
 	ev.code = key_code;
 	ev.value = 0;
@@ -165,7 +165,7 @@ void kbdms_send_button_event(unsigned short key_code) {
 		printf("kbdms_send_button_event faile\n");
 	}
 
-	// Í¬²½ÊÂ¼þ
+	// Í¬ï¿½ï¿½ï¿½Â¼ï¿½
 	memset(&ev, 0, sizeof(ev));
 	ev.type = EV_SYN;
 	ev.code = SYN_REPORT;
@@ -199,7 +199,7 @@ std::string GetAppHome()
 	{
 		return "";
 	}
-	//×îºóÒ»¸ö'/' ºóÃæÊÇ¿ÉÖ´ÐÐ³ÌÐòÃû£¬È¥µô¿ÉÖ´ÐÐ³ÌÐòµÄÃû×Ö£¬Ö»±£ÁôÂ·¾¶
+	//ï¿½ï¿½ï¿½Ò»ï¿½ï¿½'/' ï¿½ï¿½ï¿½ï¿½ï¿½Ç¿ï¿½Ö´ï¿½Ð³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¥ï¿½ï¿½ï¿½ï¿½Ö´ï¿½Ð³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö£ï¿½Ö»ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½
 	for (int i = cnt; i >= 0; --i)
 	{
 		if (path[i] == '/')
@@ -220,7 +220,7 @@ std::string GetAppName()
 	{
 		return "";
 	}
-	//×îºóÒ»¸ö'/' ºóÃæÊÇ¿ÉÖ´ÐÐ³ÌÐòÃû£¬È¥µô¿ÉÖ´ÐÐ³ÌÐòµÄÃû×Ö£¬Ö»±£ÁôÂ·¾¶
+	//ï¿½ï¿½ï¿½Ò»ï¿½ï¿½'/' ï¿½ï¿½ï¿½ï¿½ï¿½Ç¿ï¿½Ö´ï¿½Ð³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¥ï¿½ï¿½ï¿½ï¿½Ö´ï¿½Ð³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö£ï¿½Ö»ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½
 	int i = 0;
 	for (i = cnt; i >= 0; --i)
 	{
@@ -243,7 +243,7 @@ struct socketthread_data
 	std::string strSocketCallbackFunction = "";
 };
 
-// socket±¨ÎÄÖÐµÄGBKºÍUTF-8Ö®¼äµÄ×ª»»
+// socketï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½GBKï¿½ï¿½UTF-8Ö®ï¿½ï¿½ï¿½×ªï¿½ï¿½
 #include <iconv.h>
 int code_convert(char *from_charset, char *to_charset, char *inbuf, int inlen, char *outbuf, int outlen)
 {
@@ -302,7 +302,7 @@ void * SocketThread(void *arg)
 
 	char oncerecvbuf[100 * 1024] = { 0 };
 
-	// ÐÞ¸Ä»º³åÇø´óÐ¡
+	// ï¿½Þ¸Ä»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡
 	int nSendRecvBuf = 80 * 1024;
 	setsockopt(client_fd, SOL_SOCKET, SO_RCVBUF, (const char*)&nSendRecvBuf, sizeof(int));
 	setsockopt(client_fd, SOL_SOCKET, SO_SNDBUF, (const char*)&nSendRecvBuf, sizeof(int));
@@ -314,7 +314,7 @@ void * SocketThread(void *arg)
 		int nLength = recv(client_fd, oncerecvbuf, sizeof(oncerecvbuf), 0);
 		if (nLength > 0)
 		{
-			// Ñ­»·¶ÁÈ¡±¨ÎÄ£¬Ö±µ½ \n ½áÊø·ûÎªÖ¹
+			// Ñ­ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½Ä£ï¿½Ö±ï¿½ï¿½ \n ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÎªÖ¹
 			if (nullptr != strstr(oncerecvbuf, "\n"))
 			{
 				bEnd = true;
@@ -365,14 +365,14 @@ void * SocketThread(void *arg)
 		int nBuffLen = strMessage.size() + 256;
 		char * strCallbackJs = new char[nBuffLen];
 		memset(strCallbackJs, 0, nBuffLen);
-		sprintf(strCallbackJs, "%s('%s', %d)",  // µÚ¶þ¸ö²ÎÊýÎªSocket¾ä±úºÅ£¬ÓÃÓÚJS»Øµ÷·µ»ØÏûÏ¢
+		sprintf(strCallbackJs, "%s('%s', %d)",  // ï¿½Ú¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÎªSocketï¿½ï¿½ï¿½ï¿½Å£ï¿½ï¿½ï¿½ï¿½ï¿½JSï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 			spdata->strSocketCallbackFunction.c_str(), strMessage.c_str(), client_fd);
 		int nRetLen = strlen(strCallbackJs);
 
 		printf("SocketThread strCallbackJs : %s\n", strCallbackJs);
 
 		printf("mtx_session_data4send.lock ->\n");
-		mtx_session_data4send.lock();  //±¨ÎÄ·¢ËÍºó»á½âËø
+		mtx_session_data4send.lock();  //ï¿½ï¿½ï¿½Ä·ï¿½ï¿½Íºï¿½ï¿½ï¿½ï¿½ï¿½
 		printf("mtx_session_data4send.lock <-\n");
 		memset(session_data4send.buf, 0, sizeof(session_data4send.buf));
 		memcpy(&session_data4send.buf[LWS_PRE], strCallbackJs, nRetLen);
@@ -392,14 +392,14 @@ void * SocketThread(void *arg)
 		delete strCallbackJs;
 		strCallbackJs = nullptr;
 
-		// µÈ´ýJS´¦Àí½á¹û
+		// ï¿½È´ï¿½JSï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		int nTimeoutCount = 0;
-		while (true && nTimeoutCount++ < 15 * 60)  // ×î´ó¹Ò×¡15·ÖÖÓ
+		while (true && nTimeoutCount++ < 15 * 60)  // ï¿½ï¿½ï¿½ï¿½×¡15ï¿½ï¿½ï¿½ï¿½
 		{
 			std::map<int, std::string>::iterator iter = m_JSResultMap.find(client_fd);
 			if (iter != m_JSResultMap.end())
 			{
-				// ±àÂë×ª»»
+				// ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½
 				// printf("socket message 2 send : %s, length : %d\n", iter->second.c_str(), (int)iter->second.size());
 				
 				string strMessage2Send = iter->second;
@@ -416,11 +416,11 @@ void * SocketThread(void *arg)
 				{
 					const char * pszResultStringBuffer = pszSndBuf;
 
-					// ·¢ËÍ¸ü¸ÄÎªÑ­»··¢ËÍ
+					// ï¿½ï¿½ï¿½Í¸ï¿½ï¿½ï¿½ÎªÑ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 					// send(client_fd, pszCodesetBuffer_send, strlen(pszCodesetBuffer_send), 0);
-					int nSentTotal = nSendLength;  // Ê£ÓàÎ´·¢ËÍ
-					int nSentCount = 0;  // ÒÑ¾­·¢ËÍ
-					int nSentOnce = 0;  // µ¥´Î·¢ËÍ
+					int nSentTotal = nSendLength;  // Ê£ï¿½ï¿½Î´ï¿½ï¿½ï¿½ï¿½
+					int nSentCount = 0;  // ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½
+					int nSentOnce = 0;  // ï¿½ï¿½ï¿½Î·ï¿½ï¿½ï¿½
 					while (true)
 					{
 						nSentOnce = send(client_fd, pszResultStringBuffer + nSentCount, (nSentTotal > nSendRecvBuf ? nSendRecvBuf : nSentTotal), 0);
@@ -476,16 +476,16 @@ void * AcceptThread(void *arg)
 	socklen_t sin_size = sizeof(struct sockaddr_in);
 	struct sockaddr_in client_addr = { 0 };
 
-	//³õÊ¼»¯socket
+	//ï¿½ï¿½Ê¼ï¿½ï¿½socket
 	sock_fd = socket(AF_INET, SOCK_STREAM, 0);
 
-	//±à¼­µØÖ·ÐÅÏ¢
+	//ï¿½à¼­ï¿½ï¿½Ö·ï¿½ï¿½Ï¢
 	memset(&listensock, 0, sizeof(listensock));
 	listensock.sin_family = AF_INET;
 	listensock.sin_port = htons(apdata->nSocketListenPort);
 	listensock.sin_addr.s_addr = INADDR_ANY;
 
-	//°ó¶¨µØÖ·£¬È»ºó¼àÌý
+	//ï¿½ó¶¨µï¿½Ö·ï¿½ï¿½È»ï¿½ï¿½ï¿½ï¿½ï¿½
 	bind(sock_fd, (struct sockaddr *)&listensock, sizeof(struct sockaddr));
 	if (0 != listen(sock_fd, 10))
 	{
@@ -598,12 +598,12 @@ void * CheckFileStatusChangeThread(void *arg)
 {
 	checkfilethread_data * cfpdata = (checkfilethread_data *)arg;
 
-	while (true)  // Ã¿¸öÎÄ¼þ¼ì²éÊÇÒ»¸öµ¥¶ÀÏß³Ì£¬Ò»Ö±Ñ­»·¼ì²é£¬µ½³ÌÐò½áÊø
+	while (true)  // Ã¿ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß³Ì£ï¿½Ò»Ö±Ñ­ï¿½ï¿½ï¿½ï¿½é£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	{
 		bool bFileExists = false;
 		__time_t mtim = 0;
 
-		// ÎÄ¼þ³õÊ¼×´Ì¬ÊÇ·ñ´æÔÚ
+		// ï¿½Ä¼ï¿½ï¿½ï¿½Ê¼×´Ì¬ï¿½Ç·ï¿½ï¿½ï¿½ï¿½
 		struct stat s_buf = {0};
 		if (0 == stat(cfpdata->strFileName.c_str(), &s_buf))
 		{
@@ -617,7 +617,7 @@ void * CheckFileStatusChangeThread(void *arg)
 			{
 				if (false == bFileExists || mtim != s_buf.st_mtim.tv_sec)
 				{
-					// ÎÄ¼þ´ÓÎÞµ½ÓÐ£¬»òÕßÎÄ¼þÐÞ¸ÄÊ±¼ä±ä»¯
+					// ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½Þµï¿½ï¿½Ð£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½Þ¸ï¿½Ê±ï¿½ï¿½ä»¯
 					bFileExists = true;
 					break;
 				}
@@ -626,25 +626,25 @@ void * CheckFileStatusChangeThread(void *arg)
 			{
 				if (true == bFileExists)
 				{
-					// ÎÄ¼þ´ÓÓÐµ½ÎÞ
+					// ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½Ðµï¿½ï¿½ï¿½
 					bFileExists = false;
 					break;
 				}
 			}
 
-			sleep(3);  // 3Ãë¼ì²éÒ»´Î
+			sleep(3);  // 3ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½
 		}
 
-		// µ÷ÓÃJS´¦Àí
+		// ï¿½ï¿½ï¿½ï¿½JSï¿½ï¿½ï¿½ï¿½
 		int nBuffLen = cfpdata->strFileName.size() + 256;
 		char * strCallbackJs = new char[nBuffLen];
 		memset(strCallbackJs, 0, nBuffLen);
-		sprintf(strCallbackJs, "%s('%s', %s)",  // µÚÒ»¸ö²ÎÊýÎªÎÄ¼þÃû£¬µÚ¶þ¸ö²ÎÊýÎªÎÄ¼þÊÇ·ñ´æÔÚ£ºtrue / false
+		sprintf(strCallbackJs, "%s('%s', %s)",  // ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½Ä¼ï¿½ï¿½Ç·ï¿½ï¿½ï¿½Ú£ï¿½true / false
 			cfpdata->strCheckFileCallbackFunction.c_str(), cfpdata->strFileName.c_str(), (true == bFileExists ? "true" : "false"));
 		int nRetLen = strlen(strCallbackJs);
 
 		printf("mtx_session_data4send.lock ->\n");
-		mtx_session_data4send.lock();  //±¨ÎÄ·¢ËÍºó»á½âËø
+		mtx_session_data4send.lock();  //ï¿½ï¿½ï¿½Ä·ï¿½ï¿½Íºï¿½ï¿½ï¿½ï¿½ï¿½
 		printf("mtx_session_data4send.lock <-\n");
 		memset(session_data4send.buf, 0, sizeof(session_data4send.buf));
 		memcpy(&session_data4send.buf[LWS_PRE], strCallbackJs, nRetLen);
@@ -666,7 +666,7 @@ void * CheckFileStatusChangeThread(void *arg)
 	}
 
 	delete cfpdata;
-	pthread_exit(0);  // ¼ì²âµ½Ò»´Î±ä»¯¾ÍÍË³ö£¬ºóÐøÈç¹ûÐèÒªÔÙ´Î¼ì²â£¬ÐèÒªJS²ãÔÙ´Îµ÷ÓÃ
+	pthread_exit(0);  // ï¿½ï¿½âµ½Ò»ï¿½Î±ä»¯ï¿½ï¿½ï¿½Ë³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½Ù´Î¼ï¿½â£¬ï¿½ï¿½ÒªJSï¿½ï¿½ï¿½Ù´Îµï¿½ï¿½ï¿½
 }
 
 #include <X11/Xlib.h>
@@ -679,7 +679,7 @@ void _FindWindow(Display* display, Window window, char* windowName, Window* resu
 	Window root, parent, *children;
 	unsigned int nChildren;
 
-	//³¢ÊÔÊ¹ÓÃ_NET_WM_NAME·½Ê½»ñÈ¡´°¿ÚµÄÃû³Æ
+	//ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½_NET_WM_NAMEï¿½ï¿½Ê½ï¿½ï¿½È¡ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½
 	XTextProperty tp;
 	XGetTextProperty(display, window, &tp, XInternAtom(display, "WM_NAME", False));
 	if (tp.nitems > 0)
@@ -750,7 +750,7 @@ std::string get_local_ip()
 	if ((fd = socket(AF_INET, SOCK_DGRAM, 0)) >= 0)
 	{
 		ifc.ifc_len = sizeof(buf);
-		// caddr_t,linuxÄÚºËÔ´ÂëÀï¶¨ÒåµÄ£ºtypedef void *caddr_t£»
+		// caddr_t,linuxï¿½Úºï¿½Ô´ï¿½ï¿½ï¿½ï¶¨ï¿½ï¿½Ä£ï¿½typedef void *caddr_tï¿½ï¿½
 		ifc.ifc_buf = (caddr_t)buf;
 		if (!ioctl(fd, SIOCGIFCONF, (char *)&ifc))
 		{
@@ -814,10 +814,10 @@ std::string get_local_mac()
 
 int Extension::CallExtension(string strSessionName, list<string> params, string & strRet)
 {
-	int nRet = -1;  // ·µ»ØÖµ
+	int nRet = -1;  // ï¿½ï¿½ï¿½ï¿½Öµ
 	strRet = "";
 
-	if (params.size() < 1)  // µÚÒ»¸öÊÇ·½·¨Ãû³Æ
+	if (params.size() < 1)  // ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	{
 		printf("ssa.callExtension ArgumentList is empty\n");
 		return -1;
@@ -825,16 +825,16 @@ int Extension::CallExtension(string strSessionName, list<string> params, string 
 
 	list<string>::iterator iter = params.begin();
 	
-	string strMethod = (* iter++);  // ·½·¨Ãû³Æ
+	string strMethod = (* iter++);  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	printf("strMethod : %s\n", strMethod.c_str());
 
-	if ("SetSocketResult" == strMethod)  // ÉèÖÃSocket±¨ÎÄJS´¦ÀíºóµÄµ÷ÓÃ½á¹û
+	if ("SetSocketResult" == strMethod)  // ï¿½ï¿½ï¿½ï¿½Socketï¿½ï¿½ï¿½ï¿½JSï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Äµï¿½ï¿½Ã½ï¿½ï¿½
 	{
 		strRet = "false";
 		if (params.size() < 3) { printf("params miss, need 2 param\n"); return nRet; }
 
-		int userdataid = atol((*iter++).c_str());  // ÓÃ»§Êý¾Ýid£¬ÈçÎªsocket±¨ÎÄµ÷ÓÃÊ±£¬Îªsocket¾ä±úºÅ
-		std::string resultstring = (*iter++);  // ½á¹û×Ö·û´®
+		int userdataid = atol((*iter++).c_str());  // ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½idï¿½ï¿½ï¿½ï¿½Îªsocketï¿½ï¿½ï¿½Äµï¿½ï¿½ï¿½Ê±ï¿½ï¿½Îªsocketï¿½ï¿½ï¿½ï¿½ï¿½
+		std::string resultstring = (*iter++);  // ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½
 		printf("userdataid : %d, resultstring : %s\n", userdataid, resultstring.c_str());
 
 		m_JSResultMap.insert(std::pair<int, std::string>(userdataid, resultstring));
@@ -842,19 +842,19 @@ int Extension::CallExtension(string strSessionName, list<string> params, string 
 		strRet = "true";
 		nRet = 0;
 	}
-	else if ("RestartWindows" == strMethod || "RestartLinux" == strMethod)  // ÖØÆô
+	else if ("RestartWindows" == strMethod || "RestartLinux" == strMethod)  // ï¿½ï¿½ï¿½ï¿½
 	{
 		strRet = "false";
 		if (params.size() < 2) { printf("params miss, need 1 param\n"); return nRet; }
 
-		int delayseconds = atol((*iter++).c_str());  // ÐèÒªÑÓ³ÙµÄÃëÊý£¬ÓÃÓÚµ÷ÓÃ·½´¦ÀíÆäËûÊÂÎñ
+		int delayseconds = atol((*iter++).c_str());  // ï¿½ï¿½Òªï¿½Ó³Ùµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½ï¿½Ã·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 		if (delayseconds > 0)
 		{
 			sleep(delayseconds);
 		}
 
-		// ShutdownLinux(0);  // ¹Ø»ú»òÖØÆô£º1¹Ø»ú£¬0ÖØÆô£ºµ÷ÓÃRebootº¯Êý»áÒòÈ¨ÏÞÎÊÌâ·µ»Ø-1Ê§°Ü£¬¸ÄÎªÖ±½Óµ÷ÓÃÏµÍ³ÃüÁî
+		// ShutdownLinux(0);  // ï¿½Ø»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1ï¿½Ø»ï¿½ï¿½ï¿½0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Rebootï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¨ï¿½ï¿½ï¿½ï¿½ï¿½â·µï¿½ï¿½-1Ê§ï¿½Ü£ï¿½ï¿½ï¿½ÎªÖ±ï¿½Óµï¿½ï¿½ï¿½ÏµÍ³ï¿½ï¿½ï¿½ï¿½
 
 		int nResult = system("/usr/sbin/reboot");
 		printf("ShutdownLinux(0) ret %d\n", nResult);
@@ -862,13 +862,13 @@ int Extension::CallExtension(string strSessionName, list<string> params, string 
 		strRet = "true";
 		nRet = 0;
 	}
-	else if ("SendKeyInput" == strMethod)  // ·¢ËÍ¼üÅÌÊÂ¼þ
+	else if ("SendKeyInput" == strMethod)  // ï¿½ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½Â¼ï¿½
 	{
 		strRet = "false";
 		if (params.size() < 3) { printf("params miss, need 2 param\n"); return nRet; }
 
-		int keycode = atol((*iter++).c_str());  // ¼üÂë
-		long microseconds = atol((*iter++).c_str());  // ÑÓ³ÙÊ±¼ä£¬ÒòÎªÓÐÊ±ÊÇÅäºÏSetActiveScreenÊ¹ÓÃ£¬JS»Øµ÷ÖÐÂíÉÏÓÖµ÷ÓÃSendKeyInput¿ÉÄÜÃ»ÓÐÐ§¹û£¬ÐèÒªÑÓ³ÙÏÂ£¬C++±Èwindow.setTimeoutºÃ´¦Àí
+		int keycode = atol((*iter++).c_str());  // ï¿½ï¿½ï¿½ï¿½
+		long microseconds = atol((*iter++).c_str());  // ï¿½Ó³ï¿½Ê±ï¿½ä£¬ï¿½ï¿½Îªï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½SetActiveScreenÊ¹ï¿½Ã£ï¿½JSï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½SendKeyInputï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½Ð§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½Ó³ï¿½ï¿½Â£ï¿½C++ï¿½ï¿½window.setTimeoutï¿½Ã´ï¿½ï¿½ï¿½
 		printf("keycode : %d, microseconds %ld\n", keycode, microseconds);
 		if (microseconds > 1000)
 		{
@@ -880,13 +880,13 @@ int Extension::CallExtension(string strSessionName, list<string> params, string 
 		strRet = "true";
 		nRet = 0;
 	}
-	else if ("EnablePointer" == strMethod)  // ÔÊÐí/½ûÓÃÖ¸ÕëÉè±¸
+	else if ("EnablePointer" == strMethod)  // ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½è±¸
 	{
 		strRet = "false";
 		if (params.size() < 3) { printf("params miss, need 2 param\n"); return nRet; }
 
-		std::string pointername = (*iter++);  // Ö¸ÕëÉè±¸Ãû³Æ£¬Í¨¹ýÉè±¸ÉÏÃüÁîÐÐ xinput list£¬Ò»°ãÇé¿öÏÂÊó±êÊÇ Mouse£¬´¥ÃþÆÁÊÇ TouchScreen
-		int enable = atol((*iter++).c_str());  // 1 ÔÊÐí£¬0 ½ûÓÃ
+		std::string pointername = (*iter++);  // Ö¸ï¿½ï¿½ï¿½è±¸ï¿½ï¿½ï¿½Æ£ï¿½Í¨ï¿½ï¿½ï¿½è±¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ xinput listï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Mouseï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ TouchScreen
+		int enable = atol((*iter++).c_str());  // 1 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½0 ï¿½ï¿½ï¿½ï¿½
 		printf("EnablePointer pointername : %s, enable : %d\n", pointername.c_str(), enable);
 		
 		char szCommandLine[256] = { 0 };
@@ -897,52 +897,52 @@ int Extension::CallExtension(string strSessionName, list<string> params, string 
 		strRet = "true";
 		nRet = 0;
 	}
-	else if ("ShutdownWindows" == strMethod || "ShutdownLinux" == strMethod)  // ¹Ø»ú
+	else if ("ShutdownWindows" == strMethod || "ShutdownLinux" == strMethod)  // ï¿½Ø»ï¿½
 	{
 		strRet = "false";
 		if (params.size() < 2) { printf("params miss, need 1 param\n"); return nRet; }
 
-		int delayseconds = atol((*iter++).c_str());  // ÐèÒªÑÓ³ÙµÄÃëÊý£¬ÓÃÓÚµ÷ÓÃ·½´¦ÀíÆäËûÊÂÎñ
+		int delayseconds = atol((*iter++).c_str());  // ï¿½ï¿½Òªï¿½Ó³Ùµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½ï¿½Ã·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 		if (delayseconds > 0)
 		{
 			sleep(delayseconds);
 		}
 
-		// ShutdownLinux(1);  // ¹Ø»ú»òÖØÆô£º1¹Ø»ú£¬0ÖØÆô£ºµ÷ÓÃRebootº¯Êý»áÒòÈ¨ÏÞÎÊÌâ·µ»Ø-1Ê§°Ü£¬¸ÄÎªÖ±½Óµ÷ÓÃÏµÍ³ÃüÁî
+		// ShutdownLinux(1);  // ï¿½Ø»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1ï¿½Ø»ï¿½ï¿½ï¿½0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Rebootï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¨ï¿½ï¿½ï¿½ï¿½ï¿½â·µï¿½ï¿½-1Ê§ï¿½Ü£ï¿½ï¿½ï¿½ÎªÖ±ï¿½Óµï¿½ï¿½ï¿½ÏµÍ³ï¿½ï¿½ï¿½ï¿½
 		int nResult = system("/usr/sbin/shutdown -h now");
 		printf("ShutdownLinux(1) ret %d\n", nResult);
 
 		strRet = "true";
 		nRet = 0;
 	}
-	else if ("ShowCursor" == strMethod)  // ÏÔÊ¾Êó±ê
+	else if ("ShowCursor" == strMethod)  // ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½
 	{
 		strRet = "false";
 
 		char outbuf[1024] = { 0 };
-		g2u("LinuxÏÂ´ËÃüÁî²»Ö§³Ö", strlen("LinuxÏÂ´ËÃüÁî²»Ö§³Ö"), outbuf, sizeof(outbuf));
-		strRet = outbuf;  // strRet = "LinuxÏÂ´ËÃüÁî²»Ö§³Ö"; strRet = u8"LinuxÏÂ´ËÃüÁî²»Ö§³Ö"; Ö®Àà»áÏÔÊ¾ÂÒÂë£¬µ¼ÖÂwebsocket×ªÂëÊ§°Ü¶ÏÁ´
+		g2u("Linuxï¿½Â´ï¿½ï¿½ï¿½ï¿½î²»Ö§ï¿½ï¿½", strlen("Linuxï¿½Â´ï¿½ï¿½ï¿½ï¿½î²»Ö§ï¿½ï¿½"), outbuf, sizeof(outbuf));
+		strRet = outbuf;  // strRet = "Linuxï¿½Â´ï¿½ï¿½ï¿½ï¿½î²»Ö§ï¿½ï¿½"; strRet = u8"Linuxï¿½Â´ï¿½ï¿½ï¿½ï¿½î²»Ö§ï¿½ï¿½"; Ö®ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ë£¬ï¿½ï¿½ï¿½ï¿½websocket×ªï¿½ï¿½Ê§ï¿½Ü¶ï¿½ï¿½ï¿½
 
 		nRet = 0;
 	}
-	else if ("SetSystemTime" == strMethod)  // ÉèÖÃÏµÍ³Ê±¼ä
+	else if ("SetSystemTime" == strMethod)  // ï¿½ï¿½ï¿½ï¿½ÏµÍ³Ê±ï¿½ï¿½
 	{
 		strRet = "false";
 		if (params.size() < 2) { printf("params miss, need 1 param\n"); return nRet; }
 
-		std::string timestring = (*iter++);  // ÏµÍ³Ê±¼ä×Ö·û´®£¬¸ñÊ½ YYYY-MM-DD hh:mm:ss
+		std::string timestring = (*iter++);  // ÏµÍ³Ê±ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ YYYY-MM-DD hh:mm:ss
 		printf("timestring : %s\n", timestring.c_str());
-		// ÉèÖÃÏµÍ³Ê±¼ä£ºµ÷ÓÃsettimeofdayº¯Êý»áÒòÈ¨ÏÞÎÊÌâ·µ»Ø-1Ê§°Ü£¬¸ÄÎªÖ±½Óµ÷ÓÃÏµÍ³ÃüÁî£ºÐèÒªÏÈ chmod 4755 /usr/bin/date
+		// ï¿½ï¿½ï¿½ï¿½ÏµÍ³Ê±ï¿½ä£ºï¿½ï¿½ï¿½ï¿½settimeofdayï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¨ï¿½ï¿½ï¿½ï¿½ï¿½â·µï¿½ï¿½-1Ê§ï¿½Ü£ï¿½ï¿½ï¿½ÎªÖ±ï¿½Óµï¿½ï¿½ï¿½ÏµÍ³ï¿½ï¿½ï¿½î£ºï¿½ï¿½Òªï¿½ï¿½ chmod 4755 /usr/bin/date
 		timestring = replace_all_distinct(timestring, "/", "-");
 
-		// date ÃüÁî¿ÉÒÔÐÞ¸Ä±¾µØÊ±¼äºÍ¸ñÁÖÍþÖÎÊ±¼ä
+		// date ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Þ¸Ä±ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Í¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
 		char szCommandLine[256] = { 0 };
 		sprintf(szCommandLine, "/usr/bin/date -s \"%s\"", timestring.c_str());
 		int nResult = system(szCommandLine);
 
-		// ¹ãµçÔËÍ¨SPÊ¹ÓÃµÄÊÇÓÃRTCÊ±¼ä£¬ÐèÒª¸üÐÂ
-		// Í¬²½±¾µØÊ±¼äµ½Ó²¼þÊ±¼ä£¨BIOSÊ±¼ä£©£ºÐèÒªÏÈ chmod 4755 /usr/sbin/hwclock
+		// ï¿½ï¿½ï¿½ï¿½ï¿½Í¨SPÊ¹ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½RTCÊ±ï¿½ä£¬ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½
+		// Í¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½äµ½Ó²ï¿½ï¿½Ê±ï¿½ä£¨BIOSÊ±ï¿½ä£©ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ chmod 4755 /usr/sbin/hwclock
 		memset(szCommandLine, 0, sizeof(szCommandLine));
 		sprintf(szCommandLine, "/usr/sbin/hwclock -w");
 		nResult = system(szCommandLine);
@@ -952,26 +952,26 @@ int Extension::CallExtension(string strSessionName, list<string> params, string 
 		strRet = "true";
 		nRet = 0;
 	}
-	else if ("GetAppHome" == strMethod)  // »ñÈ¡Ó¦ÓÃ³ÌÐòÆô¶¯Â·¾¶
+	else if ("GetAppHome" == strMethod)  // ï¿½ï¿½È¡Ó¦ï¿½Ã³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½
 	{
 		strRet = GetAppHome();
 		printf("apphome : %s\n", strRet.c_str());
 
 		nRet = 0;
 	}
-	else if ("GetAppName" == strMethod)  // »ñÈ¡Ó¦ÓÃ³ÌÐòÃû³Æ
+	else if ("GetAppName" == strMethod)  // ï¿½ï¿½È¡Ó¦ï¿½Ã³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	{
 		strRet = GetAppName();
 		printf("appname : %s\n", strRet.c_str());
 
 		nRet = 0;
 	}
-	else if ("MoveScreen" == strMethod)  // ÒÆ¶¯´°¿Ú
+	else if ("MoveScreen" == strMethod)  // ï¿½Æ¶ï¿½ï¿½ï¿½ï¿½ï¿½
 	{
 		strRet = "false";
 		if (params.size() < 6) { printf("params miss, need 5 param\n"); return nRet; }
 
-		std::string windowname = (*iter++);  // ´°¿ÚÃû³Æ
+		std::string windowname = (*iter++);  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		int left = atoi((*iter++).c_str());
 		int top = atoi((*iter++).c_str());
 		int width = atoi((*iter++).c_str());
@@ -990,7 +990,7 @@ int Extension::CallExtension(string strSessionName, list<string> params, string 
 		else
 		{
 			/*
-			// ¼òµ¥»¯£¬Ö±½ÓÓÃÃüÁîÐÐ¹¤¾ß²Ù×÷
+			// ï¿½òµ¥»ï¿½ï¿½ï¿½Ö±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¹ï¿½ï¿½ß²ï¿½ï¿½ï¿½
 			Display *display = nullptr;
 			XWindowAttributes attributes1 = { 0 }, attributes2 = { 0 };
 
@@ -1009,7 +1009,7 @@ int Extension::CallExtension(string strSessionName, list<string> params, string 
 			}
 			//*/
 
-			// ¸ÄÎªÊ¹ÓÃÃüÁîÐÐ¹¤¾ßÊµÏÖ
+			// ï¿½ï¿½ÎªÊ¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¹ï¿½ï¿½ï¿½Êµï¿½ï¿½
 			char szCommand[256] = { 0 };
 			sprintf(szCommand, "xdotool windowmove --sync %ld %d %d; xdotool windowsize --sync %ld %d %d", windowid, left, top, windowid, width, height);
 			printf("xdotool control window : %s\n", szCommand);
@@ -1022,13 +1022,13 @@ int Extension::CallExtension(string strSessionName, list<string> params, string 
 
 		nRet = 0;
 	}
-	else if ("SetWindowDesktop" == strMethod)  // ÉèÖÃ´°¿ÚÏÔÊ¾ÔÚÄÄ¸ö×ÀÃæ£¬Ã»ÓÐÐ§¹û
+	else if ("SetWindowDesktop" == strMethod)  // ï¿½ï¿½ï¿½Ã´ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½Ä¸ï¿½ï¿½ï¿½ï¿½æ£¬Ã»ï¿½ï¿½Ð§ï¿½ï¿½
 	{
 		strRet = "false";
 		if (params.size() < 3) { printf("params miss, need 2 param\n"); return nRet; }
 
-		std::string windowname = (*iter++);  // ´°¿ÚÃû³Æ
-		int desktop = atoi((*iter++).c_str());  // Ä¿±ê¹¤×÷Çø±àºÅ£¨´Ó 0 ¿ªÊ¼£©
+		std::string windowname = (*iter++);  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		int desktop = atoi((*iter++).c_str());  // Ä¿ï¿½ê¹¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å£ï¿½ï¿½ï¿½ 0 ï¿½ï¿½Ê¼ï¿½ï¿½
 
 		unsigned long windowid = FindWindow((char *)windowname.c_str());
 
@@ -1061,33 +1061,33 @@ int Extension::CallExtension(string strSessionName, list<string> params, string 
 		
 		nRet = 0;
 	}
-	else if ("SetScreenSize" == strMethod)  // ÉèÖÃ´°¿Ú´óÐ¡
+	else if ("SetScreenSize" == strMethod)  // ï¿½ï¿½ï¿½Ã´ï¿½ï¿½Ú´ï¿½Ð¡
 	{
 		strRet = "false";
 
 		char outbuf[1024] = { 0 };
-		g2u("LinuxÏÂ´ËÃüÁî²»Ö§³Ö", strlen("LinuxÏÂ´ËÃüÁî²»Ö§³Ö"), outbuf, sizeof(outbuf));
-		strRet = outbuf;  // strRet = "LinuxÏÂ´ËÃüÁî²»Ö§³Ö"; strRet = u8"LinuxÏÂ´ËÃüÁî²»Ö§³Ö"; Ö®Àà»áÏÔÊ¾ÂÒÂë£¬µ¼ÖÂwebsocket×ªÂëÊ§°Ü¶ÏÁ´
+		g2u("Linuxï¿½Â´ï¿½ï¿½ï¿½ï¿½î²»Ö§ï¿½ï¿½", strlen("Linuxï¿½Â´ï¿½ï¿½ï¿½ï¿½î²»Ö§ï¿½ï¿½"), outbuf, sizeof(outbuf));
+		strRet = outbuf;  // strRet = "Linuxï¿½Â´ï¿½ï¿½ï¿½ï¿½î²»Ö§ï¿½ï¿½"; strRet = u8"Linuxï¿½Â´ï¿½ï¿½ï¿½ï¿½î²»Ö§ï¿½ï¿½"; Ö®ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ë£¬ï¿½ï¿½ï¿½ï¿½websocket×ªï¿½ï¿½Ê§ï¿½Ü¶ï¿½ï¿½ï¿½
 
 		nRet = 0;
 	}
-	else if ("ShowScreenTitle" == strMethod)  // ÏÔÊ¾´°¿Ú±êÌâ
+	else if ("ShowScreenTitle" == strMethod)  // ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½Ú±ï¿½ï¿½ï¿½
 	{
 		strRet = "false";
 
 		char outbuf[1024] = { 0 };
-		g2u("LinuxÏÂ´ËÃüÁî²»Ö§³Ö", strlen("LinuxÏÂ´ËÃüÁî²»Ö§³Ö"), outbuf, sizeof(outbuf));
-		strRet = outbuf;  // strRet = "LinuxÏÂ´ËÃüÁî²»Ö§³Ö"; strRet = u8"LinuxÏÂ´ËÃüÁî²»Ö§³Ö"; Ö®Àà»áÏÔÊ¾ÂÒÂë£¬µ¼ÖÂwebsocket×ªÂëÊ§°Ü¶ÏÁ´
+		g2u("Linuxï¿½Â´ï¿½ï¿½ï¿½ï¿½î²»Ö§ï¿½ï¿½", strlen("Linuxï¿½Â´ï¿½ï¿½ï¿½ï¿½î²»Ö§ï¿½ï¿½"), outbuf, sizeof(outbuf));
+		strRet = outbuf;  // strRet = "Linuxï¿½Â´ï¿½ï¿½ï¿½ï¿½î²»Ö§ï¿½ï¿½"; strRet = u8"Linuxï¿½Â´ï¿½ï¿½ï¿½ï¿½î²»Ö§ï¿½ï¿½"; Ö®ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ë£¬ï¿½ï¿½ï¿½ï¿½websocket×ªï¿½ï¿½Ê§ï¿½Ü¶ï¿½ï¿½ï¿½
 
 		nRet = 0;
 	}
-	else if ("SetForeground" == strMethod)  // ´°¿ÚÖÃÇ°ÏÔÊ¾
+	else if ("SetForeground" == strMethod)  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½Ê¾
 	{
 		strRet = "false";
 
 		if (params.size() < 2) { printf("params miss, need 1 param\n"); return nRet; }
 
-		std::string screenname = (*iter++);  // ´°¿ÚÃû³Æ
+		std::string screenname = (*iter++);  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		printf("screenname : %s\n", screenname.c_str());
 
 		strRet = "false";
@@ -1112,13 +1112,13 @@ int Extension::CallExtension(string strSessionName, list<string> params, string 
 
 		nRet = 0;
 	}
-	else if ("SetActiveScreen" == strMethod)  // ÉèÖÃ»î¶¯´°¿Ú
+	else if ("SetActiveScreen" == strMethod)  // ï¿½ï¿½ï¿½Ã»î¶¯ï¿½ï¿½ï¿½ï¿½
 	{
 		strRet = "false";
 
 		if (params.size() < 2) { printf("params miss, need 1 param\n"); return nRet; }
 
-		std::string windowname = (*iter++);  // ´°¿ÚÃû³Æ
+		std::string windowname = (*iter++);  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		unsigned long windowid = FindWindow((char *)windowname.c_str());
 
 		printf("windowname : %s, windowid : %lu\n",
@@ -1138,7 +1138,7 @@ int Extension::CallExtension(string strSessionName, list<string> params, string 
 			}
 			else
 			{
-				// Ê¹ÓÃ XRaiseWindow ºÍ XSetInputFocus À´ÉèÖÃ»î¶¯´°¿Ú
+				// Ê¹ï¿½ï¿½ XRaiseWindow ï¿½ï¿½ XSetInputFocus ï¿½ï¿½ï¿½ï¿½ï¿½Ã»î¶¯ï¿½ï¿½ï¿½ï¿½
 				XRaiseWindow(display, windowid);
 				XSetInputFocus(display, windowid, RevertToPointerRoot, CurrentTime);
 
@@ -1150,33 +1150,33 @@ int Extension::CallExtension(string strSessionName, list<string> params, string 
 
 		nRet = 0;
 	}
-	else if ("SetScreenInfo" == strMethod)  // ÉèÖÃ´°¿ÚÎ»ÖÃ´óÐ¡ÐÅÏ¢
+	else if ("SetScreenInfo" == strMethod)  // ï¿½ï¿½ï¿½Ã´ï¿½ï¿½ï¿½Î»ï¿½Ã´ï¿½Ð¡ï¿½ï¿½Ï¢
 	{
 		strRet = "false";
 
 		char outbuf[1024] = { 0 };
-		g2u("LinuxÏÂ´ËÃüÁî²»Ö§³Ö", strlen("LinuxÏÂ´ËÃüÁî²»Ö§³Ö"), outbuf, sizeof(outbuf));
-		strRet = outbuf;  // strRet = "LinuxÏÂ´ËÃüÁî²»Ö§³Ö"; strRet = u8"LinuxÏÂ´ËÃüÁî²»Ö§³Ö"; Ö®Àà»áÏÔÊ¾ÂÒÂë£¬µ¼ÖÂwebsocket×ªÂëÊ§°Ü¶ÏÁ´
+		g2u("Linuxï¿½Â´ï¿½ï¿½ï¿½ï¿½î²»Ö§ï¿½ï¿½", strlen("Linuxï¿½Â´ï¿½ï¿½ï¿½ï¿½î²»Ö§ï¿½ï¿½"), outbuf, sizeof(outbuf));
+		strRet = outbuf;  // strRet = "Linuxï¿½Â´ï¿½ï¿½ï¿½ï¿½î²»Ö§ï¿½ï¿½"; strRet = u8"Linuxï¿½Â´ï¿½ï¿½ï¿½ï¿½î²»Ö§ï¿½ï¿½"; Ö®ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ë£¬ï¿½ï¿½ï¿½ï¿½websocket×ªï¿½ï¿½Ê§ï¿½Ü¶ï¿½ï¿½ï¿½
 
 		nRet = 0;
 	}
-	else if ("OpenScreen" == strMethod)  // ´ò¿ªÐÂ´°¿Ú
+	else if ("OpenScreen" == strMethod)  // ï¿½ï¿½ï¿½Â´ï¿½ï¿½ï¿½
 	{
 		strRet = "false";
 
 		char outbuf[1024] = { 0 };
-		g2u("LinuxÏÂ´ËÃüÁî²»Ö§³Ö", strlen("LinuxÏÂ´ËÃüÁî²»Ö§³Ö"), outbuf, sizeof(outbuf));
-		strRet = outbuf;  // strRet = "LinuxÏÂ´ËÃüÁî²»Ö§³Ö"; strRet = u8"LinuxÏÂ´ËÃüÁî²»Ö§³Ö"; Ö®Àà»áÏÔÊ¾ÂÒÂë£¬µ¼ÖÂwebsocket×ªÂëÊ§°Ü¶ÏÁ´
+		g2u("Linuxï¿½Â´ï¿½ï¿½ï¿½ï¿½î²»Ö§ï¿½ï¿½", strlen("Linuxï¿½Â´ï¿½ï¿½ï¿½ï¿½î²»Ö§ï¿½ï¿½"), outbuf, sizeof(outbuf));
+		strRet = outbuf;  // strRet = "Linuxï¿½Â´ï¿½ï¿½ï¿½ï¿½î²»Ö§ï¿½ï¿½"; strRet = u8"Linuxï¿½Â´ï¿½ï¿½ï¿½ï¿½î²»Ö§ï¿½ï¿½"; Ö®ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ë£¬ï¿½ï¿½ï¿½ï¿½websocket×ªï¿½ï¿½Ê§ï¿½Ü¶ï¿½ï¿½ï¿½
 
 		nRet = 0;
 	}
-	else if ("FindScreen" == strMethod)  // ²éÕÒ´°¿Ú
+	else if ("FindScreen" == strMethod)  // ï¿½ï¿½ï¿½Ò´ï¿½ï¿½ï¿½
 	{
 		strRet = "false";
 
 		if (params.size() < 2) { printf("params miss, need 1 param\n"); return nRet; }
 
-		std::string screenname = (*iter++);  // ´°¿ÚÃû³Æ
+		std::string screenname = (*iter++);  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		unsigned long windowid = FindWindow((char *)screenname.c_str());
 		printf("screenname : %s, windowid : %ul\n", screenname.c_str(), windowid);
 		
@@ -1191,14 +1191,14 @@ int Extension::CallExtension(string strSessionName, list<string> params, string 
 
 		nRet = 0;
 	}
-	else if ("SwitchScreen" == strMethod)  // ÇÐ»»´°¿ÚÎ»ÖÃ
+	else if ("SwitchScreen" == strMethod)  // ï¿½Ð»ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½
 	{
 		strRet = "false";
 
 		if (params.size() < 3) { printf("params miss, need 2 param\n"); return nRet; }
 
-		std::string windowname1 = (*iter++);  // ´°¿ÚÃû³Æ1
-		std::string windowname2 = (*iter++);  // ´°¿ÚÃû³Æ2
+		std::string windowname1 = (*iter++);  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1
+		std::string windowname2 = (*iter++);  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2
 
 		unsigned long windowid1 = FindWindow((char *)windowname1.c_str());
 		unsigned long windowid2 = FindWindow((char *)windowname2.c_str());
@@ -1250,23 +1250,23 @@ int Extension::CallExtension(string strSessionName, list<string> params, string 
 
 		nRet = 0;
 	}
-	else if ("SwitchFullBrowserScreen" == strMethod)  // ÇÐ»»ä¯ÀÀÆ÷È«ÆÁ´°¿Ú
+	else if ("SwitchFullBrowserScreen" == strMethod)  // ï¿½Ð»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	{
 		strRet = "false";
 
 		if (params.size() < 12) { printf("params miss, need 11 param\n"); return nRet; }
 
-		std::string windowname1 = (*iter++);  // ´°¿ÚÃû³Æ1
+		std::string windowname1 = (*iter++);  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1
 		int left1 = atoi((*iter++).c_str());
 		int top1 = atoi((*iter++).c_str());
 		int width1 = atoi((*iter++).c_str());
 		int height1 = atoi((*iter++).c_str());
-		std::string windowname2 = (*iter++);  // ´°¿ÚÃû³Æ2
+		std::string windowname2 = (*iter++);  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2
 		int left2 = atoi((*iter++).c_str());
 		int top2 = atoi((*iter++).c_str());
 		int width2 = atoi((*iter++).c_str());
 		int height2 = atoi((*iter++).c_str());
-		int millisecond = atoi((*iter++).c_str());  // Ã¿´Î²Ù×÷¼ä¸ôµÄºÁÃëÊý£¬Ê±¼äÈç¹û²»¹»£¬ÏµÍ³¿ÉÄÜ·´Ó¦²»¹ýÀ´£¬Á¬Ðø²Ù×÷Ê±²¿·Ö²Ù×÷¿ÉÄÜ²»ÆðÐ§¹û
+		int millisecond = atoi((*iter++).c_str());  // Ã¿ï¿½Î²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Äºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÏµÍ³ï¿½ï¿½ï¿½Ü·ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Ö²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü²ï¿½ï¿½ï¿½Ð§ï¿½ï¿½
 		
 		unsigned long windowid1 = FindWindow((char *)windowname1.c_str());
 		unsigned long windowid2 = FindWindow((char *)windowname2.c_str());
@@ -1295,12 +1295,12 @@ int Extension::CallExtension(string strSessionName, list<string> params, string 
 			}
 			else
 			{
-				// ÏÈÒþ²ØÁ½¸ö´°¿Ú£¬²Ù×÷¹ý³Ì²»¿É¼û£º²Ù×÷¹ý³ÌÖÐ²»ÄÜÒþ²Ø´°¿Ú£¬²»È»ÒòÎª´°¿ÚÒþ²Ø£¬X11²Ù×÷µ¼ÖÂ³ÌÐòÒì³£»áÖ±½ÓÍË³ö£¬ÇÒF11°´¼ü²»ÄÜ·¢ËÍµ½»î¶¯´°¿Ú
-				// XUnmapWindow(display, windowid1); // Òþ²Ø´°¿Ú
-				// XUnmapWindow(display, windowid2); // Òþ²Ø´°¿Ú
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì²ï¿½ï¿½É¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½ï¿½Ú£ï¿½ï¿½ï¿½È»ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø£ï¿½X11ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â³ï¿½ï¿½ï¿½ï¿½ì³£ï¿½ï¿½Ö±ï¿½ï¿½ï¿½Ë³ï¿½ï¿½ï¿½ï¿½ï¿½F11ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü·ï¿½ï¿½Íµï¿½ï¿½î¶¯ï¿½ï¿½ï¿½ï¿½
+				// XUnmapWindow(display, windowid1); // ï¿½ï¿½ï¿½Ø´ï¿½ï¿½ï¿½
+				// XUnmapWindow(display, windowid2); // ï¿½ï¿½ï¿½Ø´ï¿½ï¿½ï¿½
 
-				// ÏÈÈ¡ÏûÁ½¸öÆÁÄ»µÄÈ«ÆÁ×´Ì¬£¬·¢ËÍF11
-				// µÚÒ»¸ö´°¿Ú
+				// ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä»ï¿½ï¿½È«ï¿½ï¿½×´Ì¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½F11
+				// ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				XRaiseWindow(display, windowid1);
 				XSetInputFocus(display, windowid1, RevertToPointerRoot, CurrentTime);
 				XFlush(display);
@@ -1321,7 +1321,7 @@ int Extension::CallExtension(string strSessionName, list<string> params, string 
 
 				usleep(millisecond * 1000);
 
-				// µÚ¶þ¸ö´°¿Ú
+				// ï¿½Ú¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				XRaiseWindow(display, windowid2);
 				XSetInputFocus(display, windowid2, RevertToPointerRoot, CurrentTime);
 				XFlush(display);
@@ -1340,9 +1340,9 @@ int Extension::CallExtension(string strSessionName, list<string> params, string 
 				usleep(millisecond * 1000);
 				kbdms_send_button_event(KEY_F11);
 
-				// »Ö¸´ÏÔÊ¾Á½¸ö´°¿Ú
-				// XMapWindow(display, windowid1); // ÏÔÊ¾´°¿Ú
-				// XMapWindow(display, windowid2); // ÏÔÊ¾´°¿Ú
+				// ï¿½Ö¸ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+				// XMapWindow(display, windowid1); // ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½
+				// XMapWindow(display, windowid2); // ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½
 
 				XFlush(display);
 
@@ -1354,14 +1354,14 @@ int Extension::CallExtension(string strSessionName, list<string> params, string 
 
 		nRet = 0;
 	}
-	else if ("FullBrowserScreen" == strMethod)  // ä¯ÀÀÆ÷´°¿ÚÈ«ÆÁ
+	else if ("FullBrowserScreen" == strMethod)  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È«ï¿½ï¿½
 	{
 		strRet = "false";
 
 		if (params.size() < 3) { printf("params miss, need 2 param\n"); return nRet; }
 
-		std::string windowname = (*iter++);  // ´°¿ÚÃû³Æ
-		int millisecond = atoi((*iter++).c_str());  // Ã¿´Î²Ù×÷¼ä¸ôµÄºÁÃëÊý£¬Ê±¼äÈç¹û²»¹»£¬ÏµÍ³¿ÉÄÜ·´Ó¦²»¹ýÀ´£¬Á¬Ðø²Ù×÷Ê±²¿·Ö²Ù×÷¿ÉÄÜ²»ÆðÐ§¹û
+		std::string windowname = (*iter++);  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		int millisecond = atoi((*iter++).c_str());  // Ã¿ï¿½Î²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Äºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÏµÍ³ï¿½ï¿½ï¿½Ü·ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Ö²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü²ï¿½ï¿½ï¿½Ð§ï¿½ï¿½
 		
 		unsigned long windowid = FindWindow((char *)windowname.c_str());
 		printf("windowname : %s, windowid : %lu\n", 
@@ -1388,7 +1388,7 @@ int Extension::CallExtension(string strSessionName, list<string> params, string 
 			else
 			{
 				/*
-				// ·¢ËÍ_NET_WM_STATE_FULLSCREENÊÂ¼þÖ»ÄÜ°Ñä¯ÀÀÆ÷´°¿Ú×î´ó»¯£¬±êÌâÀ¸¡¢²Ëµ¥À¸¡¢µØÖ·À¸µÈ»¹ÔÚ£¬ÐèÒª·¢ËÍ F11 °´¼ü·½Ê½²ÅÄÜ°Ñä¯ÀÀÆ÷´°¿ÚÈ«ÆÁ
+				// ï¿½ï¿½ï¿½ï¿½_NET_WM_STATE_FULLSCREENï¿½Â¼ï¿½Ö»ï¿½Ü°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ó»¯£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½È»ï¿½ï¿½Ú£ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ F11 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½Ü°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È«ï¿½ï¿½
 				Atom wm_state = XInternAtom(display, "_NET_WM_STATE", False);
 				Atom wm_fullscreen = XInternAtom(display, "_NET_WM_STATE_FULLSCREEN", False);
 
@@ -1401,9 +1401,9 @@ int Extension::CallExtension(string strSessionName, list<string> params, string 
 				event.xclient.format = 32;
 				event.xclient.data.l[0] = 1; // _NET_WM_STATE_ADD
 				event.xclient.data.l[1] = wm_fullscreen;
-				event.xclient.data.l[2] = 0; // ÎÞµÚ¶þ¸öÊôÐÔ
+				event.xclient.data.l[2] = 0; // ï¿½ÞµÚ¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-				// ·¢ËÍÊÂ¼þµ½¸ù´°¿Ú£¨·ûºÏEWMH¹æ·¶£©
+				// ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú£ï¿½ï¿½ï¿½ï¿½ï¿½EWMHï¿½æ·¶ï¿½ï¿½
 				XSendEvent(display, DefaultRootWindow(display), False,
 					SubstructureRedirectMask | SubstructureNotifyMask,
 					&event);
@@ -1412,8 +1412,8 @@ int Extension::CallExtension(string strSessionName, list<string> params, string 
 				*/
 
 
-				//*  20250212Õý³£Ê¹ÓÃF11¿ØÖÆ
-				// ÏÈÓÃÃüÁîÐÐ¹¤¾ßÖÃ´°¿Ú½¹µã
+				//*  20250212ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½F11ï¿½ï¿½ï¿½ï¿½
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¹ï¿½ï¿½ï¿½ï¿½Ã´ï¿½ï¿½Ú½ï¿½ï¿½ï¿½
 				char szCommand[256] = { 0 };
 				sprintf(szCommand, "xdotool windowactivate --sync %ld", windowid);
 				printf("xdotool control window : %s\n", szCommand);
@@ -1439,13 +1439,13 @@ int Extension::CallExtension(string strSessionName, list<string> params, string 
 
 		nRet = 0;
 	}
-	else if ("GetScreenPosition" == strMethod)  // »ñÈ¡´°¿ÚÎ»ÖÃ
+	else if ("GetScreenPosition" == strMethod)  // ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½
 	{
-		strRet = "{}";  // ·µ»ØÒ»¸öjson×Ö·û´®£¬Ä¬ÈÏÎª¿Õ¶ÔÏó
+		strRet = "{}";  // ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½jsonï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½Ä¬ï¿½ï¿½Îªï¿½Õ¶ï¿½ï¿½ï¿½
 
 		if (params.size() < 2) { printf("params miss, need 1 param\n"); return nRet; }
 
-		std::string windowname = (*iter++);  // ´°¿ÚÃû³Æ1
+		std::string windowname = (*iter++);  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1
 
 		unsigned long windowid = FindWindow((char *)windowname.c_str());
 		printf("windowname : %s, windowid : %lu\n", windowname.c_str(), windowid);
@@ -1485,14 +1485,14 @@ int Extension::CallExtension(string strSessionName, list<string> params, string 
 
 		nRet = 0;
 	}
-	else if ("ShowWindow" == strMethod)  // ÏÔÊ¾´°¿Ú
+	else if ("ShowWindow" == strMethod)  // ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½
 	{
 		strRet = "false";
 
 		if (params.size() < 3) { printf("params miss, need 2 param\n"); return nRet; }
 
-		std::string windowname = (*iter++);  // ´°¿ÚÃû³Æ£¬Í¬screenname±äÁ¿
-		int show = atoi((*iter++).c_str());  // ÏÔÊ¾·½Ê½(Í¬Windows¶¨ÒåÖµ)£º0£¨SW_HIDE£©£¬2(SW_SHOWMINIMIZED ×îÐ¡»¯)£¬3(SW_SHOWMAXIMIZED ×î´ó»¯)£¬5£¨SW_SHOW£©
+		std::string windowname = (*iter++);  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ£ï¿½Í¬screennameï¿½ï¿½ï¿½ï¿½
+		int show = atoi((*iter++).c_str());  // ï¿½ï¿½Ê¾ï¿½ï¿½Ê½(Í¬Windowsï¿½ï¿½ï¿½ï¿½Öµ)ï¿½ï¿½0ï¿½ï¿½SW_HIDEï¿½ï¿½ï¿½ï¿½2(SW_SHOWMINIMIZED ï¿½ï¿½Ð¡ï¿½ï¿½)ï¿½ï¿½3(SW_SHOWMAXIMIZED ï¿½ï¿½ï¿½)ï¿½ï¿½5ï¿½ï¿½SW_SHOWï¿½ï¿½
 		printf("windowname : %s, show : %d\n", windowname.c_str(), show);
 
 		unsigned long windowid = FindWindow((char *)windowname.c_str());
@@ -1511,15 +1511,15 @@ int Extension::CallExtension(string strSessionName, list<string> params, string 
 			}
 			else
 			{
-				// Ö»Ö§³ÖÏÔÊ¾ºÍÒþ²Ø´°¿Ú£¬ÆäËû
+				// Ö»Ö§ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½ï¿½Ú£ï¿½ï¿½ï¿½ï¿½ï¿½
 				if (0 == show)  // SW_HIDE
 				{
-					XUnmapWindow(display, windowid); // Òþ²Ø´°¿Ú
+					XUnmapWindow(display, windowid); // ï¿½ï¿½ï¿½Ø´ï¿½ï¿½ï¿½
 					strRet = "true";
 				}
 				else if (2 == show)  // SW_SHOWMINIMIZED
 				{
-					// ·¢ËÍ_NET_WM_STATE_MINIMIZED»òÕß_NET_WM_STATE_HIDDENÊÂ¼þ²»Æð×÷ÓÃ
+					// ï¿½ï¿½ï¿½ï¿½_NET_WM_STATE_MINIMIZEDï¿½ï¿½ï¿½ï¿½_NET_WM_STATE_HIDDENï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 					/*
 					Atom wm_state = XInternAtom(display, "_NET_WM_STATE", False);
 					// Atom wm_min = XInternAtom(display, "_NET_WM_STATE_MINIMIZED", False);
@@ -1534,16 +1534,16 @@ int Extension::CallExtension(string strSessionName, list<string> params, string 
 					event.xclient.format = 32;
 					event.xclient.data.l[0] = 1; // _NET_WM_STATE_ADD
 					event.xclient.data.l[1] = wm_min;
-					event.xclient.data.l[2] = 0; // ÎÞµÚ¶þ¸öÊôÐÔ
+					event.xclient.data.l[2] = 0; // ï¿½ÞµÚ¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-					// ·¢ËÍÊÂ¼þµ½¸ù´°¿Ú£¨·ûºÏEWMH¹æ·¶£©
+					// ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú£ï¿½ï¿½ï¿½ï¿½ï¿½EWMHï¿½æ·¶ï¿½ï¿½
 					XSendEvent(display, DefaultRootWindow(display), False,
 						SubstructureRedirectMask | SubstructureNotifyMask,
 						&event);
 					XFlush(display);
 					*/
 
-					// ¸ÄÎªÊ¹ÓÃÃüÁîÐÐ¹¤¾ßÊµÏÖ
+					// ï¿½ï¿½ÎªÊ¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¹ï¿½ï¿½ï¿½Êµï¿½ï¿½
 					char szCommand[256] = { 0 };
 					sprintf(szCommand, "xdotool windowminimize --sync %ld", windowid);
 					printf("xdotool control window : %s\n", szCommand);
@@ -1555,7 +1555,7 @@ int Extension::CallExtension(string strSessionName, list<string> params, string 
 				}
 				else if (3 == show)  // SW_SHOWMAXIMIZED
 				{
-					// Ö±·¢ËÍ_NET_WM_STATE_MAXIMIZED_VERTºÍ_NET_WM_STATE_MAXIMIZED_HORZÊÂ¼þºáÏò×î´ó»¯ºÍ×ÝÏò×î´ó»¯
+					// Ö±ï¿½ï¿½ï¿½ï¿½_NET_WM_STATE_MAXIMIZED_VERTï¿½ï¿½_NET_WM_STATE_MAXIMIZED_HORZï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ó»¯ºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 					Atom wm_state = XInternAtom(display, "_NET_WM_STATE", False);
 					Atom wm_vmax = XInternAtom(display, "_NET_WM_STATE_MAXIMIZED_VERT", False);
 					Atom wm_hmax = XInternAtom(display, "_NET_WM_STATE_MAXIMIZED_HORZ", False);
@@ -1570,9 +1570,9 @@ int Extension::CallExtension(string strSessionName, list<string> params, string 
 					event.xclient.data.l[0] = 1; // _NET_WM_STATE_ADD
 					event.xclient.data.l[1] = wm_vmax;
 					event.xclient.data.l[2] = wm_hmax;
-					event.xclient.data.l[3] = 0; // ÎÞµÚÈý¸öÊôÐÔ
+					event.xclient.data.l[3] = 0; // ï¿½Þµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-					// ·¢ËÍÊÂ¼þµ½¸ù´°¿Ú£¨·ûºÏEWMH¹æ·¶£©
+					// ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú£ï¿½ï¿½ï¿½ï¿½ï¿½EWMHï¿½æ·¶ï¿½ï¿½
 					XSendEvent(display, DefaultRootWindow(display), False,
 						SubstructureRedirectMask | SubstructureNotifyMask,
 						&event);
@@ -1580,7 +1580,7 @@ int Extension::CallExtension(string strSessionName, list<string> params, string 
 				}
 				else if (5 == show)  // SW_SHOW
 				{
-					XMapWindow(display, windowid); // ÏÔÊ¾´°¿Ú
+					XMapWindow(display, windowid); // ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½
 					strRet = "true";
 				}
 
@@ -1589,13 +1589,13 @@ int Extension::CallExtension(string strSessionName, list<string> params, string 
 		}
 		nRet = 0;
 	}
-	else if ("CaptureScreenAsJPG" == strMethod)  // ×¥È¡ÆÁÄ»
+	else if ("CaptureScreenAsJPG" == strMethod)  // ×¥È¡ï¿½ï¿½Ä»
 	{
 		strRet = "false";
 
 		if (params.size() < 2) { printf("params miss, need 1 param\n"); return nRet; }
 
-		std::string filename = (*iter++);  // ÎÄ¼þÃû
+		std::string filename = (*iter++);  // ï¿½Ä¼ï¿½ï¿½ï¿½
 		printf("capture screen to filename : %s\n", filename.c_str());
 
 		if (std::string::npos != filename.find("*") || std::string::npos != filename.find("?"))
@@ -1604,7 +1604,7 @@ int Extension::CallExtension(string strSessionName, list<string> params, string 
 		}
 		else
 		{
-			// Ö±½Ó»ùÓÚÃüÁîÐÐÊµÏÖ
+			// Ö±ï¿½Ó»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½
 			int nSystemResult = system((char*)("rm -f " + filename).c_str());
 			printf("CaptureScreenAsJPG rm ret %d\n", nSystemResult);
 
@@ -1620,13 +1620,13 @@ int Extension::CallExtension(string strSessionName, list<string> params, string 
 
 		nRet = 0;
 	}
-	else if ("SystemCmdWithResult" == strMethod)  // Ö´ÐÐÃüÁîÐÐÃüÁî
+	else if ("SystemCmdWithResult" == strMethod)  // Ö´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	{
 		strRet = "false";
 
 		if (params.size() < 2) { printf("params miss, need 1 param\n"); return nRet; }
 
-		std::string commandline = (*iter++);  // ÃüÁîÐÐ
+		std::string commandline = (*iter++);  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		nRet = system(commandline.c_str());
 
 		if (0 == nRet)
@@ -1640,43 +1640,43 @@ int Extension::CallExtension(string strSessionName, list<string> params, string 
 
 		nRet = 0;
 	}
-	else if ("GetFileVersion" == strMethod)  // »ñÈ¡ÎÄ¼þ°æ±¾ÐÅÏ¢£º²»Ö§³Ö£¬Ö»ÔÚWindowsÖÐÓÐÐ§
+	else if ("GetFileVersion" == strMethod)  // ï¿½ï¿½È¡ï¿½Ä¼ï¿½ï¿½æ±¾ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½Ö§ï¿½Ö£ï¿½Ö»ï¿½ï¿½Windowsï¿½ï¿½ï¿½ï¿½Ð§
 	{
 		strRet = "false";
 
 		char outbuf[1024] = { 0 };
-		g2u("LinuxÏÂ´ËÃüÁî²»Ö§³Ö", strlen("LinuxÏÂ´ËÃüÁî²»Ö§³Ö"), outbuf, sizeof(outbuf));
-		strRet = outbuf;  // strRet = "LinuxÏÂ´ËÃüÁî²»Ö§³Ö"; strRet = u8"LinuxÏÂ´ËÃüÁî²»Ö§³Ö"; Ö®Àà»áÏÔÊ¾ÂÒÂë£¬µ¼ÖÂwebsocket×ªÂëÊ§°Ü¶ÏÁ´
+		g2u("Linuxï¿½Â´ï¿½ï¿½ï¿½ï¿½î²»Ö§ï¿½ï¿½", strlen("Linuxï¿½Â´ï¿½ï¿½ï¿½ï¿½î²»Ö§ï¿½ï¿½"), outbuf, sizeof(outbuf));
+		strRet = outbuf;  // strRet = "Linuxï¿½Â´ï¿½ï¿½ï¿½ï¿½î²»Ö§ï¿½ï¿½"; strRet = u8"Linuxï¿½Â´ï¿½ï¿½ï¿½ï¿½î²»Ö§ï¿½ï¿½"; Ö®ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ë£¬ï¿½ï¿½ï¿½ï¿½websocket×ªï¿½ï¿½Ê§ï¿½Ü¶ï¿½ï¿½ï¿½
 
 		nRet = 0;
 	}
-	else if ("GetRemovableDrivers" == strMethod)  // »ñÈ¡¿ÉÒÆ¶¯´æ´¢Æ÷£º²»Ö§³Ö£¬Ö»ÔÚWindowsÖÐÓÐÐ§
+	else if ("GetRemovableDrivers" == strMethod)  // ï¿½ï¿½È¡ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½æ´¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö§ï¿½Ö£ï¿½Ö»ï¿½ï¿½Windowsï¿½ï¿½ï¿½ï¿½Ð§
 	{
 		strRet = "false";
 
 		char outbuf[1024] = { 0 };
-		g2u("LinuxÏÂ´ËÃüÁî²»Ö§³Ö", strlen("LinuxÏÂ´ËÃüÁî²»Ö§³Ö"), outbuf, sizeof(outbuf));
-		strRet = outbuf;  // strRet = "LinuxÏÂ´ËÃüÁî²»Ö§³Ö"; strRet = u8"LinuxÏÂ´ËÃüÁî²»Ö§³Ö"; Ö®Àà»áÏÔÊ¾ÂÒÂë£¬µ¼ÖÂwebsocket×ªÂëÊ§°Ü¶ÏÁ´
+		g2u("Linuxï¿½Â´ï¿½ï¿½ï¿½ï¿½î²»Ö§ï¿½ï¿½", strlen("Linuxï¿½Â´ï¿½ï¿½ï¿½ï¿½î²»Ö§ï¿½ï¿½"), outbuf, sizeof(outbuf));
+		strRet = outbuf;  // strRet = "Linuxï¿½Â´ï¿½ï¿½ï¿½ï¿½î²»Ö§ï¿½ï¿½"; strRet = u8"Linuxï¿½Â´ï¿½ï¿½ï¿½ï¿½î²»Ö§ï¿½ï¿½"; Ö®ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ë£¬ï¿½ï¿½ï¿½ï¿½websocket×ªï¿½ï¿½Ê§ï¿½Ü¶ï¿½ï¿½ï¿½
 
 		nRet = 0;
 	}
-	else if ("ZipFile" == strMethod)  // Ñ¹ËõÎÄ¼þ
+	else if ("ZipFile" == strMethod)  // Ñ¹ï¿½ï¿½ï¿½Ä¼ï¿½
 	{
 		strRet = "false";
 
 		if (params.size() < 3) { printf("params miss, need 2 param\n"); return nRet; }
 
-		std::string filename = (*iter++);  // ´ýÑ¹ËõµÄÎÄ¼þÃû
-		std::string zipfilename = (*iter++);  // Ñ¹ËõºóµÄÎÄ¼þÃû
+		std::string filename = (*iter++);  // ï¿½ï¿½Ñ¹ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½
+		std::string zipfilename = (*iter++);  // Ñ¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½
 
-		// Ê¹ÓÃÃüÁîÐÐÃüÁî
+		// Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		char szCommand[256] = { 0 };
 		sprintf(szCommand, "rm -r %s; zip -qj %s %s", zipfilename.c_str(), zipfilename.c_str(), filename.c_str());
 
 		nRet = system(szCommand);
 		if (0 == nRet)
 		{
-			// ¼ì²é½á¹ûÎÄ¼þÊÇ·ñ´æÔÚ
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½
 			struct stat s_buf = {0};
 			if (0 == stat(zipfilename.c_str(), &s_buf))
 			{
@@ -1690,25 +1690,25 @@ int Extension::CallExtension(string strSessionName, list<string> params, string 
 
 		nRet = 0;
 	}
-	else if ("ZipPath" == strMethod)  // Ñ¹ËõÂ·¾¶
+	else if ("ZipPath" == strMethod)  // Ñ¹ï¿½ï¿½Â·ï¿½ï¿½
 	{
 		strRet = "false";
 
 		if (params.size() < 3) { printf("params miss, need 2 param\n"); return nRet; }
 
-		std::string filepath = (*iter++);  // ´ýÑ¹ËõµÄÎÄ¼þÂ·¾¶
-		std::string zipfilename = (*iter++);  // Ñ¹ËõºóµÄÎÄ¼þÃû
+		std::string filepath = (*iter++);  // ï¿½ï¿½Ñ¹ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½Â·ï¿½ï¿½
+		std::string zipfilename = (*iter++);  // Ñ¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½
 
-		// Ê¹ÓÃÃüÁîÐÐÃüÁî
+		// Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		char szCommand[256] = { 0 };
 		sprintf(szCommand, "rm -f %s", zipfilename.c_str());
-		system(szCommand);  // É¾³ýÎÄ¼þ»òÄ¿Â¼¿ÉÄÜÊ§°Ü£¬ÏÈÖ´ÐÐ£¬²»´¦ÀíÉ¾³ýµÄ½á¹û
+		system(szCommand);  // É¾ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½Ä¿Â¼ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½ï¿½ï¿½Ö´ï¿½Ð£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¾ï¿½ï¿½ï¿½Ä½ï¿½ï¿½
 
 		sprintf(szCommand, "cd %s; zip -rq %s ./", filepath.c_str(), zipfilename.c_str());
 		nRet = system(szCommand);
 		if (0 == nRet)
 		{
-			// ¼ì²é½á¹ûÎÄ¼þÊÇ·ñ´æÔÚ
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½
 			struct stat s_buf = {0};
 			if (0 == stat(zipfilename.c_str(), &s_buf))
 			{
@@ -1722,11 +1722,11 @@ int Extension::CallExtension(string strSessionName, list<string> params, string 
 
 		nRet = 0;
 	}
-	else if ("GetDirectoryFileInfo" == strMethod)  // »ñÈ¡Ä¿Â¼ÐÅÏ¢
+	else if ("GetDirectoryFileInfo" == strMethod)  // ï¿½ï¿½È¡Ä¿Â¼ï¿½ï¿½Ï¢
 	{
 		if (params.size() < 2) { printf("params miss, need 1 param\n"); return nRet; }
 
-		std::string filepath = (*iter++);  // ÎÄ¼þÂ·¾¶
+		std::string filepath = (*iter++);  // ï¿½Ä¼ï¿½Â·ï¿½ï¿½
 
 		std::string strDirectoryFileInfo = "";
 
@@ -1774,7 +1774,7 @@ int Extension::CallExtension(string strSessionName, list<string> params, string 
 						(long)s_buf.st_size,
 						";",
 						nLoop,
-						"", // ctim = s_buf.st_ctim²»ÊÇ´´½¨Ê±¼ä£¬¶øÊÇ×´Ì¬ÐÞ¸ÄÊ±¼ä£¬Îª±£³ÖºÍWindowsÒ»ÖÂ£¬²»Ìá¹©´ËÖµ
+						"", // ctim = s_buf.st_ctimï¿½ï¿½ï¿½Ç´ï¿½ï¿½ï¿½Ê±ï¿½ä£¬ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½Þ¸ï¿½Ê±ï¿½ä£¬Îªï¿½ï¿½ï¿½Öºï¿½WindowsÒ»ï¿½Â£ï¿½ï¿½ï¿½ï¿½á¹©ï¿½ï¿½Öµ
 						";",
 						nLoop,
 						mtim);
@@ -1797,14 +1797,14 @@ int Extension::CallExtension(string strSessionName, list<string> params, string 
 		strRet = strDirectoryFileInfo;
 		nRet = 0;
 	}
-	else if ("CheckFileStatus" == strMethod  || "AddFileStatus2Check" == strMethod)  // Ôö¼ÓÎÄ¼þ¼ì²â
+	else if ("CheckFileStatus" == strMethod  || "AddFileStatus2Check" == strMethod)  // ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½
 	{
 		strRet = "false";
 
 		if (params.size() < 3) { printf("params miss, need 2 param\n"); return nRet; }
 
-		std::string filename = (*iter++);  // ÎÄ¼þÂ·¾¶
-		std::string callbackfunction = (*iter++);  // »Øµ÷º¯Êý
+		std::string filename = (*iter++);  // ï¿½Ä¼ï¿½Â·ï¿½ï¿½
+		std::string callbackfunction = (*iter++);  // ï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½
 		printf("filename : %s, callbackfunction : %s\n", filename.c_str(), callbackfunction.c_str());
 
 		struct checkfilethread_data * cfpdata = new struct checkfilethread_data();
@@ -1818,14 +1818,14 @@ int Extension::CallExtension(string strSessionName, list<string> params, string 
 		strRet = "true";
 		nRet = 0;
 	}
-	else if ("GetFileSize" == strMethod)  // »ñÈ¡ÎÄ¼þ´óÐ¡
+	else if ("GetFileSize" == strMethod)  // ï¿½ï¿½È¡ï¿½Ä¼ï¿½ï¿½ï¿½Ð¡
 	{
 		if (params.size() < 2) { printf("params miss, need 1 param\n"); return nRet; }
 
-		std::string filename = (*iter++);  // ÎÄ¼þÂ·¾¶
+		std::string filename = (*iter++);  // ï¿½Ä¼ï¿½Â·ï¿½ï¿½
 		printf("filename : %s\n", filename.c_str());
 
-		// Ã»ÓÐº¯ÊýÖ§³Ö£¬Ö±½ÓÊ¹ÓÃÃüÁîÐÐÃüÁî
+		// Ã»ï¿½Ðºï¿½ï¿½ï¿½Ö§ï¿½Ö£ï¿½Ö±ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		struct stat s_buf = {0};
 		if (0 == stat(filename.c_str(), &s_buf))
 		{
@@ -1836,17 +1836,17 @@ int Extension::CallExtension(string strSessionName, list<string> params, string 
 
 		nRet = 0;
 	}
-	else if ("FindProcess" == strMethod)  // ½áÊøÖ¸¶¨Ãû³ÆµÄ½ø³Ì£ºÐèÒª½÷É÷£¬ËùÓÐps -ef·µ»ØÐÅÏ¢ÖÐ°üº¬ÁËÖ¸¶¨×Ö·û´®µÄ½ø³Ì¶¼»á±»É±µô£¬¿ÉÄÜÖ»ÊÇÂ·¾¶»òÕßÆäËûÃüÁîÐÐ²ÎÊýµÈ°üº¬ÁË¸ÃÃû³Æ
+	else if ("FindProcess" == strMethod)  // ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ÆµÄ½ï¿½ï¿½Ì£ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ps -efï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½Ð°ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½Ä½ï¿½ï¿½Ì¶ï¿½ï¿½á±»É±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö»ï¿½ï¿½Â·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð²ï¿½ï¿½ï¿½ï¿½È°ï¿½ï¿½ï¿½ï¿½Ë¸ï¿½ï¿½ï¿½ï¿½ï¿½
 	{
 		strRet = "false";
 
 		if (params.size() < 2) { printf("params miss, need 1 param\n"); return nRet; }
 
-		std::string processname = (*iter++);  // ½ø³ÌÃû³Æ
+		std::string processname = (*iter++);  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		printf("processname : %s\n", processname.c_str());
 
-		// Ö±½ÓÊ¹ÓÃÃüÁîÐÐÃüÁî´¦Àí
-		// É¾³ýÁÙÊ±ÎÄ¼þ
+		// Ö±ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½î´¦ï¿½ï¿½
+		// É¾ï¿½ï¿½ï¿½ï¿½Ê±ï¿½Ä¼ï¿½
 		system("rm -f /SSA/findprocess.txt");
 
 		char szCommand[256] = { 0 };
@@ -1855,7 +1855,7 @@ int Extension::CallExtension(string strSessionName, list<string> params, string 
 		nRet = system(szCommand);
 		if (0 == nRet)
 		{
-			// /SSA/findprocess.txtÎÄ¼þ´æÔÚÊ±±íÊ¾ÕÒµ½½ø³Ì
+			// /SSA/findprocess.txtï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Ê¾ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½
 			struct stat s_buf = {0};
 			if (0 == stat("/SSA/findprocess.txt", &s_buf) && s_buf.st_size > 0)
 			{
@@ -1869,16 +1869,16 @@ int Extension::CallExtension(string strSessionName, list<string> params, string 
 
 		nRet = 0;
 	}
-	else if ("KillProcess" == strMethod)  // ½áÊøÖ¸¶¨Ãû³ÆµÄ½ø³Ì
+	else if ("KillProcess" == strMethod)  // ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ÆµÄ½ï¿½ï¿½ï¿½
 	{
 		strRet = "false";
 
 		if (params.size() < 2) { printf("params miss, need 1 param\n"); return nRet; }
 
-		std::string processname = (*iter++);  // ½ø³ÌÃû³Æ
+		std::string processname = (*iter++);  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		printf("processname : %s\n", processname.c_str());
 
-		// Ö±½ÓÊ¹ÓÃÃüÁîÐÐÃüÁî´¦Àí
+		// Ö±ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½î´¦ï¿½ï¿½
 		char szCommand[256] = { 0 };
 		sprintf(szCommand, "for i in `ps -ef|grep %s |awk '{print $2}' `; do kill -9 $i ; done;", processname.c_str());
 
@@ -1888,27 +1888,27 @@ int Extension::CallExtension(string strSessionName, list<string> params, string 
 		strRet = "true";
 		nRet = 0;
 	}
-	else if ("GetLocalIpAddress" == strMethod)  // »ñÈ¡±¾µØIPµØÖ·
+	else if ("GetLocalIpAddress" == strMethod)  // ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½IPï¿½ï¿½Ö·
 	{
 		strRet = get_local_ip();
 
 		nRet = 0;
 	}
-	else if ("GetLocalMacAddress" == strMethod)  // »ñÈ¡±¾µØMacµØÖ·£ºÍø¿¨Ãû³Æ(MACµØÖ·),Íø¿¨Ãû³Æ(MACµØÖ·), ...
+	else if ("GetLocalMacAddress" == strMethod)  // ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½Macï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(MACï¿½ï¿½Ö·),ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(MACï¿½ï¿½Ö·), ...
 	{
 		strRet = get_local_mac();
 
 		nRet = 0;
 	}
-	else if ("ShellExecute" == strMethod)  // Ö´ÐÐÖ¸¶¨³ÌÐò
+	else if ("ShellExecute" == strMethod)  // Ö´ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	{
 		strRet = "false";
 
 		if (params.size() < 4) { printf("params miss, need 3 param\n"); return nRet; }
 
-		std::string filepath = (*iter++);  // ÎÄ¼þÃû
-		std::string parameters = (*iter++);  // ²ÎÊý
-		std::string directory = (*iter++);  // Â·¾¶
+		std::string filepath = (*iter++);  // ï¿½Ä¼ï¿½ï¿½ï¿½
+		std::string parameters = (*iter++);  // ï¿½ï¿½ï¿½ï¿½
+		std::string directory = (*iter++);  // Â·ï¿½ï¿½
 		printf("filepath : %s, parameters : %s, directory : %s\n", filepath.c_str(), parameters.c_str(), directory.c_str());
 
 		char szCommand[256] = { 0 };
@@ -1920,18 +1920,18 @@ int Extension::CallExtension(string strSessionName, list<string> params, string 
 		strRet = "true";
 		nRet = 0;
 	}
-	else if ("SendSocketMessage" == strMethod)  // ·¢ËÍsocketÏûÏ¢
+	else if ("SendSocketMessage" == strMethod)  // ï¿½ï¿½ï¿½ï¿½socketï¿½ï¿½Ï¢
 	{
 		strRet = "false";
 
 		if (params.size() < 4) { printf("params miss, need 3 param\n"); return nRet; }
 
-		std::string netaddr = (*iter++);  // ·þÎñÆ÷µØÖ·
-		int port = atoi((*iter++).c_str());  // ¶Ë¿ÚºÅ
-		std::string message = (*iter++);  // ±¨ÎÄ
+		std::string netaddr = (*iter++);  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·
+		int port = atoi((*iter++).c_str());  // ï¿½Ë¿Úºï¿½
+		std::string message = (*iter++);  // ï¿½ï¿½ï¿½ï¿½
 		printf("netaddr : %s, port : %d, message : %s\n", netaddr.c_str(), port, message.c_str());
 
-		// Ê¹ÓÃÏß³Ì·¢ËÍ£¬·ÀÖ¹µØÖ·²»¿É·ÃÎÊ»ò·þÎñÌá¹©·½ÎÊÌâ£¬Ôì³ÉÖ÷Á÷³Ì¿¨×¡
+		// Ê¹ï¿½ï¿½ï¿½ß³Ì·ï¿½ï¿½Í£ï¿½ï¿½ï¿½Ö¹ï¿½ï¿½Ö·ï¿½ï¿½ï¿½É·ï¿½ï¿½Ê»ï¿½ï¿½ï¿½ï¿½ï¿½á¹©ï¿½ï¿½ï¿½ï¿½ï¿½â£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¿ï¿½×¡
 		struct socketmessagethread_data * smdata = new struct socketmessagethread_data();
 		smdata->netaddr = netaddr;
 		smdata->port = port;
@@ -1943,42 +1943,42 @@ int Extension::CallExtension(string strSessionName, list<string> params, string 
 		strRet = "true";
 		nRet = 0;
 	}
-	else if ("GetScreenSetting" == strMethod)  // »ñÈ¡ÆÁÄ»·Ö±æÂÊ
+	else if ("GetScreenSetting" == strMethod)  // ï¿½ï¿½È¡ï¿½ï¿½Ä»ï¿½Ö±ï¿½ï¿½ï¿½
 	{
 		strRet = "false";
 
 		if (params.size() < 2) { printf("params miss, need 1 param\n"); return nRet; }
 
-		int screenindex = atoi((*iter++).c_str());  // ÆÁÄ»ÏÂ±ê
+		int screenindex = atoi((*iter++).c_str());  // ï¿½ï¿½Ä»ï¿½Â±ï¿½
 		printf("screenindex : %d\n", screenindex);
 
 		char outbuf[1024] = { 0 };
-		g2u("LinuxÏÂ´ËÃüÁî²»Ö§³Ö", strlen("LinuxÏÂ´ËÃüÁî²»Ö§³Ö"), outbuf, sizeof(outbuf));
-		strRet = outbuf;  // strRet = "LinuxÏÂ´ËÃüÁî²»Ö§³Ö"; strRet = u8"LinuxÏÂ´ËÃüÁî²»Ö§³Ö"; Ö®Àà»áÏÔÊ¾ÂÒÂë£¬µ¼ÖÂwebsocket×ªÂëÊ§°Ü¶ÏÁ´
+		g2u("Linuxï¿½Â´ï¿½ï¿½ï¿½ï¿½î²»Ö§ï¿½ï¿½", strlen("Linuxï¿½Â´ï¿½ï¿½ï¿½ï¿½î²»Ö§ï¿½ï¿½"), outbuf, sizeof(outbuf));
+		strRet = outbuf;  // strRet = "Linuxï¿½Â´ï¿½ï¿½ï¿½ï¿½î²»Ö§ï¿½ï¿½"; strRet = u8"Linuxï¿½Â´ï¿½ï¿½ï¿½ï¿½î²»Ö§ï¿½ï¿½"; Ö®ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ë£¬ï¿½ï¿½ï¿½ï¿½websocket×ªï¿½ï¿½Ê§ï¿½Ü¶ï¿½ï¿½ï¿½
 
 		nRet = 0;
 	}
-	else if ("SetScreenSetting" == strMethod)  // ÉèÖÃÆÁÄ»·Ö±æÂÊ
+	else if ("SetScreenSetting" == strMethod)  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä»ï¿½Ö±ï¿½ï¿½ï¿½
 	{
 		strRet = "false";
 
 		if (params.size() < 3) { printf("params miss, need 2 param\n"); return nRet; }
 
-		int screenindex = atoi((*iter++).c_str());  // ÆÁÄ»ÏÂ±ê
-		std::string setting = (*iter++);  // ÉèÖÃÐÅÏ¢£¬²ÎÕÕGetScreenSettingµÄ½á¹ûÌîÐ´
+		int screenindex = atoi((*iter++).c_str());  // ï¿½ï¿½Ä»ï¿½Â±ï¿½
+		std::string setting = (*iter++);  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½GetScreenSettingï¿½Ä½ï¿½ï¿½ï¿½ï¿½Ð´
 		printf("screenindex : %d, setting : %s\n", screenindex, setting.c_str());
 
 		char outbuf[1024] = { 0 };
-		g2u("LinuxÏÂ´ËÃüÁî²»Ö§³Ö", strlen("LinuxÏÂ´ËÃüÁî²»Ö§³Ö"), outbuf, sizeof(outbuf));
-		strRet = outbuf;  // strRet = "LinuxÏÂ´ËÃüÁî²»Ö§³Ö"; strRet = u8"LinuxÏÂ´ËÃüÁî²»Ö§³Ö"; Ö®Àà»áÏÔÊ¾ÂÒÂë£¬µ¼ÖÂwebsocket×ªÂëÊ§°Ü¶ÏÁ´
+		g2u("Linuxï¿½Â´ï¿½ï¿½ï¿½ï¿½î²»Ö§ï¿½ï¿½", strlen("Linuxï¿½Â´ï¿½ï¿½ï¿½ï¿½î²»Ö§ï¿½ï¿½"), outbuf, sizeof(outbuf));
+		strRet = outbuf;  // strRet = "Linuxï¿½Â´ï¿½ï¿½ï¿½ï¿½î²»Ö§ï¿½ï¿½"; strRet = u8"Linuxï¿½Â´ï¿½ï¿½ï¿½ï¿½î²»Ö§ï¿½ï¿½"; Ö®ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ë£¬ï¿½ï¿½ï¿½ï¿½websocket×ªï¿½ï¿½Ê§ï¿½Ü¶ï¿½ï¿½ï¿½
 
 		nRet = 0;
 	}
-	else if ("GetFileBase64String" == strMethod)  // È¡ÎÄ¼þÄÚÈÝµÄBase64±àÂë
+	else if ("GetFileBase64String" == strMethod)  // È¡ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½Ýµï¿½Base64ï¿½ï¿½ï¿½ï¿½
 	{
 		if (params.size() < 2) { printf("params miss, need 1 param\n"); return nRet; }
 
-		std::string filename = (*iter++);  // ÎÄ¼þÃû
+		std::string filename = (*iter++);  // ï¿½Ä¼ï¿½ï¿½ï¿½
 		printf("filename 111 : %s\n", filename.c_str());
 
 		std::string strBase64 = CFileHelper().File2Base64Str(filename.c_str());
@@ -1986,12 +1986,12 @@ int Extension::CallExtension(string strSessionName, list<string> params, string 
 		strRet = strBase64;
 		nRet = 0;
 	}
-	else if ("GetFileBase64StringWithSkip" == strMethod)  // È¡ÎÄ¼þÄÚÈÝµÄBase64±àÂë
+	else if ("GetFileBase64StringWithSkip" == strMethod)  // È¡ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½Ýµï¿½Base64ï¿½ï¿½ï¿½ï¿½
 	{
 		if (params.size() < 3) { printf("params miss, need 2 param\n"); return nRet; }
 
-		std::string filename = (*iter++);  // ÎÄ¼þÃû
-		int skiplength = atoi((*iter++).c_str());  // Ìø¹ýÖ¸¶¨³¤¶È
+		std::string filename = (*iter++);  // ï¿½Ä¼ï¿½ï¿½ï¿½
+		int skiplength = atoi((*iter++).c_str());  // ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		printf("filename : %s, skiplength : %d\n", filename.c_str(), skiplength);
 
 		std::string strBase64 = CFileHelper().File2Base64StrWithSkip(filename.c_str(), skiplength);
@@ -1999,14 +1999,14 @@ int Extension::CallExtension(string strSessionName, list<string> params, string 
 		strRet = strBase64;
 		nRet = 0;
 	}
-	else if ("Base64String2File" == strMethod)  // ½²ÎÄ¼þÄÚÈÝµÄBase64±àÂëÐ´ÈëÎÄ¼þ
+	else if ("Base64String2File" == strMethod)  // ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½Ýµï¿½Base64ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½Ä¼ï¿½
 	{
 		strRet = "false";
 
 		if (params.size() < 3) { printf("params miss, need 2 param\n"); return nRet; }
 
-		std::string base64string = (*iter++);  // Base64±àÂëÄÚÈÝ
-		std::string filename = (*iter++);  // ÎÄ¼þÃû
+		std::string base64string = (*iter++);  // Base64ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		std::string filename = (*iter++);  // ï¿½Ä¼ï¿½ï¿½ï¿½
 		printf("base64string : %s, filename : %s\n", base64string.c_str(), filename.c_str());
 
 		CFileHelper().Base64Str2File(filename.c_str(), base64string.c_str());
@@ -2014,17 +2014,17 @@ int Extension::CallExtension(string strSessionName, list<string> params, string 
 		strRet = "true";
 		nRet = 0;
 	}
-	else if ("CopyFileOrDirectory" == strMethod)  // ¿½±´ÎÄ¼þ»òÄ¿Â¼
+	else if ("CopyFileOrDirectory" == strMethod)  // ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½Ä¿Â¼
 	{
 		strRet = "false";
 
 		if (params.size() < 3) { printf("params miss, need 2 param\n"); return nRet; }
 
-		std::string srcfilepath = (*iter++);  // Ô´ÎÄ¼þÂ·¾¶
-		std::string destfilepath = (*iter++);  // Ä¿±êÎÄ¼þÂ·¾¶
+		std::string srcfilepath = (*iter++);  // Ô´ï¿½Ä¼ï¿½Â·ï¿½ï¿½
+		std::string destfilepath = (*iter++);  // Ä¿ï¿½ï¿½ï¿½Ä¼ï¿½Â·ï¿½ï¿½
 		printf("srcfilepath : %s, destfilepath : %s\n", srcfilepath.c_str(), destfilepath.c_str());
 
-		// Ã»ÓÐº¯ÊýÖ§³Ö£¬Ö±½ÓÊ¹ÓÃÃüÁîÐÐÃüÁî
+		// Ã»ï¿½Ðºï¿½ï¿½ï¿½Ö§ï¿½Ö£ï¿½Ö±ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		struct stat s_buf = {0};
 		if (0 != stat(srcfilepath.c_str(), &s_buf))
 		{
@@ -2053,16 +2053,16 @@ int Extension::CallExtension(string strSessionName, list<string> params, string 
 
 		nRet = 0;
 	}
-	else if ("DeleteFile" == strMethod)  // É¾³ýÎÄ¼þ
+	else if ("DeleteFile" == strMethod)  // É¾ï¿½ï¿½ï¿½Ä¼ï¿½
 	{
 		strRet = "false";
 
 		if (params.size() < 2) { printf("params miss, need 1 param\n"); return nRet; }
 
-		std::string filename = (*iter++);  // ÎÄ¼þÂ·¾¶
+		std::string filename = (*iter++);  // ï¿½Ä¼ï¿½Â·ï¿½ï¿½
 		printf("filename : %s\n", filename.c_str());
 
-		// ²»ÔÊÐíÊ¹ÓÃÍ¨Åä·û
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½Í¨ï¿½ï¿½ï¿½
 		if (nullptr != strstr(filename.c_str(), "*") || nullptr != strstr(filename.c_str(), "?"))
 		{
 			printf("invalid filename : * and ? not support\n", filename.c_str());
@@ -2091,16 +2091,16 @@ int Extension::CallExtension(string strSessionName, list<string> params, string 
 
 		nRet = 0;
 	}
-	else if ("DeletePath" == strMethod)  // É¾³ýÄ¿Â¼
+	else if ("DeletePath" == strMethod)  // É¾ï¿½ï¿½Ä¿Â¼
 	{
 		strRet = "false";
 
 		if (params.size() < 2) { printf("params miss, need 1 param\n"); return nRet; }
 
-		std::string filepath = (*iter++);  // Ä¿Â¼Â·¾¶
+		std::string filepath = (*iter++);  // Ä¿Â¼Â·ï¿½ï¿½
 		printf("filename : %s\n", filepath.c_str());
 
-		// ²»ÔÊÐíÊ¹ÓÃÍ¨Åä·û
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½Í¨ï¿½ï¿½ï¿½
 		if (nullptr != strstr(filepath.c_str(), "*") || nullptr != strstr(filepath.c_str(), "?"))
 		{
 			printf("invalid filename : * and ? not support\n", filepath.c_str());
@@ -2120,7 +2120,7 @@ int Extension::CallExtension(string strSessionName, list<string> params, string 
 					command = "rm -rf ";
 
 					command += filepath;
-					command += "/*";  // Ö»É¾³ýÄ¿Â¼ÄÚÈÝ£¬²»É¾³ýÄ¿Â¼±¾Éí
+					command += "/*";  // Ö»É¾ï¿½ï¿½Ä¿Â¼ï¿½ï¿½ï¿½Ý£ï¿½ï¿½ï¿½É¾ï¿½ï¿½Ä¿Â¼ï¿½ï¿½ï¿½ï¿½
 					printf("command : %s\n", command.c_str());
 					if (0 == system((char*)command.c_str()))
 					{
@@ -2132,17 +2132,17 @@ int Extension::CallExtension(string strSessionName, list<string> params, string 
 		
 		nRet = 0;
 	}
-	else if ("RenameFile" == strMethod)  // ÖØÃüÃûÎÄ¼þ
+	else if ("RenameFile" == strMethod)  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½
 	{
 		strRet = "false";
 
 		if (params.size() < 3) { printf("params miss, need 2 param\n"); return nRet; }
 
-		std::string srcfilepath = (*iter++);  // Ô´ÎÄ¼þÂ·¾¶
-		std::string destfilepath = (*iter++);  // Ä¿±êÎÄ¼þÂ·¾¶
+		std::string srcfilepath = (*iter++);  // Ô´ï¿½Ä¼ï¿½Â·ï¿½ï¿½
+		std::string destfilepath = (*iter++);  // Ä¿ï¿½ï¿½ï¿½Ä¼ï¿½Â·ï¿½ï¿½
 		printf("srcfilepath : %s, destfilepath : %s\n", srcfilepath.c_str(), destfilepath.c_str());
 
-		// ²»ÔÊÐíÊ¹ÓÃÍ¨Åä·û
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½Í¨ï¿½ï¿½ï¿½
 		if (nullptr != strstr(srcfilepath.c_str(), "*") || nullptr != strstr(srcfilepath.c_str(), "?")
 			|| nullptr != strstr(destfilepath.c_str(), "*") || nullptr != strstr(destfilepath.c_str(), "?"))
 		{
@@ -2150,7 +2150,7 @@ int Extension::CallExtension(string strSessionName, list<string> params, string 
 		}
 		else
 		{
-			// Ã»ÓÐº¯ÊýÖ§³Ö£¬Ö±½ÓÊ¹ÓÃÃüÁîÐÐÃüÁî
+			// Ã»ï¿½Ðºï¿½ï¿½ï¿½Ö§ï¿½Ö£ï¿½Ö±ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			struct stat s_buf = {0};
 			if (0 == stat(srcfilepath.c_str(), &s_buf))
 			{
@@ -2175,13 +2175,13 @@ int Extension::CallExtension(string strSessionName, list<string> params, string 
 		
 		nRet = 0;
 	}
-	else if ("IsFileExists" == strMethod)  // ÎÄ¼þÊÇ·ñ´æÔÚ
+	else if ("IsFileExists" == strMethod)  // ï¿½Ä¼ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½
 	{
 		strRet = "false";
 
 		if (params.size() < 2) { printf("params miss, need 1 param\n"); return nRet; }
 
-		std::string filename = (*iter++);  // ÎÄ¼þÂ·¾¶
+		std::string filename = (*iter++);  // ï¿½Ä¼ï¿½Â·ï¿½ï¿½
 		printf("filename : %s\n", filename.c_str());
 
 		struct stat s_buf = {0};
@@ -2194,11 +2194,11 @@ int Extension::CallExtension(string strSessionName, list<string> params, string 
 
 		nRet = 0;
 	}
-	else if ("File2String" == strMethod)  // ÎÄ¼þ¶ÁÈ¡Îª×Ö·û´®
+	else if ("File2String" == strMethod)  // ï¿½Ä¼ï¿½ï¿½ï¿½È¡Îªï¿½Ö·ï¿½ï¿½ï¿½
 	{
 		if (params.size() < 2) { printf("params miss, need 1 param\n"); return nRet; }
 
-		std::string filename = (*iter++);  // ÎÄ¼þÂ·¾¶
+		std::string filename = (*iter++);  // ï¿½Ä¼ï¿½Â·ï¿½ï¿½
 		printf("filename : %s\n", filename.c_str());
 
 		struct stat s_buf = {0};
@@ -2219,19 +2219,19 @@ int Extension::CallExtension(string strSessionName, list<string> params, string 
 		
 		nRet = 0;
 	}
-	else if ("String2File" == strMethod)  // ×Ö·û´®±£´æµ½ÎÄ¼þ
+	else if ("String2File" == strMethod)  // ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æµ½ï¿½Ä¼ï¿½
 	{
 		strRet = "false";
 
 		if (params.size() < 4) { printf("params miss, need 3 param\n"); return nRet; }
 
-		std::string filename = (*iter++);  // ÎÄ¼þÂ·¾¶
-		std::string filecontent = (*iter++);  // ÎÄ¼þÄÚÈÝ
-		int bappend = atoi((*iter++).c_str());  // ÎÄ¼þÊÇ·ñ×·¼Ó£º1×·¼Ó£¬0¸²¸Ç
+		std::string filename = (*iter++);  // ï¿½Ä¼ï¿½Â·ï¿½ï¿½
+		std::string filecontent = (*iter++);  // ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½
+		int bappend = atoi((*iter++).c_str());  // ï¿½Ä¼ï¿½ï¿½Ç·ï¿½×·ï¿½Ó£ï¿½1×·ï¿½Ó£ï¿½0ï¿½ï¿½ï¿½ï¿½
 		printf("filename : %s, filecontent : %s, bappend : %d\n", filename.c_str(), filecontent.c_str(), bappend);
 
 		struct stat s_buf = {0};
-		if (0 == stat(filename.c_str(), &s_buf) && S_ISDIR(s_buf.st_mode))  // ²»ÄÜ´æÔÚÍ¬ÃûÄ¿Â¼
+		if (0 == stat(filename.c_str(), &s_buf) && S_ISDIR(s_buf.st_mode))  // ï¿½ï¿½ï¿½Ü´ï¿½ï¿½ï¿½Í¬ï¿½ï¿½Ä¿Â¼
 		{
 			printf("%s is directory\n", filename.c_str());
 		}
@@ -2243,11 +2243,11 @@ int Extension::CallExtension(string strSessionName, list<string> params, string 
 
 		nRet = 0;
 	}
-	else if ("CalculateMd5Digest" == strMethod)  // ¼ÆËãMD5
+	else if ("CalculateMd5Digest" == strMethod)  // ï¿½ï¿½ï¿½ï¿½MD5
 	{
 		if (params.size() < 2) { printf("params miss, need 1 param\n"); return nRet; }
 
-		std::string datahexstring = (*iter++);  // ×Ö½Ú16½øÖÆ×Ö·û´®
+		std::string datahexstring = (*iter++);  // ï¿½Ö½ï¿½16ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½
 		printf("datahexstring : %s\n", datahexstring.c_str());
 
 		CUtils utils;
@@ -2261,26 +2261,26 @@ int Extension::CallExtension(string strSessionName, list<string> params, string 
 		char digest[32] = { 0 };
 		char digesthexstring[64 + 2] = { 0 };
 
-		md5_init(&Md5Ctx);  // ³õÊ¼»¯
-		md5_update(&Md5Ctx, nDataLen, pszData);  // md5¼ÓÃÜ
-		md5_digest(&Md5Ctx, 16, (unsigned char *)digest);  // ¼ÓÃÜºóµÄÃÜÎÄ
+		md5_init(&Md5Ctx);  // ï¿½ï¿½Ê¼ï¿½ï¿½
+		md5_update(&Md5Ctx, nDataLen, pszData);  // md5ï¿½ï¿½ï¿½ï¿½
+		md5_digest(&Md5Ctx, 16, (unsigned char *)digest);  // ï¿½ï¿½ï¿½Üºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		utils.HextoStr((unsigned char *)digest, 16, digesthexstring);
 		printf("CalculateMd5Digest result : %s\n", digesthexstring);
 
 		strRet = digesthexstring;
 		nRet = 0;
 	}
-	else if ("CallJScriptWithOutput" == strMethod)  // Ö´ÐÐ´°¿ÚJS´úÂë
+	else if ("CallJScriptWithOutput" == strMethod)  // Ö´ï¿½Ð´ï¿½ï¿½ï¿½JSï¿½ï¿½ï¿½ï¿½
 	{
 		strRet = "false";
 
 		if (params.size() < 6) { printf("params miss, need 5 param\n"); return nRet; }
 
-		std::string srcsessionname = (*iter++);  // Ô´sessionÃû³Æ£¬ÓÃÓÚ½«½á¹û»ØÓ¦·¢ËÍ¸øË­£¬JS´¦ÀíÍê±ÏÊ±£¬»á»Øµ÷
-		std::string callbackfuncname = (*iter++);  // ½á¹û»ØÓ¦»Øµ÷º¯Êý
-		std::string destsessionname = (*iter++);  // Ä¿±êsessionÃû³Æ£¬ÓÃÓÚÏòË­ÇëÇóµ÷ÓÃ
-		std::string functionname = (*iter++);  // ·½·¨Ãû³Æ
-		std::string param = (*iter++);  // ²ÎÊý
+		std::string srcsessionname = (*iter++);  // Ô´sessionï¿½ï¿½ï¿½Æ£ï¿½ï¿½ï¿½ï¿½Ú½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½Í¸ï¿½Ë­ï¿½ï¿½JSï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Øµï¿½
+		std::string callbackfuncname = (*iter++);  // ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½
+		std::string destsessionname = (*iter++);  // Ä¿ï¿½ï¿½sessionï¿½ï¿½ï¿½Æ£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		std::string functionname = (*iter++);  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		std::string param = (*iter++);  // ï¿½ï¿½ï¿½ï¿½
 		printf("srcsessionname : %s, callbackfuncname : %s, destsessionname : %s, functionname : %s, param : %s\n", 
 			srcsessionname.c_str(), callbackfuncname.c_str(), destsessionname.c_str(), functionname.c_str(), param.c_str());
 
@@ -2291,7 +2291,7 @@ int Extension::CallExtension(string strSessionName, list<string> params, string 
 		int nRetLen = strlen(strCallbackJs);
 
 		printf("mtx_session_data4send.lock ->\n");
-		mtx_session_data4send.lock();  //±¨ÎÄ·¢ËÍºó»á½âËø
+		mtx_session_data4send.lock();  //ï¿½ï¿½ï¿½Ä·ï¿½ï¿½Íºï¿½ï¿½ï¿½ï¿½ï¿½
 		printf("mtx_session_data4send.lock <-\n");
 		memset(session_data4send.buf, 0, sizeof(session_data4send.buf));
 		memcpy(&session_data4send.buf[LWS_PRE], strCallbackJs, nRetLen);
@@ -2314,14 +2314,14 @@ int Extension::CallExtension(string strSessionName, list<string> params, string 
 		strRet = "true";
 		nRet = 0;
 	}
-	else if ("StartSocketService" == strMethod)  // Æô¶¯Socket·þÎñ
+	else if ("StartSocketService" == strMethod)  // ï¿½ï¿½ï¿½ï¿½Socketï¿½ï¿½ï¿½ï¿½
 	{
 		strRet = "false";
 
 		if (params.size() < 3) { printf("params miss, need 2 param\n"); return nRet; }
 
-		int port = atoi((*iter++).c_str());  // ¼àÌý¶Ë¿ÚºÅ
-		std::string callbackfunction = (*iter++);  // »Øµ÷·½·¨Ãû³Æ
+		int port = atoi((*iter++).c_str());  // ï¿½ï¿½ï¿½ï¿½ï¿½Ë¿Úºï¿½
+		std::string callbackfunction = (*iter++);  // ï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		printf("port : %d, callbackfunction : %s\n", port, callbackfunction.c_str());
 
 		StartSocketService(strSessionName, port, callbackfunction);
@@ -2329,27 +2329,27 @@ int Extension::CallExtension(string strSessionName, list<string> params, string 
 		strRet = "true";
 		nRet = 0;
 	}
-	else if ("GetXmlParam" == strMethod)  // »ñÈ¡XMLÖµ
+	else if ("GetXmlParam" == strMethod)  // ï¿½ï¿½È¡XMLÖµ
 	{
 		if (params.size() < 3) { printf("params miss, need 2 param\n"); return nRet; }
 
-		std::string strFileName = (*iter++);  // xmlÎÄ¼þÃû
-		std::string strXPath = (*iter++);  // xml½ÚµãÂ·¾¶
+		std::string strFileName = (*iter++);  // xmlï¿½Ä¼ï¿½ï¿½ï¿½
+		std::string strXPath = (*iter++);  // xmlï¿½Úµï¿½Â·ï¿½ï¿½
 
 		printf("strFileName : %s, strXPath : %s\n", strFileName.c_str(), strXPath.c_str());
 
 		strRet = GetXmlParam(strFileName, strXPath);
 		nRet = 0;
 	}
-	else if ("SetXmlParam" == strMethod)  // ÉèÖÃXMLÖµ
+	else if ("SetXmlParam" == strMethod)  // ï¿½ï¿½ï¿½ï¿½XMLÖµ
 	{
 		strRet = "false";
 
 		if (params.size() < 4) { printf("params miss, need 3 param\n"); return nRet; }
 
-		std::string strFileName = (*iter++);  // xmlÎÄ¼þÃû
-		std::string strXPath = (*iter++);  // xml½ÚµãÂ·¾¶
-		std::string strValue = (*iter++);  // xml½ÚµãÖµ
+		std::string strFileName = (*iter++);  // xmlï¿½Ä¼ï¿½ï¿½ï¿½
+		std::string strXPath = (*iter++);  // xmlï¿½Úµï¿½Â·ï¿½ï¿½
+		std::string strValue = (*iter++);  // xmlï¿½Úµï¿½Öµ
 
 		printf("strFileName : %s, strXPath : %s, strValue : %s\n", strFileName.c_str(), strXPath.c_str(), strValue.c_str());
 
@@ -2362,14 +2362,14 @@ int Extension::CallExtension(string strSessionName, list<string> params, string 
 
 		nRet = 0;
 	}
-	else if ("GetSM4Key" == strMethod)  // »ñÈ¡ÃÜÔ¿·Ö·¢Æ÷¹úÃÜÃÜÔ¿
+	else if ("GetSM4Key" == strMethod)  // ï¿½ï¿½È¡ï¿½ï¿½Ô¿ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¿
 	{
 		strRet = "false";
 
 		if (params.size() < 3) { printf("params miss, need 2 param\n"); return nRet; }
 
-		int nMaxPortNum = atoi((*iter++).c_str());  // ×î´ó¼ì²â¶Ë¿Ú£¬Í¬Ê±Æô¶¯¶àÉÙ¸öÏß³Ì¼à²â´®¿Ú¶Ë¿ÚÊÇ·ñÓÐÏûÏ¢
-		std::string strTermNum = (*iter++);  // ´ý»ñÈ¡ÃÜÔ¿µÄÖÕ¶Ë±àºÅ£ºÃÜÔ¿·Ö·¢Æ÷²»´¦Àí´Ë²ÎÊý£¬ÓÃÓÚ±È¶Ô´ÓÃÜÔ¿·Ö·¢Æ÷ÖÐÄÃµ½ÃÜÔ¿ÊÇ·ñÊÇÐèÒªµÄÖÕ¶Ë±àºÅµÄÃÜÔ¿
+		int nMaxPortNum = atoi((*iter++).c_str());  // ï¿½ï¿½ï¿½ï¿½ï¿½Ë¿Ú£ï¿½Í¬Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù¸ï¿½ï¿½ß³Ì¼ï¿½â´®ï¿½Ú¶Ë¿ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
+		std::string strTermNum = (*iter++);  // ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½Ô¿ï¿½ï¿½ï¿½Õ¶Ë±ï¿½Å£ï¿½ï¿½ï¿½Ô¿ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú±È¶Ô´ï¿½ï¿½ï¿½Ô¿ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½Ô¿ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½Õ¶Ë±ï¿½Åµï¿½ï¿½ï¿½Ô¿
 
 		printf("nMaxPortNum : %d, strTermNum : %s\n", nMaxPortNum, strTermNum.c_str());
 
@@ -2382,7 +2382,7 @@ int Extension::CallExtension(string strSessionName, list<string> params, string 
 
 		nRet = 0;
 	}
-	else if ("CancelGetKey" == strMethod)  // È¡Ïû»ñÈ¡ÃÜÔ¿·Ö·¢Æ÷¹úÃÜÃÜÔ¿£º½áÊøµÈ´ý´®¿Ú¶Ë¿ÚÏûÏ¢Ïß³Ì
+	else if ("CancelGetKey" == strMethod)  // È¡ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½Ô¿ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È´ï¿½ï¿½ï¿½ï¿½Ú¶Ë¿ï¿½ï¿½ï¿½Ï¢ï¿½ß³ï¿½
 	{
 		strRet = "false";
 
@@ -2395,13 +2395,13 @@ int Extension::CallExtension(string strSessionName, list<string> params, string 
 
 		nRet = 0;
 	}
-	else if ("CompleteKey" == strMethod)  // ÉèÖÃÃÜÔ¿·Ö·¢Æ÷ÃÜÔ¿µ¼³ö½á¹û
+	else if ("CompleteKey" == strMethod)  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¿ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½Ô¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	{
 		strRet = "false";
 
 		if (params.size() < 2) { printf("params miss, need 1 param\n"); return nRet; }
 
-		int nResult = atoi((*iter++).c_str());  // = 0Ê§°Ü£» = 1³É¹¦
+		int nResult = atoi((*iter++).c_str());  // = 0Ê§ï¿½Ü£ï¿½ = 1ï¿½É¹ï¿½
 		printf("nResult : %d(0 failed, 1 success)\n", nResult);
 
 		nRet = CKeyou::GetInstance()->CompleteKey(nResult);
@@ -2413,23 +2413,23 @@ int Extension::CallExtension(string strSessionName, list<string> params, string 
 
 		nRet = 0;
 	}
-	else if ("ReloadMainUrl" == strMethod)  // Ò³Ãæ¼ÓÔØÊ§°ÜÊ±£¬ÖØÐÂ¼ÓÔØÖ÷Ò³Ãæ
+	else if ("ReloadMainUrl" == strMethod)  // Ò³ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½Ò³ï¿½ï¿½
 	{
 		strRet = "false";
 
 		char outbuf[1024] = { 0 };
-		g2u("LinuxÏÂ´ËÃüÁî²»Ö§³Ö", strlen("LinuxÏÂ´ËÃüÁî²»Ö§³Ö"), outbuf, sizeof(outbuf));
-		strRet = outbuf;  // strRet = "LinuxÏÂ´ËÃüÁî²»Ö§³Ö"; strRet = u8"LinuxÏÂ´ËÃüÁî²»Ö§³Ö"; Ö®Àà»áÏÔÊ¾ÂÒÂë£¬µ¼ÖÂwebsocket×ªÂëÊ§°Ü¶ÏÁ´
+		g2u("Linuxï¿½Â´ï¿½ï¿½ï¿½ï¿½î²»Ö§ï¿½ï¿½", strlen("Linuxï¿½Â´ï¿½ï¿½ï¿½ï¿½î²»Ö§ï¿½ï¿½"), outbuf, sizeof(outbuf));
+		strRet = outbuf;  // strRet = "Linuxï¿½Â´ï¿½ï¿½ï¿½ï¿½î²»Ö§ï¿½ï¿½"; strRet = u8"Linuxï¿½Â´ï¿½ï¿½ï¿½ï¿½î²»Ö§ï¿½ï¿½"; Ö®ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ë£¬ï¿½ï¿½ï¿½ï¿½websocket×ªï¿½ï¿½Ê§ï¿½Ü¶ï¿½ï¿½ï¿½
 
 		nRet = 0;
 	}
-	else if ("LoadSSMDServer" == strMethod)  // ¿ÆÓÑÈ«±¨ÎÄ¼ÓÃÜ£º¼ÓÔØSSMD·þÎñ
+	else if ("LoadSSMDServer" == strMethod)  // ï¿½ï¿½ï¿½ï¿½È«ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ï¿½SSMDï¿½ï¿½ï¿½ï¿½
 	{
 		strRet = "false";
 
 		if (params.size() < 2) { printf("params miss, need 1 param\n"); return nRet; }
 
-		std::string strFileFullPath = (*iter++);  // ssmd ·þÎñ³ÌÐòÈ«Â·¾¶
+		std::string strFileFullPath = (*iter++);  // ssmd ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È«Â·ï¿½ï¿½
 		nRet = CSSMKeyou::GetInstance()->LoadSSMDServer(strFileFullPath.c_str());
 		if (-1 != nRet)
 		{
@@ -2439,7 +2439,7 @@ int Extension::CallExtension(string strSessionName, list<string> params, string 
 
 		nRet = 0;
 	}
-	else if ("CreateSM2Key" == strMethod)  // ¿ÆÓÑÈ«±¨ÎÄ¼ÓÃÜ£º´´½¨SM2Key
+	else if ("CreateSM2Key" == strMethod)  // ï¿½ï¿½ï¿½ï¿½È«ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ï¿½SM2Key
 	{
 		strRet = "false";
 
@@ -2447,55 +2447,55 @@ int Extension::CallExtension(string strSessionName, list<string> params, string 
 
 		nRet = 0;
 	}
-	else if ("SetServerSM2PublicKey" == strMethod)  // ¿ÆÓÑÈ«±¨ÎÄ¼ÓÃÜ£ºÉèÖÃ±¾µØ·þÎñSM2¹«Ô¿
+	else if ("SetServerSM2PublicKey" == strMethod)  // ï¿½ï¿½ï¿½ï¿½È«ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½Ü£ï¿½ï¿½ï¿½ï¿½Ã±ï¿½ï¿½Ø·ï¿½ï¿½ï¿½SM2ï¿½ï¿½Ô¿
 	{
 		strRet = "false";
 		if (params.size() < 2) { printf("params miss, need 1 param\n"); return nRet; }
 
-		std::string strServerSM2PublicKeyHex = (*iter++);  // ssmd ·þÎñSM2¹«Ô¿
+		std::string strServerSM2PublicKeyHex = (*iter++);  // ssmd ï¿½ï¿½ï¿½ï¿½SM2ï¿½ï¿½Ô¿
 		strRet = CSSMKeyou::GetInstance()->SetServerSM2PublicKey(strServerSM2PublicKeyHex.c_str());
 
 		nRet = 0;
 	}
-	else if ("GetEnvelopeHmac" == strMethod)  // ¿ÆÓÑÈ«±¨ÎÄ¼ÓÃÜ£º»ñÈ¡Êý¾Ýmac
+	else if ("GetEnvelopeHmac" == strMethod)  // ï¿½ï¿½ï¿½ï¿½È«ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½Ü£ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½mac
 	{
 		strRet = "false";
 		if (params.size() < 2) { printf("params miss, need 1 param\n"); return nRet; }
 
-		std::string strSourceData = (*iter++);  // Ô´Êý¾Ý
+		std::string strSourceData = (*iter++);  // Ô´ï¿½ï¿½ï¿½ï¿½
 		strRet = CSSMKeyou::GetInstance()->GetEnvelopeHmac(strSourceData.c_str());
 
 		nRet = 0;
 	}
-	else if ("VerifySSMEnvelopeHmac" == strMethod)  // ¿ÆÓÑÈ«±¨ÎÄ¼ÓÃÜ£ºÑéÖ¤Êý¾Ýmac
+	else if ("VerifySSMEnvelopeHmac" == strMethod)  // ï¿½ï¿½ï¿½ï¿½È«ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½Ü£ï¿½ï¿½ï¿½Ö¤ï¿½ï¿½ï¿½ï¿½mac
 	{
 		strRet = "false";
 		if (params.size() < 4) { printf("params miss, need 3 param\n"); return nRet; }
 
-		std::string strSourceData = (*iter++);  // ssmd ·þÎñ³ÌÐòÈ«Â·¾¶
-		std::string strHmacHex = (*iter++);  // ssmd ·þÎñ³ÌÐòÈ«Â·¾¶
-		std::string strHmacKeyByPkHex = (*iter++);  // ssmd ·þÎñ³ÌÐòÈ«Â·¾¶
+		std::string strSourceData = (*iter++);  // ssmd ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È«Â·ï¿½ï¿½
+		std::string strHmacHex = (*iter++);  // ssmd ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È«Â·ï¿½ï¿½
+		std::string strHmacKeyByPkHex = (*iter++);  // ssmd ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È«Â·ï¿½ï¿½
 		strRet = CSSMKeyou::GetInstance()->VerifySSMEnvelopeHmac(strSourceData.c_str(), strHmacHex.c_str(), strHmacKeyByPkHex.c_str());
 
 		nRet = 0;
 	}
-	else if ("ECBEncryptSSMEnvelope" == strMethod)  // ¿ÆÓÑÈ«±¨ÎÄ¼ÓÃÜ£º¼ÓÃÜÐÅ·â
+	else if ("ECBEncryptSSMEnvelope" == strMethod)  // ï¿½ï¿½ï¿½ï¿½È«ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å·ï¿½
 	{
 		strRet = "false";
 		if (params.size() < 2) { printf("params miss, need 1 param\n"); return nRet; }
 
-		std::string strPlain = (*iter++);  // Ã÷ÎÄÊý¾Ý
+		std::string strPlain = (*iter++);  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		strRet = CSSMKeyou::GetInstance()->ECBEncryptSSMEnvelope(strPlain.c_str());
 
 		nRet = 0;
 	}
-	else if ("ECBDecryptSSMEnvelope" == strMethod)  // ¿ÆÓÑÈ«±¨ÎÄ¼ÓÃÜ£º¼ÓÃÜÐÅ·â
+	else if ("ECBDecryptSSMEnvelope" == strMethod)  // ï¿½ï¿½ï¿½ï¿½È«ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å·ï¿½
 	{
 		strRet = "false";
 		if (params.size() < 3) { printf("params miss, need 2 param\n"); return nRet; }
 
-		std::string strCipherHex = (*iter++);  // Ã÷ÎÄÊý¾Ý
-		std::string strKeyByClientPkHex = (*iter++);  // Ã÷ÎÄÊý¾Ý
+		std::string strCipherHex = (*iter++);  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		std::string strKeyByClientPkHex = (*iter++);  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		strRet = CSSMKeyou::GetInstance()->ECBDecryptSSMEnvelope(strCipherHex.c_str(), strKeyByClientPkHex.c_str());
 
 		nRet = 0;
@@ -2505,7 +2505,7 @@ int Extension::CallExtension(string strSessionName, list<string> params, string 
 		strRet = "false";
 		if (params.size() < 2) { printf("params miss, need 1 param\n"); return nRet; }
 
-		std::string str = (*iter++);  // ×Ö·û´®Êý¾Ý
+		std::string str = (*iter++);  // ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 		int nLen = strlen(str.c_str());
 		char * hexstring = new char[nLen * 2 + 2];
@@ -2525,7 +2525,7 @@ int Extension::CallExtension(string strSessionName, list<string> params, string 
 		strRet = "false";
 		if (params.size() < 2) { printf("params miss, need 1 param\n"); return nRet; }
 
-		std::string strhex = (*iter++);  // 16½øÖÆ×Ö·û´®Êý¾Ý
+		std::string strhex = (*iter++);  // 16ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 		int nLen = strlen(strhex.c_str());
 		char * str = new char[nLen + 2];

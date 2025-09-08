@@ -1,13 +1,13 @@
 #include "DBusService.h"
-// DBus ÏûÏ¢´¦Àí  ¿ªÊ¼
+// DBus ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½  ï¿½ï¿½Ê¼
 // cd /usr/include/dbus-1.0
 // sudo cp -r ./dbus ../
 // sudo cp /usr/lib/x86_64-linux-gnu/dbus-1.0/include/dbus/* /usr/include/dbus
-// Èç¹û³öÏÖ undefined reference to symbol 'g_main_context_push_thread_default' ±àÒë´íÎó£º
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ undefined reference to symbol 'g_main_context_push_thread_default' ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 // sudo apt-get install libglib2.0-dev
 #include <dbus/dbus-glib-lowlevel.h> /* for glib main loop */
 #include <iostream>
-#include "../DC/DC.h"
+#include "DC.h"
 
 const char *version = "1.0";
 
@@ -157,13 +157,13 @@ DBusHandlerResult server_message_handler(DBusConnection *conn, DBusMessage *mess
 		dbus_error_init(&err);
 
 		const char * path = NULL;
-		// »ñÈ¡Â·¾¶£¬ÅÐ¶ÏÊÇÄÄ¸öÄ£¿éµÄÊÂ¼þ
+		// ï¿½ï¿½È¡Â·ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½Ä¸ï¿½Ä£ï¿½ï¿½ï¿½ï¿½Â¼ï¿½
 		if (NULL == (path = dbus_message_get_path(message)))
 		{
 			printf("*** get path failed when event_callback is called\n");
 		}
 
-		// ´Ópath£¨ÀýÈç /lfs/dcidcardreader/listener£©ÖÐ½Ø³öDCName
+		// ï¿½ï¿½pathï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ /lfs/dcidcardreader/listenerï¿½ï¿½ï¿½Ð½Ø³ï¿½DCName
 		std::string strDCName = "";
 
 		std::string strPath = path;
@@ -254,32 +254,32 @@ DBusConnection * StartupDBus(char * szPathName)
 		dbus_error_free(&err);
 	}
 
-	// Ôö¼ÓDBus·ÃÎÊÂ·¾¶
+	// ï¿½ï¿½ï¿½ï¿½DBusï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½
 	char szarrPath[][64] =
 	{
-		"/lfs/DCCardReader/listener",  // ½Ó´¥¶Á¿¨Æ÷
-		"/lfs/DCChipCardReader/listener",  // IC¶Á¿¨Æ÷
-		"/lfs/DCRFChipCardReader/listener",  // ·Ç½ÓIC¶Á¿¨Æ÷
-		"/lfs/DCIDCardReader/listener",  // Éí·ÝÖ¤
-		"/lfs/DCUKeyReader/listener",  // UKeyÌõÂëÔÄ¶ÁÆ÷
-		"/lfs/DCPinPad/listener",  // ÃÜÂë¼üÅÌ
-		"/lfs/DCJournalPrinter/listener",  // Á÷Ë®´òÓ¡»ú
-		"/lfs/DCReceiptPrinter/listener",  // Æ¾Ìõ´òÓ¡»ú
-		"/lfs/DCPassBookPrinter/listener",  // ´æÕÛ´òÓ¡»ú
-		"/lfs/DCStatementPrinter/listener",  // ¶ÔÕËµ¥´òÓ¡»ú
-		"/lfs/DCInvoicePrinter/listener",  // ·¢Æ±´òÓ¡»ú
-		"/lfs/DCDocumentPrinter/listener",  // ÎÄµµ´òÓ¡»ú
-		"/lfs/DCDocumentRetractPrinter/listener",  // ÎÄµµ»ØÊÕ
-		"/lfs/DCFingerPrinter/listener",  // Ö¸ÎÆÒÇ£º»ùÓÚ´òÓ¡»úµÄÖ¸ÎÆÒÇ
-		"/lfs/DCCashAcceptor/listener",  // ´æ¿îÄ£¿é
-		"/lfs/DCCashDispenser/listener",  // È¡¿îÄ£¿é
-		"/lfs/DCOperatorPanel/listener",  // ²Ù×÷Ô±Ãæ°å
-		"/lfs/DCSensorsAndIndicators/listener",  // ´«¸ÐÆ÷/Ö¸Ê¾µÆ
-		"/lfs/DCVendorMode/listener",  // ³§ÉÌÄ£Ê½
-		"/lfs/DCScanner/listener",  // É¨ÃèÒÇ
-		"/lfs/DCBarcode/listener",  // ¶þÎ¬Âë
-		"/lfs/DCCardDispenser/listener",  // ·¢¿¨
-		"/lfs/DCCamera/listener"   // ÉãÏñÍ·
+		"/lfs/DCCardReader/listener",  // ï¿½Ó´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		"/lfs/DCChipCardReader/listener",  // ICï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		"/lfs/DCRFChipCardReader/listener",  // ï¿½Ç½ï¿½ICï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		"/lfs/DCIDCardReader/listener",  // ï¿½ï¿½ï¿½ï¿½Ö¤
+		"/lfs/DCUKeyReader/listener",  // UKeyï¿½ï¿½ï¿½ï¿½ï¿½Ä¶ï¿½ï¿½ï¿½
+		"/lfs/DCPinPad/listener",  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		"/lfs/DCJournalPrinter/listener",  // ï¿½ï¿½Ë®ï¿½ï¿½Ó¡ï¿½ï¿½
+		"/lfs/DCReceiptPrinter/listener",  // Æ¾ï¿½ï¿½ï¿½ï¿½Ó¡ï¿½ï¿½
+		"/lfs/DCPassBookPrinter/listener",  // ï¿½ï¿½ï¿½Û´ï¿½Ó¡ï¿½ï¿½
+		"/lfs/DCStatementPrinter/listener",  // ï¿½ï¿½ï¿½Ëµï¿½ï¿½ï¿½Ó¡ï¿½ï¿½
+		"/lfs/DCInvoicePrinter/listener",  // ï¿½ï¿½Æ±ï¿½ï¿½Ó¡ï¿½ï¿½
+		"/lfs/DCDocumentPrinter/listener",  // ï¿½Äµï¿½ï¿½ï¿½Ó¡ï¿½ï¿½
+		"/lfs/DCDocumentRetractPrinter/listener",  // ï¿½Äµï¿½ï¿½ï¿½ï¿½ï¿½
+		"/lfs/DCFingerPrinter/listener",  // Ö¸ï¿½ï¿½ï¿½Ç£ï¿½ï¿½ï¿½ï¿½Ú´ï¿½Ó¡ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½
+		"/lfs/DCCashAcceptor/listener",  // ï¿½ï¿½ï¿½Ä£ï¿½ï¿½
+		"/lfs/DCCashDispenser/listener",  // È¡ï¿½ï¿½Ä£ï¿½ï¿½
+		"/lfs/DCOperatorPanel/listener",  // ï¿½ï¿½ï¿½ï¿½Ô±ï¿½ï¿½ï¿½
+		"/lfs/DCSensorsAndIndicators/listener",  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½/Ö¸Ê¾ï¿½ï¿½
+		"/lfs/DCVendorMode/listener",  // ï¿½ï¿½ï¿½ï¿½Ä£Ê½
+		"/lfs/DCScanner/listener",  // É¨ï¿½ï¿½ï¿½ï¿½
+		"/lfs/DCBarcode/listener",  // ï¿½ï¿½Î¬ï¿½ï¿½
+		"/lfs/DCCardDispenser/listener",  // ï¿½ï¿½ï¿½ï¿½
+		"/lfs/DCCamera/listener"   // ï¿½ï¿½ï¿½ï¿½Í·
 	};
 
 	// if (!dbus_connection_register_object_path(conn, "/org/example/TestObject", &server_vtable, NULL)) {
@@ -297,12 +297,12 @@ DBusConnection * StartupDBus(char * szPathName)
 
 	return conn;
 }
-// DBus ÏûÏ¢´¦Àí  ½áÊø
+// DBus ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½  ï¿½ï¿½ï¿½ï¿½
 
 void * DBusService::Init(LPVOID lpParam)
 {
 	DBusConnection * dbusconn = NULL;
-	// llx Æô¶¯dbus
+	// llx ï¿½ï¿½ï¿½ï¿½dbus
 	dbusconn = StartupDBus((char *)std::string("").c_str());
 
 	GMainContext* main_context_ = g_main_context_new();
@@ -310,7 +310,7 @@ void * DBusService::Init(LPVOID lpParam)
 
 	GMainLoop* main_loop_ = g_main_loop_new(main_context_, TRUE);
 
-	// llx ¹ØÁªDBusÏûÏ¢´¦Àíµ½Ö÷ÏûÏ¢Ñ­»·
+	// llx ï¿½ï¿½ï¿½ï¿½DBusï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢Ñ­ï¿½ï¿½
 	if (NULL != dbusconn)
 	{
 		dbus_connection_setup_with_g_main(dbusconn, main_context_);

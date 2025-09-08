@@ -9,12 +9,12 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-#include "../stdafx.h"
+#include "stdafx.h"
 
 #ifdef PROTOCOL_PISA
-#include "../DC/PISA/include/lfsapi.h"
+#include "lfsapi.h"
 #else
-#include "../DC/LFS/include/lfsapi.h"
+#include "lfsapi.h"
 #endif
 
 
@@ -26,19 +26,19 @@ public:
 
 public:
 	/*
-	 * 获取应用传递的字符串参数值，格式为Key=Value;Key=Value;Key=Value ...
+	 * 锟斤拷取应锟矫达拷锟捷碉拷锟街凤拷锟斤拷锟斤拷锟斤拷值锟斤拷锟斤拷式为Key=Value;Key=Value;Key=Value ...
 	 *
 	 */
 	static BOOL GetStringParams(LPCTSTR strParams, LPCTSTR strSplitString, CStringArray & strarrParams);
 
 	/*
-	 * 获取应用传递的字符串参数值，格式为Key=Value;Key=Value;Key=Value ...
+	 * 锟斤拷取应锟矫达拷锟捷碉拷锟街凤拷锟斤拷锟斤拷锟斤拷值锟斤拷锟斤拷式为Key=Value;Key=Value;Key=Value ...
 	 *
 	 */
 	static BOOL GetStringParam(CStringArray & strarrParams, LPCTSTR strKey, CString & strValue);
 
 	/*
-	 * 获取应用传递的字符串参数值，格式为Key=Value;Key=Value;Key=Value ...
+	 * 锟斤拷取应锟矫达拷锟捷碉拷锟街凤拷锟斤拷锟斤拷锟斤拷值锟斤拷锟斤拷式为Key=Value;Key=Value;Key=Value ...
 	 *
 	 */
 	static CString GetStringParam(CStringArray & strarrParams, LPCTSTR strKey);

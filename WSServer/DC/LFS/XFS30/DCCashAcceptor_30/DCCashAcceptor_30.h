@@ -9,10 +9,10 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-#include "../DC_30.h"
-#include "../../../DC/DC.h"
-#include "../../include/lfscim.h"
-#include "../../../../stdafx.h"
+#include "DC_30.h"
+#include "DC.h"
+#include "lfscim.h"
+#include "stdafx.h"
 
 class CDCCashAcceptor_30 : public CDC_30
 {
@@ -43,12 +43,12 @@ public:
 	HRESULT INF_CIM_STATUS();
 	HRESULT INF_CIM_CAPABILITIES();
 	HRESULT INF_CIM_CASH_UNIT_INFO();
-	HRESULT INF_CIM_TELLER_INFO();  // ÔÝÎ´ÊµÏÖ
+	HRESULT INF_CIM_TELLER_INFO();  // ï¿½ï¿½Î´Êµï¿½ï¿½
 	HRESULT INF_CIM_CURRENCY_EXP();
 	HRESULT INF_CIM_BANKNOTE_TYPES();
 	HRESULT INF_CIM_CASH_IN_STATUS();
-	HRESULT INF_CIM_GET_P6_INFO();  // ÔÝÎ´ÊµÏÖ
-	HRESULT INF_CIM_GET_P6_SIGNATURE();  // ÔÝÎ´ÊµÏÖ
+	HRESULT INF_CIM_GET_P6_INFO();  // ï¿½ï¿½Î´Êµï¿½ï¿½
+	HRESULT INF_CIM_GET_P6_SIGNATURE();  // ï¿½ï¿½Î´Êµï¿½ï¿½
 
 	HRESULT CMD_CIM_CASH_IN_START(long lInputPosition, long lOutputPosition, long lUseRecycleUnits);
 	HRESULT CMD_CIM_CASH_IN();

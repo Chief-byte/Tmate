@@ -9,9 +9,9 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-#include "../DC_30.h"
-#include "../../DC/DC.h"
-#include "../../XFS320/Include/XFSBCR.H"
+#include "DC_30.h"
+#include "DC.h"
+#include "XFSBCR.H"
 
 class CDCBarcode_31 : public CDC_30
 {
@@ -42,7 +42,7 @@ public:
 	HRESULT INF_BCR_STATUS();
 	HRESULT INF_BCR_CAPABILITIES();
 
-	// ÃüÁîÖ´ÐÐ
+	// ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½
 	HRESULT CMD_BCR_READ(LPCTSTR lpszSymbologies);
 	HRESULT CMD_BCR_SET_GUIDANCE_LIGHT(long lGuidLight, long lCommand);
 	HRESULT CMD_BCR_RESET();

@@ -3,25 +3,25 @@
 //////////////////////////////////////////////////////////////////////
 #include "Keyou.h"
 
-#include<stdio.h>      /*±ê×¼ÊäÈëÊä³ö¶¨Òå*/    
-#include<stdlib.h>     /*±ê×¼º¯Êý¿â¶¨Òå*/    
-#include<unistd.h>     /*Unix ±ê×¼º¯Êý¶¨Òå*/    
+#include<stdio.h>      /*ï¿½ï¿½×¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/    
+#include<stdlib.h>     /*ï¿½ï¿½×¼ï¿½ï¿½ï¿½ï¿½ï¿½â¶¨ï¿½ï¿½*/    
+#include<unistd.h>     /*Unix ï¿½ï¿½×¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/    
 #include<sys/types.h>     
 #include<sys/stat.h>       
-#include<fcntl.h>      /*ÎÄ¼þ¿ØÖÆ¶¨Òå*/    
-#include<termios.h>    /*PPSIX ÖÕ¶Ë¿ØÖÆ¶¨Òå*/    
-#include<errno.h>      /*´íÎóºÅ¶¨Òå*/    
+#include<fcntl.h>      /*ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½ï¿½*/    
+#include<termios.h>    /*PPSIX ï¿½Õ¶Ë¿ï¿½ï¿½Æ¶ï¿½ï¿½ï¿½*/    
+#include<errno.h>      /*ï¿½ï¿½ï¿½ï¿½Å¶ï¿½ï¿½ï¿½*/    
 
 #include "Utils.h"
 #include "KDMexp.h"
-#include "../MessageHandle.h"
+#include "MessageHandle.h"
 #include <unistd.h>
 #include <pthread.h>
 #include <dlfcn.h>
 #include <mutex>
 
 extern struct session_data session_data4send;
-extern std::mutex mtx_session_data4send;  // WebSocketµÄ»á»°user_sessionÔÚÊÕ·¢Ê±¿ÉÄÜ³åÍ»£¬·¢ËÍµ¥¶ÀÊ¹ÓÃ·¢ËÍ½á¹¹£¬²¢Ê¹ÓÃ»¥³âËø¿ØÖÆ
+extern std::mutex mtx_session_data4send;  // WebSocketï¿½Ä»á»°user_sessionï¿½ï¿½ï¿½Õ·ï¿½Ê±ï¿½ï¿½ï¿½Ü³ï¿½Í»ï¿½ï¿½ï¿½ï¿½ï¿½Íµï¿½ï¿½ï¿½Ê¹ï¿½Ã·ï¿½ï¿½Í½á¹¹ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 extern MessageHandle messagehandle;
 
 CKeyou * CKeyou::m_pInstance = nullptr;
@@ -47,7 +47,7 @@ CKeyou::CKeyou()
 	m_DispatchData = NULL;
 	m_AssembleMsg = NULL;
 
-	m_hKeyouDll = dlopen("/SSA/DC/KdmExp.so", RTLD_LAZY);        // load ¿ÆÓÑ so
+	m_hKeyouDll = dlopen("/SSA/DC/KdmExp.so", RTLD_LAZY);        // load ï¿½ï¿½ï¿½ï¿½ so
 	if (m_hKeyouDll == NULL)
 	{
 		printf("Load Keyou(/SSA/DC/KdmExp.so) failed : %s\n", dlerror());
@@ -86,8 +86,8 @@ int UART0_Set(int fd, int speed, int flow_ctrl, int databits, int stopbits, int 
 
 	struct termios options;
 
-	/*  tcgetattr(fd,&options)µÃµ½ÓëfdÖ¸Ïò¶ÔÏóµÄÏà¹Ø²ÎÊý£¬²¢½«ËüÃÇ±£´æÓÚoptions,¸Ãº¯Êý»¹¿ÉÒÔ²âÊÔÅäÖÃÊÇ·ñÕýÈ·£¬
-		¸Ã´®¿ÚÊÇ·ñ¿ÉÓÃµÈ¡£Èôµ÷ÓÃ³É¹¦£¬º¯Êý·µ»ØÖµÎª0£¬Èôµ÷ÓÃÊ§°Ü£¬º¯Êý·µ»ØÖµÎª1.  */
+	/*  tcgetattr(fd,&options)ï¿½Ãµï¿½ï¿½ï¿½fdÖ¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç±ï¿½ï¿½ï¿½ï¿½ï¿½options,ï¿½Ãºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½È·ï¿½ï¿½
+		ï¿½Ã´ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ÃµÈ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã³É¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÖµÎª0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÖµÎª1.  */
 	if (tcgetattr(fd, &options) != 0)
 	{
 		printf("UART0_Set failed: %s\n", strCom);
@@ -95,7 +95,7 @@ int UART0_Set(int fd, int speed, int flow_ctrl, int databits, int stopbits, int 
 		return-1;
 	}
 
-	//ÉèÖÃ´®¿ÚÊäÈë²¨ÌØÂÊºÍÊä³ö²¨ÌØÂÊ    
+	//ï¿½ï¿½ï¿½Ã´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë²¨ï¿½ï¿½ï¿½Êºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½    
 	for (i = 0; i < (int)(sizeof(speed_arr) / sizeof(int)); i++)
 	{
 		if (speed == name_arr[i])
@@ -105,28 +105,28 @@ int UART0_Set(int fd, int speed, int flow_ctrl, int databits, int stopbits, int 
 		}
 	}
 
-	//ÐÞ¸Ä¿ØÖÆÄ£Ê½£¬±£Ö¤³ÌÐò²»»áÕ¼ÓÃ´®¿Ú    
+	//ï¿½Þ¸Ä¿ï¿½ï¿½ï¿½Ä£Ê½ï¿½ï¿½ï¿½ï¿½Ö¤ï¿½ï¿½ï¿½ò²»»ï¿½Õ¼ï¿½Ã´ï¿½ï¿½ï¿½    
 	options.c_cflag |= CLOCAL;
-	//ÐÞ¸Ä¿ØÖÆÄ£Ê½£¬Ê¹µÃÄÜ¹»´Ó´®¿ÚÖÐ¶ÁÈ¡ÊäÈëÊý¾Ý    
+	//ï¿½Þ¸Ä¿ï¿½ï¿½ï¿½Ä£Ê½ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½Ü¹ï¿½ï¿½Ó´ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½    
 	options.c_cflag |= CREAD;
 
-	//ÉèÖÃÊý¾ÝÁ÷¿ØÖÆ    
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½    
 	switch (flow_ctrl)
 	{
 
-	case 0://²»Ê¹ÓÃÁ÷¿ØÖÆ    
+	case 0://ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½    
 		options.c_cflag &= ~CRTSCTS;
 		break;
 
-	case 1://Ê¹ÓÃÓ²¼þÁ÷¿ØÖÆ    
+	case 1://Ê¹ï¿½ï¿½Ó²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½    
 		options.c_cflag |= CRTSCTS;
 		break;
-	case 2://Ê¹ÓÃÈí¼þÁ÷¿ØÖÆ    
+	case 2://Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½    
 		options.c_cflag |= IXON | IXOFF | IXANY;
 		break;
 	}
-	//ÉèÖÃÊý¾ÝÎ»    
-	//ÆÁ±ÎÆäËû±êÖ¾Î»    
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»    
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¾Î»    
 	options.c_cflag &= ~CSIZE;
 	switch (databits)
 	{
@@ -146,27 +146,27 @@ int UART0_Set(int fd, int speed, int flow_ctrl, int databits, int stopbits, int 
 		printf("unsupport databits:%d, %s\n", databits, strCom);
 		return -1;
 	}
-	//ÉèÖÃÐ£ÑéÎ»    
+	//ï¿½ï¿½ï¿½ï¿½Ð£ï¿½ï¿½Î»    
 	switch (parity)
 	{
 	case 'n':
-	case 'N': //ÎÞÆæÅ¼Ð£ÑéÎ»¡£    
+	case 'N': //ï¿½ï¿½ï¿½ï¿½Å¼Ð£ï¿½ï¿½Î»ï¿½ï¿½    
 		options.c_cflag &= ~PARENB;
 		options.c_iflag &= ~INPCK;
 		break;
 	case 'o':
-	case 'O'://ÉèÖÃÎªÆæÐ£Ñé        
+	case 'O'://ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½Ð£ï¿½ï¿½        
 		options.c_cflag |= (PARODD | PARENB);
 		options.c_iflag |= INPCK;
 		break;
 	case 'e':
-	case 'E'://ÉèÖÃÎªÅ¼Ð£Ñé      
+	case 'E'://ï¿½ï¿½ï¿½ï¿½ÎªÅ¼Ð£ï¿½ï¿½      
 		options.c_cflag |= PARENB;
 		options.c_cflag &= ~PARODD;
 		options.c_iflag |= INPCK;
 		break;
 	case 's':
-	case 'S': //ÉèÖÃÎª¿Õ¸ñ     
+	case 'S': //ï¿½ï¿½ï¿½ï¿½Îªï¿½Õ¸ï¿½     
 		options.c_cflag &= ~PARENB;
 		options.c_cflag &= ~CSTOPB;
 		break;
@@ -174,7 +174,7 @@ int UART0_Set(int fd, int speed, int flow_ctrl, int databits, int stopbits, int 
 		printf("unsupport parity:%c, %s\n", parity, strCom);
 		return -1;
 	}
-	// ÉèÖÃÍ£Ö¹Î»     
+	// ï¿½ï¿½ï¿½ï¿½Í£Ö¹Î»     
 	switch (stopbits)
 	{
 	case 1:
@@ -186,20 +186,20 @@ int UART0_Set(int fd, int speed, int flow_ctrl, int databits, int stopbits, int 
 		return -1;
 	}
 
-	//ÐÞ¸ÄÊä³öÄ£Ê½£¬Ô­Ê¼Êý¾ÝÊä³ö    
+	//ï¿½Þ¸ï¿½ï¿½ï¿½ï¿½Ä£Ê½ï¿½ï¿½Ô­Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½    
 	options.c_oflag &= ~OPOST;
 
 	options.c_lflag &= ~(ICANON | ECHO | ECHOE | ISIG);
 	//options.c_lflag &= ~(ISIG | ICANON);    
 
-	//ÉèÖÃµÈ´ýÊ±¼äºÍ×îÐ¡½ÓÊÕ×Ö·û    
-	options.c_cc[VTIME] = 1; /* ¶ÁÈ¡Ò»¸ö×Ö·ûµÈ´ý1*(1/10)s */
-	options.c_cc[VMIN] = 1; /* ¶ÁÈ¡×Ö·ûµÄ×îÉÙ¸öÊýÎª1 */
+	//ï¿½ï¿½ï¿½ÃµÈ´ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½    
+	options.c_cc[VTIME] = 1; /* ï¿½ï¿½È¡Ò»ï¿½ï¿½ï¿½Ö·ï¿½ï¿½È´ï¿½1*(1/10)s */
+	options.c_cc[VMIN] = 1; /* ï¿½ï¿½È¡ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù¸ï¿½ï¿½ï¿½Îª1 */
 
-	//Èç¹û·¢ÉúÊý¾ÝÒç³ö£¬½ÓÊÕÊý¾Ý£¬µ«ÊÇ²»ÔÙ¶ÁÈ¡ Ë¢ÐÂÊÕµ½µÄÊý¾Ýµ«ÊÇ²»¶Á    
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý£ï¿½ï¿½ï¿½ï¿½Ç²ï¿½ï¿½Ù¶ï¿½È¡ Ë¢ï¿½ï¿½ï¿½Õµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ýµï¿½ï¿½Ç²ï¿½ï¿½ï¿½    
 	tcflush(fd, TCIFLUSH);
 
-	//¼¤»îÅäÖÃ (½«ÐÞ¸ÄºóµÄtermiosÊý¾ÝÉèÖÃµ½´®¿ÚÖÐ£©    
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½Þ¸Äºï¿½ï¿½termiosï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð£ï¿½    
 	if (tcsetattr(fd, TCSANOW, &options) != 0)
 	{
 		printf("UART0_Set failed: %s\n", strCom);
@@ -215,11 +215,11 @@ short CKeyou::GetSM4Key(string strSessionName, int nMaxPortNum, char * strTermNu
 {
 	printf("GetComPort(long nMaxPortNum : %d, strTermNum : %s)\n", nMaxPortNum, strTermNum);
 
-	// Çå³ý±£´æÁ¬½Óµ½ÃÜÔ¿·Ö·¢Æ÷µÄ¶Ë¿ÚºÅ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½Ô¿ï¿½Ö·ï¿½ï¿½ï¿½ï¿½Ä¶Ë¿Úºï¿½
 	m_bEnd = false;
 	memset(m_strCom, 0, sizeof(m_strCom));
 
-	// ¼ì²âÉè±¸
+	// ï¿½ï¿½ï¿½ï¿½è±¸
 	int hCom = -1;
 	char strCom[64] = { 0 };
 
@@ -231,19 +231,19 @@ short CKeyou::GetSM4Key(string strSessionName, int nMaxPortNum, char * strTermNu
 		hCom = open(strCom, O_RDWR | O_NOCTTY | O_NDELAY);
 		if (hCom < 0) //9000			
 		{
-			// ´ò¿ª´®¿ÚÊ§°Ü
+			// ï¿½ò¿ª´ï¿½ï¿½ï¿½Ê§ï¿½ï¿½
 			printf("open com failed: %s\n", strCom);
 
 			continue;
 		}
 		
-		//ÉèÖÃ´®¿ÚÊý¾ÝÖ¡¸ñÊ½    
+		//ï¿½ï¿½ï¿½Ã´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¡ï¿½ï¿½Ê½    
 		if (UART0_Set(hCom, KEYOU_PORT_BAUD, 0, 8, 1, 'N', strCom) == -1)
 		{
 			continue;
 		}
 
-		// Æô¶¯¶ÁÈ¡Ïß³Ì
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ß³ï¿½
 		PGETKEYTHREADPARAM pParam = new GETKEYTHREADPARAM();
 		memset(pParam, 0, sizeof(GETKEYTHREADPARAM));
 		strcpy(pParam->strCom, strCom);
@@ -271,7 +271,7 @@ void * CKeyou::GetSM4KeyThread(void * lpParam)
 
 	int nReceivedLen = 0;
 	int nRetries = 0;
-	while (false == pParam->pThis->m_bEnd && ++nRetries < 120)  // ×î³¤µÈ´ý120Ãë
+	while (false == pParam->pThis->m_bEnd && ++nRetries < 120)  // ï¿½î³¤ï¿½È´ï¿½120ï¿½ï¿½
 	{
 		int len = read(pParam->hCom, buff + nReceivedLen, sizeof(buff) - nReceivedLen);
 		if (len > 0)
@@ -279,12 +279,12 @@ void * CKeyou::GetSM4KeyThread(void * lpParam)
 			printf("GetSM4KeyThread(%s) data received, len: %d\n", pParam->strCom, len);
 			nReceivedLen += len;
 
-			// ²»ÖªµÀÊý¾ÝÊÇ·ñÒÑ¾­½áÊø£¬³¢ÊÔ½âÎö£¬Èç¹ûÄÜ½âÎö³É¹¦ÔòÖ±½Ó½áÊø
+			// ï¿½ï¿½Öªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü½ï¿½ï¿½ï¿½ï¿½É¹ï¿½ï¿½ï¿½Ö±ï¿½Ó½ï¿½ï¿½ï¿½
 			if (NULL != pParam->pThis->m_DispatchData)
 			{
 				if (1 == pParam->pThis->m_DispatchData(nReceivedLen, buff, szDeviceid, szDecryptedTMK))
 				{
-					// ´¦Àí³É¹¦£¬½áÊø´®¿ÚÊý¾Ý¶ÁÈ¡
+					// ï¿½ï¿½ï¿½ï¿½ï¿½É¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¶ï¿½È¡
 					break ;
 				}
 			}
@@ -302,36 +302,36 @@ void * CKeyou::GetSM4KeyThread(void * lpParam)
 	{
 		if (NULL != pParam->pThis->m_DispatchData)
 		{
-			if ((strlen(szDeviceid) != 0 && strlen(szDeviceid) != 0)  // Ç°ÃæÒÑ¾­½âÎö¹ýÁË
+			if ((strlen(szDeviceid) != 0 && strlen(szDeviceid) != 0)  // Ç°ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				|| 1 == pParam->pThis->m_DispatchData(nReceivedLen, buff, szDeviceid, szDecryptedTMK))
 			{
-				// ´¦Àí³É¹¦
-				pParam->pThis->m_bEnd = true;  // ËùÓÐ´®¿ÚÏß³ÌÍË³ö
+				// ï¿½ï¿½ï¿½ï¿½ï¿½É¹ï¿½
+				pParam->pThis->m_bEnd = true;  // ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½ß³ï¿½ï¿½Ë³ï¿½
 
 				printf("find keyou com: %s\n", pParam->strCom);
 				printf("DeviceID: %s\n", szDeviceid);
 				// printf("Key value: %s\n", szDecryptedTMK);
 				printf("Key value: len : %d\n", (int)strlen(szDecryptedTMK));
 
-				// ±È¶ÔÖÕ¶ËºÅ£¬ÖÕ¶ËºÅ²»Æ¥ÅäÊ±ºóÐø²»ÔÊÐí±ê¼ÇÎª³É¹¦µ¼³ö£¨ÃÜÔ¿·Ö·¢Æ÷¿ÉÄÜ»áÉ¾³ý¸ÃÃÜÔ¿£©
+				// ï¿½È¶ï¿½ï¿½Õ¶ËºÅ£ï¿½ï¿½Õ¶ËºÅ²ï¿½Æ¥ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½É¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¿ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü»ï¿½É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¿ï¿½ï¿½
 				if (0 != strcmp(szDeviceid, pParam->strTermNum))
 				{
 					printf("DeviceID not match, local: %s, keyou: %s\n", pParam->strTermNum, szDeviceid);
 				}
 
-				// ±£´æ´®¿ÚºÅ£¬ÓÃÓÚºóÐø´¦ÀíÍê³ÉºóÉèÖÃÍê³ÉÐÅÏ¢
+				// ï¿½ï¿½ï¿½æ´®ï¿½ÚºÅ£ï¿½ï¿½ï¿½ï¿½Úºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Éºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 				memset(pParam->pThis->m_strCom, 0, sizeof(pParam->pThis->m_strCom));
 				strcpy(pParam->pThis->m_strCom, pParam->strCom);
 
-				// »Øµ÷Ò³ÃæÍê³É·½·¨
-				// µ÷ÓÃJS´¦Àí
+				// ï¿½Øµï¿½Ò³ï¿½ï¿½ï¿½ï¿½É·ï¿½ï¿½ï¿½
+				// ï¿½ï¿½ï¿½ï¿½JSï¿½ï¿½ï¿½ï¿½
 				char strCallbackJs[1024] = { 0 };
 				sprintf(strCallbackJs, "onGetSM4KeyComplete('%s', '%s')", szDeviceid, szDecryptedTMK);
 				int nRetLen = strlen(strCallbackJs);
 
 				// m_pRootWindow->GetBrowser()->GetMainFrame()->ExecuteJavaScript(strCallbackJs, m_pRootWindow->GetBrowser()->GetMainFrame()->GetURL(), 0);
 				printf("mtx_session_data4send.lock ->\n");
-				mtx_session_data4send.lock();  //±¨ÎÄ·¢ËÍºó»á½âËø
+				mtx_session_data4send.lock();  //ï¿½ï¿½ï¿½Ä·ï¿½ï¿½Íºï¿½ï¿½ï¿½ï¿½ï¿½
 				printf("mtx_session_data4send.lock <-\n");
 				memset(session_data4send.buf, 0, sizeof(session_data4send.buf));
 				memcpy(&session_data4send.buf[LWS_PRE], strCallbackJs, nRetLen);
@@ -350,7 +350,7 @@ void * CKeyou::GetSM4KeyThread(void * lpParam)
 			}
 			else
 			{
-				// ²»ÊÇÃÜÔ¿·Ö·¢Æ÷µÄÊý¾Ý
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¿ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				printf("not keyou com: %s\n", pParam->strCom);
 			}
 		}
@@ -395,7 +395,7 @@ short CKeyou::CompleteKey(int nResult)
 	strftime(time_string, sizeof(time_string), "%Y%m%d%H%M%S", ptm);
 
 	char format_time_string[64] = { 0 };
-	strcpy(format_time_string, time_string + 2);  // È¥µôÄê·ÝÇ°Á½Î»
+	strcpy(format_time_string, time_string + 2);  // È¥ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½Î»
 
 	unsigned char szResponse[1024] = { 0 };
 	int nResponseLen = 0;
@@ -413,24 +413,24 @@ short CKeyou::CompleteKey(int nResult)
 		printf("AssembleMsg failed\n");
 	}
 
-	// ÖØÐÂ´ò¿ª´®¿Ú¶Ë¿Ú
+	// ï¿½ï¿½ï¿½Â´ò¿ª´ï¿½ï¿½Ú¶Ë¿ï¿½
 	int hCom = open(m_strCom, O_RDWR | O_NOCTTY | O_NDELAY);
 	if (hCom < 0) //9000
 	{
-		// ´ò¿ª´®¿ÚÊ§°Ü
+		// ï¿½ò¿ª´ï¿½ï¿½ï¿½Ê§ï¿½ï¿½
 		printf("open com failed(CompleteKey): %s\n", m_strCom);
 
 		return -1;
 	}
 
-	//ÉèÖÃ´®¿ÚÊý¾ÝÖ¡¸ñÊ½    
+	//ï¿½ï¿½ï¿½Ã´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¡ï¿½ï¿½Ê½    
 	if (UART0_Set(hCom, KEYOU_PORT_BAUD, 0, 8, 1, 'N', m_strCom) == -1)
 	{
 		close(hCom);
 		return -1;
 	}
 
-	// ·¢ËÍÃÜÔ¿·Ö·¢Æ÷ÏìÓ¦±¨ÎÄ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¿ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½
 	ssize_t nwritten = 0;
 	if ((nwritten = write(hCom, szResponse, nResponseLen)) > 0)
 	{

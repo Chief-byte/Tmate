@@ -9,9 +9,9 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-#include "../DC_30.h"
-#include "../../DC/DC.h"
-#include "../../XFS320/Include/XFSCRD.H"
+#include "DC_30.h"
+#include "DC.h"
+#include "XFSCRD.H"
 
 class CDCCardDispenser_31 : public CDC_30
 {
@@ -43,7 +43,7 @@ public:
 	HRESULT INF_CRD_CAPABILITIES();
 	HRESULT INF_CRD_CARD_UNIT_INFO(LPVOID * lppResult = NULL);
 	
-	// ÃüÁîÖ´ÐÐ
+	// ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½
 	HRESULT CMD_CRD_EJECT_CARD();
 	HRESULT CMD_CRD_RETAIN_CARD(long lNumber);
 	HRESULT CMD_CRD_RESET(long lResetIn);

@@ -9,15 +9,15 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-#include "../../stdafx.h"
+#include "stdafx.h"
 
 #ifdef PROTOCOL_PISA
-#include "../PISA/include/lfsapi.h"
+#include "lfsapi.h"
 #else
-#include "../LFS/include/lfsapi.h"
+#include "lfsapi.h"
 #endif
 
-// DC接口类
+// DC锟接匡拷锟斤拷
 
 class IDC
 {

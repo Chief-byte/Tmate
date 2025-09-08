@@ -55,7 +55,7 @@ IDC.h
 /home/uos/yihua/WSSServer_C/WSServer/DC/DC/IDC.h
 
 /home/uos/yihua/WSSServer_C/WSServer/DC/DC/IDC.h
-../../stdafx.h
+../stdafx.h
 /home/uos/yihua/WSSServer_C/WSServer/stdafx.h
 ../PISA/include/lfsapi.h
 /home/uos/yihua/WSSServer_C/WSServer/DC/PISA/include/lfsapi.h
@@ -63,81 +63,81 @@ IDC.h
 /home/uos/yihua/WSSServer_C/WSServer/DC/LFS/include/lfsapi.h
 
 /home/uos/yihua/WSSServer_C/WSServer/DC/LFS/XFS30/DCCamera_31/DCCamera_31.h
-../DC_30.h
+DC_30.h
 /home/uos/yihua/WSSServer_C/WSServer/DC/LFS/XFS30/DC_30.h
-../../../DC/DC.h
+DC.h
 /home/uos/yihua/WSSServer_C/WSServer/DC/DC/DC.h
-../../include/lfscam.h
+lfscam.h
 /home/uos/yihua/WSSServer_C/WSServer/DC/LFS/include/lfscam.h
 
 /home/uos/yihua/WSSServer_C/WSServer/DC/LFS/XFS30/DCCardReader_30/DCCardReader_30.h
-../DC_30.h
+DC_30.h
 /home/uos/yihua/WSSServer_C/WSServer/DC/LFS/XFS30/DC_30.h
-../../../DC/DC.h
+DC.h
 /home/uos/yihua/WSSServer_C/WSServer/DC/DC/DC.h
-../../include/lfsidc.h
+lfsidc.h
 /home/uos/yihua/WSSServer_C/WSServer/DC/LFS/include/lfsidc.h
-../../../../stdafx.h
+stdafx.h
 /home/uos/yihua/WSSServer_C/WSServer/stdafx.h
 
 /home/uos/yihua/WSSServer_C/WSServer/DC/LFS/XFS30/DCCashAcceptor_30/DCCashAcceptor_30.h
-../DC_30.h
+DC_30.h
 /home/uos/yihua/WSSServer_C/WSServer/DC/LFS/XFS30/DC_30.h
-../../../DC/DC.h
+DC.h
 /home/uos/yihua/WSSServer_C/WSServer/DC/DC/DC.h
-../../include/lfscim.h
+lfscim.h
 /home/uos/yihua/WSSServer_C/WSServer/DC/LFS/include/lfscim.h
-../../../../stdafx.h
+stdafx.h
 /home/uos/yihua/WSSServer_C/WSServer/stdafx.h
 
 /home/uos/yihua/WSSServer_C/WSServer/DC/LFS/XFS30/DCCashDispenser_30/DCCashDispenser_30.h
-../DC_30.h
+DC_30.h
 /home/uos/yihua/WSSServer_C/WSServer/DC/LFS/XFS30/DC_30.h
-../../../DC/DC.h
+DC.h
 /home/uos/yihua/WSSServer_C/WSServer/DC/DC/DC.h
-../../include/lfscdm.h
+lfscdm.h
 /home/uos/yihua/WSSServer_C/WSServer/DC/LFS/include/lfscdm.h
-../../../../stdafx.h
+stdafx.h
 /home/uos/yihua/WSSServer_C/WSServer/stdafx.h
 
 /home/uos/yihua/WSSServer_C/WSServer/DC/LFS/XFS30/DCPinPad_30/DCPinPad_30.h
-../DC_30.h
+DC_30.h
 /home/uos/yihua/WSSServer_C/WSServer/DC/LFS/XFS30/DC_30.h
-../../../DC/DC.h
+DC.h
 /home/uos/yihua/WSSServer_C/WSServer/DC/DC/DC.h
-../../include/lfspin.h
+lfspin.h
 /home/uos/yihua/WSSServer_C/WSServer/DC/LFS/include/lfspin.h
-../../../../stdafx.h
+stdafx.h
 /home/uos/yihua/WSSServer_C/WSServer/stdafx.h
 
 /home/uos/yihua/WSSServer_C/WSServer/DC/LFS/XFS30/DCPrinter_30/DCPrinter_30.h
-../DC_30.h
+DC_30.h
 /home/uos/yihua/WSSServer_C/WSServer/DC/LFS/XFS30/DC_30.h
-../../../DC/DC.h
+DC.h
 /home/uos/yihua/WSSServer_C/WSServer/DC/DC/DC.h
-../../include/lfsptr.h
+lfsptr.h
 /home/uos/yihua/WSSServer_C/WSServer/DC/LFS/include/lfsptr.h
-../../../../stdafx.h
+stdafx.h
 /home/uos/yihua/WSSServer_C/WSServer/stdafx.h
 
 /home/uos/yihua/WSSServer_C/WSServer/DC/LFS/XFS30/DCSensorsAndIndicators_30/DCSensorsAndIndicators_30.h
-../DC_30.h
+DC_30.h
 /home/uos/yihua/WSSServer_C/WSServer/DC/LFS/XFS30/DC_30.h
-../../../DC/DC.h
+DC.h
 /home/uos/yihua/WSSServer_C/WSServer/DC/DC/DC.h
-../../include/lfssiu.h
+lfssiu.h
 /home/uos/yihua/WSSServer_C/WSServer/DC/LFS/include/lfssiu.h
-../../../../stdafx.h
+stdafx.h
 /home/uos/yihua/WSSServer_C/WSServer/stdafx.h
 
 /home/uos/yihua/WSSServer_C/WSServer/DC/LFS/XFS30/DCVendorMode_30/DCVendorMode_30.h
-../DC_30.h
+DC_30.h
 /home/uos/yihua/WSSServer_C/WSServer/DC/LFS/XFS30/DC_30.h
-../../../DC/DC.h
+DC.h
 /home/uos/yihua/WSSServer_C/WSServer/DC/DC/DC.h
-../../include/lfsvdm.h
+lfsvdm.h
 /home/uos/yihua/WSSServer_C/WSServer/DC/LFS/include/lfsvdm.h
-../../../../stdafx.h
+stdafx.h
 /home/uos/yihua/WSSServer_C/WSServer/stdafx.h
 
 /home/uos/yihua/WSSServer_C/WSServer/DC/LFS/include/lfsapi.h
@@ -157,11 +157,11 @@ include/JavaScriptStringParam.h
 /home/uos/yihua/WSSServer_C/WSServer/DC/PISA/XFS30/DCCamera_31/include/JavaScriptStringParam.h
 
 /home/uos/yihua/WSSServer_C/WSServer/DC/PISA/XFS30/DCCamera_31/DCCamera_31.h
-../DC_30.h
+DC_30.h
 /home/uos/yihua/WSSServer_C/WSServer/DC/PISA/XFS30/DC_30.h
-../../../DC/DC.h
+DC.h
 /home/uos/yihua/WSSServer_C/WSServer/DC/DC/DC.h
-../../include/lfscam.h
+lfscam.h
 /home/uos/yihua/WSSServer_C/WSServer/DC/PISA/include/lfscam.h
 
 /home/uos/yihua/WSSServer_C/WSServer/DC/PISA/XFS30/DCCardReader_30/DCCardReader_30.cpp
@@ -171,13 +171,13 @@ include/JavaScriptStringParam.h
 /home/uos/yihua/WSSServer_C/WSServer/DC/PISA/XFS30/DCCardReader_30/include/JavaScriptStringParam.h
 
 /home/uos/yihua/WSSServer_C/WSServer/DC/PISA/XFS30/DCCardReader_30/DCCardReader_30.h
-../DC_30.h
+DC_30.h
 /home/uos/yihua/WSSServer_C/WSServer/DC/PISA/XFS30/DC_30.h
-../../../DC/DC.h
+DC.h
 /home/uos/yihua/WSSServer_C/WSServer/DC/DC/DC.h
-../../include/lfsidc.h
+lfsidc.h
 /home/uos/yihua/WSSServer_C/WSServer/DC/PISA/include/lfsidc.h
-../../../../stdafx.h
+stdafx.h
 /home/uos/yihua/WSSServer_C/WSServer/stdafx.h
 
 /home/uos/yihua/WSSServer_C/WSServer/DC/PISA/XFS30/DCCashAcceptor_30/DCCashAcceptor_30.cpp
@@ -189,13 +189,13 @@ unistd.h
 -
 
 /home/uos/yihua/WSSServer_C/WSServer/DC/PISA/XFS30/DCCashAcceptor_30/DCCashAcceptor_30.h
-../DC_30.h
+DC_30.h
 /home/uos/yihua/WSSServer_C/WSServer/DC/PISA/XFS30/DC_30.h
-../../../DC/DC.h
+DC.h
 /home/uos/yihua/WSSServer_C/WSServer/DC/DC/DC.h
-../../include/lfscim.h
+lfscim.h
 /home/uos/yihua/WSSServer_C/WSServer/DC/PISA/include/lfscim.h
-../../../../stdafx.h
+stdafx.h
 /home/uos/yihua/WSSServer_C/WSServer/stdafx.h
 
 /home/uos/yihua/WSSServer_C/WSServer/DC/PISA/XFS30/DCCashDispenser_30/DCCashDispenser_30.cpp
@@ -207,13 +207,13 @@ unistd.h
 -
 
 /home/uos/yihua/WSSServer_C/WSServer/DC/PISA/XFS30/DCCashDispenser_30/DCCashDispenser_30.h
-../DC_30.h
+DC_30.h
 /home/uos/yihua/WSSServer_C/WSServer/DC/PISA/XFS30/DC_30.h
-../../../DC/DC.h
+DC.h
 /home/uos/yihua/WSSServer_C/WSServer/DC/DC/DC.h
-../../include/lfscdm.h
+lfscdm.h
 /home/uos/yihua/WSSServer_C/WSServer/DC/PISA/include/lfscdm.h
-../../../../stdafx.h
+stdafx.h
 /home/uos/yihua/WSSServer_C/WSServer/stdafx.h
 
 /home/uos/yihua/WSSServer_C/WSServer/DC/PISA/XFS30/DCPinPad_30/DCPinPad_30.cpp
@@ -225,17 +225,17 @@ XFSPINCHN.h
 /home/uos/yihua/WSSServer_C/WSServer/DC/PISA/XFS30/DCPinPad_30/XFSPINCHN.h
 
 /home/uos/yihua/WSSServer_C/WSServer/DC/PISA/XFS30/DCPinPad_30/DCPinPad_30.h
-../DC_30.h
+DC_30.h
 /home/uos/yihua/WSSServer_C/WSServer/DC/PISA/XFS30/DC_30.h
-../../../DC/DC.h
+DC.h
 /home/uos/yihua/WSSServer_C/WSServer/DC/DC/DC.h
-../../include/lfspin.h
+lfspin.h
 /home/uos/yihua/WSSServer_C/WSServer/DC/PISA/include/lfspin.h
-../../../../stdafx.h
+stdafx.h
 /home/uos/yihua/WSSServer_C/WSServer/stdafx.h
 
 /home/uos/yihua/WSSServer_C/WSServer/DC/PISA/XFS30/DCPinPad_30/XFSPINCHN.h
-../../include/lfsapi.h
+lfsapi.h
 /home/uos/yihua/WSSServer_C/WSServer/DC/PISA/include/lfsapi.h
 
 /home/uos/yihua/WSSServer_C/WSServer/DC/PISA/XFS30/DCPrinter_30/DCPrinter_30.cpp
@@ -247,13 +247,13 @@ codecvt
 -
 
 /home/uos/yihua/WSSServer_C/WSServer/DC/PISA/XFS30/DCPrinter_30/DCPrinter_30.h
-../DC_30.h
+DC_30.h
 /home/uos/yihua/WSSServer_C/WSServer/DC/PISA/XFS30/DC_30.h
-../../../DC/DC.h
+DC.h
 /home/uos/yihua/WSSServer_C/WSServer/DC/DC/DC.h
-../../include/lfsptr.h
+lfsptr.h
 /home/uos/yihua/WSSServer_C/WSServer/DC/PISA/include/lfsptr.h
-../../../../stdafx.h
+stdafx.h
 /home/uos/yihua/WSSServer_C/WSServer/stdafx.h
 
 /home/uos/yihua/WSSServer_C/WSServer/DC/PISA/XFS30/DCSensorsAndIndicators_30/DCSensorsAndIndicators_30.cpp
@@ -263,13 +263,13 @@ include/JavaScriptStringParam.h
 /home/uos/yihua/WSSServer_C/WSServer/DC/PISA/XFS30/DCSensorsAndIndicators_30/include/JavaScriptStringParam.h
 
 /home/uos/yihua/WSSServer_C/WSServer/DC/PISA/XFS30/DCSensorsAndIndicators_30/DCSensorsAndIndicators_30.h
-../DC_30.h
+DC_30.h
 /home/uos/yihua/WSSServer_C/WSServer/DC/PISA/XFS30/DC_30.h
-../../../DC/DC.h
+DC.h
 /home/uos/yihua/WSSServer_C/WSServer/DC/DC/DC.h
-../../include/lfssiu.h
+lfssiu.h
 /home/uos/yihua/WSSServer_C/WSServer/DC/PISA/include/lfssiu.h
-../../../../stdafx.h
+stdafx.h
 /home/uos/yihua/WSSServer_C/WSServer/stdafx.h
 
 /home/uos/yihua/WSSServer_C/WSServer/DC/PISA/XFS30/DC_30.cpp
@@ -287,19 +287,19 @@ X11/Xlib.h
 -
 
 /home/uos/yihua/WSSServer_C/WSServer/DC/PISA/XFS30/DC_30.h
-../../../include/DCTrace.h
+DCTrace.h
 /home/uos/yihua/WSSServer_C/WSServer/include/DCTrace.h
-../../../include/Utils.h
+Utils.h
 /home/uos/yihua/WSSServer_C/WSServer/include/Utils.h
-../../DC/IDC.h
+IDC.h
 /home/uos/yihua/WSSServer_C/WSServer/DC/DC/IDC.h
-../../DC/DC.h
+DC.h
 /home/uos/yihua/WSSServer_C/WSServer/DC/DC/DC.h
-../include/lfsapi.h
+lfsapi.h
 /home/uos/yihua/WSSServer_C/WSServer/DC/PISA/include/lfsapi.h
-../include/lfsadmin.h
+lfsadmin.h
 /home/uos/yihua/WSSServer_C/WSServer/DC/PISA/include/lfsadmin.h
-../../../stdafx.h
+../../stdafx.h
 /home/uos/yihua/WSSServer_C/WSServer/stdafx.h
 sys/types.h
 -
@@ -377,15 +377,15 @@ libwebsockets.h
 /home/uos/yihua/WSSServer_C/WSServer/Extension/libwebsockets.h
 nettle/md5.h
 -
-../include/FileHelper.h
+FileHelper.h
 /home/uos/yihua/WSSServer_C/WSServer/include/FileHelper.h
-../include/Utils.h
+Utils.h
 /home/uos/yihua/WSSServer_C/WSServer/include/Utils.h
-../include/xmlhelper.h
+xmlhelper.h
 /home/uos/yihua/WSSServer_C/WSServer/include/xmlhelper.h
-../include/Keyou.h
+Keyou.h
 /home/uos/yihua/WSSServer_C/WSServer/include/Keyou.h
-../include/SSMKeyou.h
+SSMKeyou.h
 /home/uos/yihua/WSSServer_C/WSServer/include/SSMKeyou.h
 ../MessageHandle.h
 /home/uos/yihua/WSSServer_C/WSServer/MessageHandle.h
@@ -457,7 +457,7 @@ netpacket/packet.h
 -
 
 /home/uos/yihua/WSSServer_C/WSServer/Extension/Extension.h
-../stdafx.h
+stdafx.h
 /home/uos/yihua/WSSServer_C/WSServer/stdafx.h
 list
 -
@@ -495,11 +495,11 @@ Base64.h
 /home/uos/yihua/WSSServer_C/WSServer/include/Base64.h
 
 /home/uos/yihua/WSSServer_C/WSServer/include/DCTrace.h
-../stdafx.h
+stdafx.h
 /home/uos/yihua/WSSServer_C/WSServer/stdafx.h
-../DC/PISA/include/lfsapi.h
+lfsapi.h
 /home/uos/yihua/WSSServer_C/WSServer/DC/PISA/include/lfsapi.h
-../DC/LFS/include/lfsapi.h
+lfsapi.h
 /home/uos/yihua/WSSServer_C/WSServer/DC/LFS/include/lfsapi.h
 
 /home/uos/yihua/WSSServer_C/WSServer/include/FileHelper.cpp
@@ -529,11 +529,11 @@ Utils.h
 /home/uos/yihua/WSSServer_C/WSServer/include/Utils.h
 
 /home/uos/yihua/WSSServer_C/WSServer/include/JavaScriptStringParam.h
-../stdafx.h
+stdafx.h
 /home/uos/yihua/WSSServer_C/WSServer/stdafx.h
-../DC/PISA/include/lfsapi.h
+lfsapi.h
 /home/uos/yihua/WSSServer_C/WSServer/DC/PISA/include/lfsapi.h
-../DC/LFS/include/lfsapi.h
+lfsapi.h
 /home/uos/yihua/WSSServer_C/WSServer/DC/LFS/include/lfsapi.h
 
 /home/uos/yihua/WSSServer_C/WSServer/include/KDMexp.h
@@ -573,7 +573,7 @@ mutex
 -
 
 /home/uos/yihua/WSSServer_C/WSServer/include/Keyou.h
-../stdafx.h
+stdafx.h
 /home/uos/yihua/WSSServer_C/WSServer/stdafx.h
 KDMexp.h
 /home/uos/yihua/WSSServer_C/WSServer/include/KDMexp.h
@@ -591,9 +591,9 @@ dlfcn.h
 -
 
 /home/uos/yihua/WSSServer_C/WSServer/include/SSMKeyou.h
-../stdafx.h
+stdafx.h
 /home/uos/yihua/WSSServer_C/WSServer/stdafx.h
-../DC/PISA/include/lfsapi.h
+lfsapi.h
 /home/uos/yihua/WSSServer_C/WSServer/DC/PISA/include/lfsapi.h
 Utils.h
 /home/uos/yihua/WSSServer_C/WSServer/include/Utils.h
@@ -609,11 +609,11 @@ sys/time.h
 -
 
 /home/uos/yihua/WSSServer_C/WSServer/include/Utils.h
-../stdafx.h
+stdafx.h
 /home/uos/yihua/WSSServer_C/WSServer/stdafx.h
-../DC/PISA/include/lfsapi.h
+lfsapi.h
 /home/uos/yihua/WSSServer_C/WSServer/DC/PISA/include/lfsapi.h
-../DC/LFS/include/lfsapi.h
+lfsapi.h
 /home/uos/yihua/WSSServer_C/WSServer/DC/LFS/include/lfsapi.h
 
 /home/uos/yihua/WSSServer_C/WSServer/include/ssm.h

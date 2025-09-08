@@ -2,7 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 #include "DCCamera_31.h"
-#include "../../../include/JavaScriptStringParam.h"
+#include "JavaScriptStringParam.h"
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
@@ -21,7 +21,7 @@ CDCCamera_31::~CDCCamera_31()
 }
 HRESULT CDCCamera_31::_CallDC(LPCTSTR strMethod, CString & strSingleParam, CStringArray & strarrParams, BOOL & bValid)
 {
-	// 调用命令
+	// 锟斤拷锟斤拷锟斤拷锟斤拷
 	HRESULT hResult = DC_ERROR;
 	if (0 == stricmp(strMethod, "WFS_CMD_CAM_TAKE_PICTURE"))
 	{
@@ -94,7 +94,7 @@ HRESULT CDCCamera_31::CMD_CAM_TAKE_PICTURE(long lCamera, LPCTSTR lpszCamData, LP
 		TakePictEx.lpszPictureFile = NULL;
 	}
 
-	// 部分厂商是按照标准XFS320协议进行，没有扩展wScanSize字段，故不能指定值，只能在结构初始化时使用默认值
+	// 锟斤拷锟街筹拷锟斤拷锟角帮拷锟秸憋拷准XFS320协锟斤拷锟斤拷校锟矫伙拷锟斤拷锟秸箇ScanSize锟街段ｏ拷锟绞诧拷锟斤拷指锟斤拷值锟斤拷只锟斤拷锟节结构锟斤拷始锟斤拷时使锟斤拷默锟斤拷值
 	// #define     WFS_CAM_SIZEALL                      (0)
 	// TakePictEx.wScanSize = lScanSize;
 

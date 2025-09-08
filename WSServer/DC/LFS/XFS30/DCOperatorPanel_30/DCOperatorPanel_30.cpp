@@ -2,7 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 #include "DCOperatorPanel_30.h"
-#include "../../include/JavaScriptStringParam.h"
+#include "JavaScriptStringParam.h"
 
 CDCOperatorPanel_30::CDCOperatorPanel_30(LPCTSTR strDCName, LPCTSTR strTraceComponent)
 {
@@ -17,7 +17,7 @@ CDCOperatorPanel_30::~CDCOperatorPanel_30()
 
 HRESULT CDCOperatorPanel_30::_CallDC(LPCTSTR strMethod, CString & strSingleParam, CStringArray & strarrParams, BOOL & bValid)
 {
-	// µ÷ÓÃÃüÁî
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	HRESULT hResult = DC_ERROR;
 	if (0 == stricmp(strMethod, "WFS_CMD_TTU_BEEP"))
 	{
@@ -390,7 +390,7 @@ CString CDCOperatorPanel_30::HandleEXEEvtResult(LPLFSRESULT lpWfsRet)
 CString CDCOperatorPanel_30::HandleSRVEvtResult(LPLFSRESULT lpWfsRet)
 {
 	/*
-		OperatorPanelÎÞWFS_SERVICE_EVENT
+		OperatorPanelï¿½ï¿½WFS_SERVICE_EVENT
 	*/
 
 	if (NULL == lpWfsRet)
