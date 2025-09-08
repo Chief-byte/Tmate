@@ -3,7 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 #include "DCCashAcceptor_30.h"
 // #include "JavaScriptStringParam.h"
-#include "include/JavaScriptStringParam.h"
+#include "JavaScriptStringParam.h"
 #include <unistd.h>
 
 CDCCashAcceptor_30::CDCCashAcceptor_30(LPCTSTR strDCName, LPCTSTR strTraceComponent)

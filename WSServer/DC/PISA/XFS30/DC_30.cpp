@@ -4,7 +4,7 @@
 
 #include "DC_30.h"
 // #include "JavaScriptStringParam.h"
-#include "include/JavaScriptStringParam.h"
+#include "JavaScriptStringParam.h"
 #include <unistd.h>
 #include <pthread.h>
 #include <dlfcn.h>

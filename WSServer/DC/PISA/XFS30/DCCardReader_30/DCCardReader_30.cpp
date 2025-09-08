@@ -4,7 +4,7 @@
 
 #include "DCCardReader_30.h"
 // #include "JavaScriptStringParam.h"
-#include "include/JavaScriptStringParam.h"
+#include "JavaScriptStringParam.h"
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction

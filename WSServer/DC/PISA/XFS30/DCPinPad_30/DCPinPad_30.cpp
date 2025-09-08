@@ -3,7 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 #include "DCPinPad_30.h"
 // #include "JavaScriptStringParam.h"
-#include "include/JavaScriptStringParam.h"
+#include "JavaScriptStringParam.h"
 #include "XFSPINCHN.h"
 
 #ifdef _DEBUG
